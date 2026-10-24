@@ -117,6 +117,38 @@ chmod +x start.sh
 npm start
 ```
 
+---
+
+## 🚀 Serverga Deploy Qilish (Production Deployment)
+
+Loyiha backend va frontendni **bitta fayl / bitta buyruq** orqali serverga oson deploy qilish uchun to'liq moslashtirilgan:
+
+### 🐳 1-usul: Docker Compose (Tavsiya etiladi — Eng oson usul)
+Serveringizda faqat `docker-compose.yml` fayli orqali butun platformani bir zumda ko'tarasiz:
+```bash
+# Fon rejimida barcha xizmatlarni build qilib ishga tushirish:
+docker compose up -d --build
+```
+* Barcha kutubxonalar, Node.js va Python versiyalari konteyner ichida avtomatik o'rnatiladi.
+* Konteyner server qayta yonganda ham avtomatik tiklanadi (`restart: always`).
+
+### 🐍 2-usul: Yagona Server Fayli (`server.py`)
+Hech qanday murakkab konfiguratsiyalarsiz, bitta Python fayli orqali FastAPI va Next.js ni bir vaqtda boshqaring:
+```bash
+# Production rejimida bitta buyruq bilan:
+python3 server.py --prod
+
+# Yoki maxsus portlar bilan:
+python3 server.py --prod --frontend-port 80 --backend-port 8000
+```
+
+### ⚡ 3-usul: 1-Click Linux VPS Skripti (`deploy.sh`)
+Ubuntu yoki Debian serverida birinchi marta to'liq sozlash va ishga tushirish uchun:
+```bash
+chmod +x deploy.sh
+./deploy.sh --run
+```
+
 Ushbu skript avtomatik ravishda:
 1. Python `.venv` va kerakli kutubxonalarni tekshiradi.
 2. Frontend `node_modules` paketlarini sozlaydi.

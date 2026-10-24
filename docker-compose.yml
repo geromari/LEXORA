@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  lexora-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lexora-fullstack
+    restart: always
+    ports:
+      - "3000:3000"
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - PROJECT_NAME=Lexora API
+      - DATABASE_URL=sqlite+aiosqlite:///./lexora.db
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+      - TELEGRAM_BOT_USERNAME=${TELEGRAM_BOT_USERNAME:-lexora_uzbot}
+      - WEBAPP_URL=${WEBAPP_URL:-http://localhost:3000}
+    volumes:
+      - lexora-data:/app/backend
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/docs"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  lexora-data:
