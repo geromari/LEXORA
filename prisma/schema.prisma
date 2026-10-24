@@ -1,0 +1,64 @@
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id             String          @id @default(cuid())
+  email          String?         @unique
+  username       String          @unique
+  passwordHash   String?
+  telegramId     BigInt?         @unique
+  avatarUrl      String?
+  streakCount    Int             @default(0)
+  lastActiveDate DateTime?
+  createdAt      DateTime        @default(now())
+
+  decks          Deck[]
+  progressRecords StudyProgress[]
+}
+
+model Deck {
+  id          Int             @id @default(autoincrement())
+  userId      String?
+  title       String
+  description String?         @default("")
+  level       String          @default("C1")
+  isPublic    Boolean         @default(true)
+  createdAt   DateTime        @default(now())
+
+  user        User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
+  cards       Card[]
+}
+
+model Card {
+  id           Int             @id @default(autoincrement())
+  deckId       Int
+  termEn       String
+  meaningUz    String
+  synonyms     String?
+  exampleEn    String?
+
+  deck         Deck            @relation(fields: [deckId], references: [id], onDelete: Cascade)
+  progressList StudyProgress[]
+}
+
+model StudyProgress {
+  id            Int             @id @default(autoincrement())
+  userId        String?
+  cardId        Int
+  boxLevel      Int             @default(0)
+  nextReviewAt  DateTime        @default(now())
+  correctStreak Int             @default(0)
+  wrongCount    Int             @default(0)
+
+  user          User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  card          Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  @@index([userId, cardId])
+}

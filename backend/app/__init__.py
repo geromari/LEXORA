@@ -1,1 +1,0 @@
-"""Lexora Backend Application Package"""
