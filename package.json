@@ -1,0 +1,25 @@
+{
+  "name": "lexora-monorepo",
+  "version": "1.0.0",
+  "description": "Lexora — O'zbek o'quvchilari uchun AI IELTS/CEFR Lug'at Platformasi",
+  "private": true,
+  "scripts": {
+    "start": "./start.sh",
+    "dev": "./start.sh",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload",
+    "build:frontend": "cd frontend && npm run build",
+    "test:backend": "cd backend && .venv/bin/pytest tests/"
+  },
+  "keywords": [
+    "ielts",
+    "cefr",
+    "spaced-repetition",
+    "gemini-ai",
+    "fastapi",
+    "nextjs",
+    "uzbek"
+  ],
+  "author": "Lexora Team",
+  "license": "MIT"
+}
