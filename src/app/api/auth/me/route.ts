@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { ensureLexoraDb } from "@/lib/ensureDb";
 
 export async function GET(req: NextRequest) {
   try {
+    await ensureLexoraDb();
     const user = await getSessionUser(req);
     if (!user) {
       return NextResponse.json(

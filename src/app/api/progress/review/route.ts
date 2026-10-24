@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
 import { calculateNextReview } from "@/lib/srs";
+import { ensureLexoraDb } from "@/lib/ensureDb";
 
 export async function POST(req: NextRequest) {
   try {
+    await ensureLexoraDb();
     const user = await getSessionUser(req);
     const body = await req.json();
     const { card_id, correct, performance } = body;

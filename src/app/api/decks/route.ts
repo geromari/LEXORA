@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { getSessionUser } from "@/lib/auth";
+import { ensureLexoraDb } from "@/lib/ensureDb";
 
 export async function GET(req: NextRequest) {
   try {
+    await ensureLexoraDb();
     const user = await getSessionUser(req);
     const now = new Date();
 
@@ -91,6 +93,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
+    await ensureLexoraDb();
     const user = await getSessionUser(req);
     const body = await req.json();
     const { title, description, level = "C1", is_public = true, cards = [] } = body;
