@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: lexora-api
+    env: python
+    region: frankfurt
+    plan: free
+    rootDir: backend
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PROJECT_NAME
+        value: Lexora API
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./lexora.db
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_BOT_USERNAME
+        value: lexora_uzbot
+      - key: WEBAPP_URL
+        value: https://lexora.vercel.app

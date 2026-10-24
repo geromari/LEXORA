@@ -4,7 +4,8 @@
   "description": "Lexora — O'zbek o'quvchilari uchun AI IELTS/CEFR Lug'at Platformasi",
   "private": true,
   "scripts": {
-    "start": "./start.sh",
+    "build": "npm --prefix frontend install && npm --prefix frontend run build",
+    "start": "npm --prefix frontend start",
     "dev": "./start.sh",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload",
