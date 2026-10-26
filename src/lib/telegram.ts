@@ -64,6 +64,16 @@ export async function sendTelegramMessage(
   });
 }
 
+export async function sendTelegramSticker(
+  chatId: number | string,
+  sticker: string
+) {
+  return callTelegramApi("sendSticker", {
+    chat_id: chatId,
+    sticker,
+  });
+}
+
 export async function editTelegramMessage(
   chatId: number | string,
   messageId: number,
@@ -119,18 +129,19 @@ export function getMainReplyKeyboard(appUrl: string) {
   return {
     keyboard: [
       [
-        { text: "🗓 Kunlik takrorlash" },
-        { text: "👤 Profil" },
+        { text: "⚡️ Tezkor Quiz (5 ta so'z)", style: "primary" },
       ],
       [
-        { text: "🎯 Tezkor Quiz (5 ta so'z)" },
+        { text: "👥 Profil", style: "success" },
+        { text: "📊 Statistika", style: "success" },
       ],
       [
-        { text: "📌 Qiyin so'zlarim" },
+        { text: "🔄 Kunlik takrorlash" },
+        { text: "📑 Qiyin so'zlarim" },
+      ],
+      [
         { text: "🔔 Eslatmalar" },
-      ],
-      [
-        { text: "💻 Lexora Web Platformasi ↗️" },
+        { text: "🌐 Lexora Web Platformasi ↗️", style: "primary" },
       ],
     ],
     resize_keyboard: true,
@@ -142,31 +153,38 @@ export function getWelcomeInlineKeyboard(appUrl: string) {
     inline_keyboard: [
       [
         {
-          text: "🎯 Tezkor Quiz (5 ta so'z)",
+          text: "⚡️ Tezkor Quiz (5 ta so'z)",
           callback_data: "quiz:start",
+          style: "primary",
         },
       ],
       [
         {
-          text: "🗓 Kunlik takrorlash",
-          callback_data: "quiz:start",
-        },
-        {
-          text: "👤 Profil",
+          text: "👥 Profil",
           callback_data: "stats",
+          style: "success",
+        },
+        {
+          text: "📊 Statistika",
+          callback_data: "stats",
+          style: "success",
         },
       ],
       [
         {
-          text: "📌 Qiyin so'zlarim",
+          text: "🔄 Kunlik takrorlash",
+          callback_data: "quiz:start",
+        },
+        {
+          text: "📑 Qiyin so'zlarim",
           callback_data: "hard_words",
         },
+      ],
+      [
         {
           text: "🔔 Eslatmalar",
           callback_data: "reminder:toggle",
         },
-      ],
-      [
         {
           text: "📖 Bot qo'llanmasi",
           callback_data: "help",
@@ -174,8 +192,9 @@ export function getWelcomeInlineKeyboard(appUrl: string) {
       ],
       [
         {
-          text: "💻 Lexora Web Platformasi ↗️",
+          text: "🌐 Lexora Web Platformasi ↗️",
           url: appUrl,
+          style: "primary",
         },
       ],
     ],
@@ -189,12 +208,14 @@ export function getLookupInlineKeyboard(cardId: number, appUrl: string) {
         {
           text: "💾 Lug'atimga saqlash",
           callback_data: `save:${cardId}`,
+          style: "success",
         },
       ],
       [
         {
-          text: "💻 Webda mashq qilish ↗️",
+          text: "🌐 Webda mashq qilish ↗️",
           url: appUrl,
+          style: "primary",
         },
       ],
     ],
@@ -206,14 +227,16 @@ export function getStatsInlineKeyboard(appUrl: string) {
     inline_keyboard: [
       [
         {
-          text: "🎯 Hozir Quiz boshlash",
+          text: "⚡️ Hozir Quiz boshlash",
           callback_data: "quiz:start",
+          style: "success",
         },
       ],
       [
         {
-          text: "💻 Webda to'liq tahlil ↗️",
+          text: "🌐 Webda to'liq tahlil ↗️",
           url: appUrl,
+          style: "primary",
         },
         {
           text: "🔙 Asosiy menyu",
@@ -229,14 +252,16 @@ export function getHardWordsInlineKeyboard(appUrl: string) {
     inline_keyboard: [
       [
         {
-          text: "🎯 Tezkor Quiz (5 ta so'z)",
+          text: "⚡️ Tezkor Quiz (5 ta so'z)",
           callback_data: "quiz:start",
+          style: "primary",
         },
       ],
       [
         {
-          text: "💻 Webda to'liq mashq qilish ↗️",
+          text: "🌐 Webda to'liq mashq qilish ↗️",
           url: appUrl,
+          style: "primary",
         },
         {
           text: "🔙 Asosiy menyu",
@@ -277,7 +302,6 @@ export function getQuizOptionKeyboard(
     inline_keyboard: options.map((opt, idx) => [
       {
         text: `${letters[idx]}) ${opt}`,
-        // Callback encodes cardId, whether it's correct (1/0), and question number (1-5)
         callback_data: `qopt:${cardId}:${idx === correctIndex ? 1 : 0}:${questionNum}`,
       },
     ]),
@@ -296,16 +320,19 @@ export function getQuizFeedbackKeyboard(
           {
             text: "🔁 Yana 5 ta so'z",
             callback_data: "quiz:start",
+            style: "primary",
           },
           {
-            text: "👤 Profil & Statistika",
+            text: "📊 Natijalar & Profil",
             callback_data: "stats",
+            style: "success",
           },
         ],
         [
           {
-            text: "💻 Web Platformaga o'tish ↗️",
+            text: "🌐 Web Platformaga o'tish ↗️",
             url: appUrl,
+            style: "primary",
           },
           {
             text: "🔙 Asosiy menyu",
@@ -322,11 +349,12 @@ export function getQuizFeedbackKeyboard(
         {
           text: "Keyingi savol ➡️",
           callback_data: `quiz:next:${nextQuestionNum}`,
+          style: "primary",
         },
       ],
       [
         {
-          text: "🔙 To'xtatish",
+          text: "🔙 Asosiy menyu",
           callback_data: "main_menu",
         },
       ],

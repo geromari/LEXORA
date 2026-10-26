@@ -141,14 +141,15 @@ export async function POST(req: NextRequest) {
         const welcomeText =
           `✨ <b>Assalomu alaykum, ${name}!</b>\n\n` +
           `<b>Lexora</b> — Spaced Repetition (SRS) va AI asosidagi akademik IELTS & CEFR so'z yodlash botiga xush kelibsiz!\n\n` +
-          `🔥 <b>Kunlik seriyangiz:</b> ${user.streakCount} kun\n\n` +
-          `<b>Asosiy imkoniyatlar:</b>\n` +
-          `• 🎯 <b>Tezkor Quiz</b>: 5 ta so'zdan iborat interaktiv mashg'ulot.\n` +
-          `• 🗓 <b>Kunlik takrorlash</b>: Unutilish arafasidagi so'zlarni qaytarish.\n` +
-          `• 👤 <b>Profil</b>: Shaxsiy statistika, seriya va o'zlashtirilgan so'zlar.\n` +
-          `• 📌 <b>Qiyin so'zlar</b>: Eng ko'p xato qilingan so'zlar ro'yxati.\n` +
+          `🔥 <b>Kunlik seriyangiz:</b> ${user.streakCount} kun uzluksiz\n\n` +
+          `<b>Asosiy bo'limlar:</b>\n` +
+          `• ⚡️ <b>Tezkor Quiz</b>: 5 ta so'zdan iborat interaktiv mashg'ulot.\n` +
+          `• 👥 <b>Profil</b>: Shaxsiy profil va seriyangiz ko'rsatkichlari.\n` +
+          `• 📊 <b>Statistika</b>: SRS xotira tahlili va o'rganilgan so'zlar.\n` +
+          `• 🔄 <b>Kunlik takrorlash</b>: Unutilish arafasidagi so'zlarni qaytarish.\n` +
+          `• 📑 <b>Qiyin so'zlar</b>: Eng ko'p xato qilingan so'zlar ro'yxati.\n` +
           `• 💾 <b>Aqlli Lug'at</b>: Istalgan inglizcha so'z yuboring — tarjimasi va IELTS kontekst misolini to'plamingizga saqlaydi.\n` +
-          `• 💻 <b>Web Platforma</b>: Lexora veb-ilovasi bilan to'liq integratsiya.`;
+          `• 🌐 <b>Web Platforma</b>: Lexora veb-ilovasi bilan to'liq integratsiya.`;
 
         await sendTelegramMessage(chatId, "⚡️ Quyidagi menyudan kerakli bo'limni tanlang:", {
           reply_markup: getMainReplyKeyboard(appUrl),
@@ -183,14 +184,26 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ ok: true });
       }
 
-      // 2.3 Handle /stats or Profile
-      if (text === "/stats" || text.includes("Profil") || text.includes("Profilim")) {
+      // 2.3 Handle /stats, Profile, or Statistika
+      if (
+        text === "/stats" ||
+        text.includes("Profil") ||
+        text.includes("Profilim") ||
+        text.includes("Statistika") ||
+        text.includes("👥") ||
+        text.includes("📊")
+      ) {
         await renderUserStats(chatId, user, appUrl);
         return NextResponse.json({ ok: true });
       }
 
       // 2.4 Handle /hard_words
-      if (text === "/hard_words" || text.includes("Qiyin so'zlar")) {
+      if (
+        text === "/hard_words" ||
+        text.includes("Qiyin so'zlar") ||
+        text.includes("📑") ||
+        text.includes("📌")
+      ) {
         await renderHardWords(chatId, user, appUrl);
         return NextResponse.json({ ok: true });
       }
@@ -199,7 +212,10 @@ export async function POST(req: NextRequest) {
       if (
         text === "/quiz" ||
         text.includes("Tezkor Quiz") ||
+        text.includes("⚡️") ||
+        text.includes("🎯") ||
         text.includes("Kunlik takrorlash") ||
+        text.includes("🔄") ||
         text.includes("Takrorlash")
       ) {
         await renderQuizQuestion(chatId, null, user, 1, appUrl);
@@ -207,7 +223,7 @@ export async function POST(req: NextRequest) {
       }
 
       // 2.6 Handle /reminder
-      if (text === "/reminder" || text.includes("Eslatmalar")) {
+      if (text === "/reminder" || text.includes("Eslatmalar") || text.includes("🔔")) {
         const reminderText =
           `🔔 <b>Kunlik Spaced Repetition Eslatmalari</b>\n\n` +
           `Holat: ✅ <b>Faol</b> (Har kuni 09:00 va 20:00 da)\n\n` +
@@ -220,9 +236,14 @@ export async function POST(req: NextRequest) {
       }
 
       // 2.7 Handle Web Platform button
-      if (text.includes("Web Platformasi") || text.includes("Web Platforma")) {
+      if (
+        text.includes("Web Platformasi") ||
+        text.includes("Web Platforma") ||
+        text.includes("🌐") ||
+        text.includes("💻")
+      ) {
         const webText =
-          `💻 <b>Lexora Web Platformasi</b>\n\n` +
+          `🌐 <b>Lexora Web Platformasi</b>\n\n` +
           `Lexora to'liq funksional veb-ilovasi orqali kengaytirilgan mashqlar, ` +
           `interaktiv SRS fleshkartalar va IELTS tahlillaridan foydalanishingiz mumkin.\n\n` +
           `🔗 Manzil: <b>${appUrl}</b>\n\n` +
@@ -514,14 +535,15 @@ async function renderUserStats(
   const accuracy = totalStudying > 0 ? Math.min(100, Math.round((totalLearned / totalStudying) * 100)) : 85;
 
   const statsText =
-    `👤 <b>Mening Profilim & Statistikam: ${user.username}</b>\n\n` +
+    `👥 <b>Mening Profilim: ${user.username}</b>\n` +
+    `📊 <b>Statistika & SRS Ko'rsatkichlari</b>\n\n` +
     `🔥 <b>Kunlik seriya:</b> ${user.streakCount} kun uzluksiz\n` +
     `🎓 <b>O'zlashtirilgan so'zlar:</b> ${totalLearned} ta\n` +
     `📚 <b>O'rganilayotgan so'zlar:</b> ${totalStudying} ta\n` +
-    `🗓 <b>Bugungi takrorlash navbati:</b> ${totalDue} ta so'z\n` +
+    `🔄 <b>Bugungi takrorlash navbati:</b> ${totalDue} ta so'z\n` +
     `📁 <b>Shaxsiy to'plamlar:</b> ${totalDecks} ta\n` +
     `🎯 <b>O'rtacha o'zlashtirish aniqligi:</b> ${accuracy}%\n\n` +
-    `<i>Spaced Repetition algoritmi so'zlarni xotirangizda uzoq muddat saqlash uchun o'z vaqtida taqdim etadi.</i>`;
+    `<i>Spaced Repetition (Leitner) algoritmi so'zlarni xotirangizda uzoq muddat saqlash uchun o'z vaqtida taqdim etadi.</i>`;
 
   const extra = { reply_markup: getStatsInlineKeyboard(appUrl) };
   if (messageId) {
@@ -561,7 +583,7 @@ async function renderHardWords(
     return;
   }
 
-  const lines = ["📌 <b>Qiyin so'zlarim (Eng ko'p xato qilinganlar):</b>\n"];
+  const lines = ["📑 <b>Qiyin so'zlarim (Eng ko'p xato qilinganlar):</b>\n"];
   hardRecords.forEach((prog, idx) => {
     lines.push(
       `${idx + 1}. 🇬🇧 <b>${prog.card.termEn}</b> — ${prog.card.meaningUz}\n` +
@@ -659,7 +681,7 @@ async function renderQuizQuestion(
   const options = rawOptions.map((opt) => (opt.length > 40 ? opt.slice(0, 38) + "..." : opt));
 
   const questionText =
-    `🧠 <b>Tezkor Quiz [${questionNum}/5]</b>\n\n` +
+    `⚡️ <b>Tezkor Quiz [${questionNum}/5]</b>\n\n` +
     `🇬🇧 <b>${targetCard.termEn}</b> so'zining to'g'ri ma'nosi qaysi?\n\n` +
     `<i>Quyidagi 4 variantdan birini tanlang:</i>`;
 
