@@ -44,14 +44,17 @@ export async function GET(req: NextRequest) {
       ok: true,
       message: "Lucide Icons (https://lucide.dev/icons/) for Telegram Bot",
       download_all_zip: `${appUrl}/telegram-icons/lexora-lucide-icons.zip`,
+      visual_preview_url: `${appUrl}/telegram-icons/preview.html`,
+      note_on_visibility: "Ikonkalar shaffof fonda bo'lgani uchun, oq ikonkalarni ko'rishda fonni qora yoki rangli qilib oching. Standart oq fonda ko'rish uchun 1_dark_icons papkasidagi qora ikonkalardan foydalaning.",
       icons: availableIcons,
       pack_query_result: packInfo,
       instructions: [
-        "1. https://lucide.dev/icons/ asosida tayyorlangan 100x100 shaffof oq outline ikonkalarni 'download_all_zip' havolasi orqali yuklab oling.",
-        "2. Telegramda @Stickers botiga kiring va /newemojis buyrug'ini bering.",
-        "3. Har bir ikonkani yuklab, tegishli emojini belgilang (masalan user-100.png -> 👤, calendar-100.png -> 🗓).",
-        "4. Emoji pack yaratilgach, uning nomini ushbu URL ga ?pack=PACK_NAME qilib yuborsangiz, barcha 'custom_emoji_id' larni avtomatik chiqarib beradi.",
-        "5. Olingan ID larni Vercel Environment Variables ga (TELEGRAM_EMOJI_USER, TELEGRAM_EMOJI_CALENDAR va h.k.) kiriting.",
+        "1. Brauzerda jonli ko'rish uchun: 'visual_preview_url' havolasini oching.",
+        "2. To'plamni 'download_all_zip' havolasi orqali yuklab oling. Arxiv ichida 3 ta papka mavjud: 1_dark_icons (qora), 2_white_icons (oq) va 3_colored_icons (rangli).",
+        "3. Telegramda @Stickers botiga kiring va /newemojis buyrug'ini bering.",
+        "4. Har bir ikonkani yuklab, tegishli emojini belgilang (masalan user-100.png -> 👤, calendar-100.png -> 🗓).",
+        "5. Emoji pack yaratilgach, uning nomini ushbu URL ga ?pack=PACK_NAME qilib yuborsangiz, barcha 'custom_emoji_id' larni avtomatik chiqarib beradi.",
+        "6. Olingan ID larni Vercel Environment Variables ga (TELEGRAM_EMOJI_USER, TELEGRAM_EMOJI_CALENDAR va h.k.) kiriting.",
       ],
     });
   } catch (error: any) {

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lexora — Lucide Telegram Icons Preview</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #FAF8F5; color: #121212; padding: 32px 16px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 32px; }
+    h1 { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+    p.subtitle { color: #52525b; font-size: 15px; margin-bottom: 20px; }
+    .btn-download { display: inline-block; background: #2563EB; color: white; padding: 12px 24px; border-radius: 12px; font-weight: 800; text-decoration: none; border: 2px solid #121212; box-shadow: 4px 4px 0px #121212; transition: all 0.15s ease; }
+    .btn-download:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #121212; }
+    .theme-switcher { display: flex; justify-content: center; gap: 8px; margin: 24px 0; flex-wrap: wrap; }
+    .theme-btn { padding: 8px 16px; border-radius: 10px; border: 2px solid #121212; background: white; font-weight: 700; cursor: pointer; box-shadow: 2px 2px 0px #121212; }
+    .theme-btn.active { background: #FFCC00; }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+    .card { border: 2px solid #121212; border-radius: 16px; padding: 20px; text-align: center; background: white; box-shadow: 4px 4px 0px #121212; transition: all 0.2s ease; }
+    .icon-box { width: 80px; height: 80px; border-radius: 16px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; border: 2px solid #121212; }
+    .icon-box img { width: 44px; height: 44px; }
+    
+    .icon-name { font-weight: 800; font-size: 14px; margin-bottom: 4px; }
+    .icon-meta { font-size: 12px; color: #71717a; font-family: monospace; }
+    
+    /* Themes for icon-box */
+    .theme-light .icon-box { background: #FFFFFF; }
+    .theme-dark .icon-box { background: #18181B; }
+    .theme-blue .icon-box { background: #2563EB; }
+    .theme-green .icon-box { background: #10B981; }
+
+    .instructions { margin-top: 48px; padding: 24px; border-radius: 20px; background: white; border: 2px solid #121212; box-shadow: 4px 4px 0px #121212; }
+    .instructions h2 { font-size: 18px; font-weight: 900; margin-bottom: 12px; }
+    .instructions ol { padding-left: 20px; font-size: 14px; line-height: 1.8; color: #3f3f46; }
+  </style>
+</head>
+<body class="theme-light">
+  <div class="container">
+    <header>
+      <h1>✨ Lucide Icons — Telegram Bot To'plami</h1>
+      <p class="subtitle">lucide.dev/icons asosida Telegram bot uchun 100x100 va 512x512 pikselda tayyorlangan ikonkalar</p>
+      <a href="lexora-lucide-icons.zip" class="btn-download">📦 Barcha Ikonkalarni Yuklab Olish (.ZIP)</a>
+      
+      <div class="theme-switcher">
+        <button class="theme-btn active" onclick="setTheme('theme-light', 'dark')">☀️ Oq Fon (Qora ikonka)</button>
+        <button class="theme-btn" onclick="setTheme('theme-dark', 'white')">🌙 Qora Fon (Oq ikonka)</button>
+        <button class="theme-btn" onclick="setTheme('theme-blue', 'white')">🔵 Telegram Ko'k Tugma (Oq)</button>
+        <button class="theme-btn" onclick="setTheme('theme-green', 'white')">🟢 Telegram Yashil Tugma (Oq)</button>
+      </div>
+    </header>
+
+    <div class="grid" id="iconGrid">
+      <!-- Icons populated via JS -->
+    </div>
+
+    <div class="instructions">
+      <h2>📌 Nega oldin bo'sh qog'ozdek ko'ringan edi?</h2>
+      <p style="font-size: 14px; color: #52525b; margin-bottom: 16px;">
+        Chunki oldingi ikonkalarning chizig'i <b>oq rangda (#ffffff)</b> va orqa foni <b>shaffof (transparent)</b> edi. Telefon yoki kompyuter galereyasi shaffof fonni avtomatik ravishda oq qilib ko'rsatgani sababli, oq chiziqlar oq fonda ko'rinmay "bo'sh qog'oz"dek bo'lib qolgan. Endi to'plam ichida <b>Qora (Dark)</b>, <b>Oq (White)</b> va <b>Rangli (Colored)</b> variantlar alohida papkalarga ajratildi.
+      </p>
+
+      <h2>🚀 Telegram @Stickers botiga yuklash tartibi:</h2>
+      <ol>
+        <li>Tepada joylashgan <b>"Barcha Ikonkalarni Yuklab Olish (.ZIP)"</b> tugmasini bosing.</li>
+        <li>Arxiv ichidan <code>1_dark_icons</code> (yoki <code>2_white_icons</code>) papkasini oching.</li>
+        <li>Telegramda <b>@Stickers</b> botiga kiring va <code>/newemojis</code> buyrug'ini yuboring.</li>
+        <li><code>Static</code> turini tanlang va kerakli ikonkani (masalan <code>user-100.png</code>) rasm sifatida emas, <b>fayl (File)</b> sifatida yuboring.</li>
+        <li>Har biriga mos emojini belgilang (masalan 👤, 🗓, 📊).</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    const icons = [
+      { id: "user", label: "Profil (User)", emoji: "👤" },
+      { id: "calendar", label: "Kunlik takrorlash (Calendar)", emoji: "🗓" },
+      { id: "barchart", label: "Statistika (BarChart3)", emoji: "📊" },
+      { id: "zap", label: "Tezkor Quiz (Zap)", emoji: "⚡️" },
+      { id: "bookmark", label: "Qiyin so'zlar (Bookmark)", emoji: "📑" },
+      { id: "bell", label: "Eslatmalar (Bell)", emoji: "🔔" },
+      { id: "globe", label: "Web Platforma (Globe)", emoji: "🌐" },
+      { id: "check", label: "To'g'ri (Check)", emoji: "✅" },
+      { id: "x", label: "Noto'g'ri (X)", emoji: "❌" },
+      { id: "flame", label: "Streak (Flame)", emoji: "🔥" },
+      { id: "sparkles", label: "AI (Sparkles)", emoji: "✨" },
+      { id: "book-open", label: "Lug'at (BookOpen)", emoji: "📖" },
+      { id: "help", label: "Qo'llanma (HelpCircle)", emoji: "❓" }
+    ];
+
+    let currentFolder = 'dark';
+
+    function renderIcons() {
+      const grid = document.getElementById('iconGrid');
+      grid.innerHTML = icons.map(icon => `
+        <div class="card">
+          <div class="icon-box">
+            <img src="${currentFolder}/${icon.id}.svg" alt="${icon.label}">
+          </div>
+          <div class="icon-name">${icon.emoji} ${icon.label}</div>
+          <div class="icon-meta">${icon.id}-100.png</div>
+        </div>
+      `).join('');
+    }
+
+    function setTheme(themeClass, folder) {
+      document.body.className = themeClass;
+      document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      currentFolder = folder;
+      renderIcons();
+    }
+
+    renderIcons();
+  </script>
+</body>
+</html>
