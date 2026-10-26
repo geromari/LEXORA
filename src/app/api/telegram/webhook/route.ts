@@ -6,6 +6,7 @@ import { calculateNextReview } from "@/lib/srs";
 import {
   getAppUrl,
   sendTelegramMessage,
+  sendTelegramSticker,
   editTelegramMessage,
   answerTelegramCallbackQuery,
   getMainReplyKeyboard,
@@ -18,6 +19,7 @@ import {
   getQuizFeedbackKeyboard,
   getOrCreateTelegramUser,
   FALLBACK_LEXICON,
+  LEXORA_STICKERS,
 } from "@/lib/telegram";
 
 export async function POST(req: NextRequest) {
@@ -150,6 +152,13 @@ export async function POST(req: NextRequest) {
           `• 📑 <b>Qiyin so'zlar</b>: Eng ko'p xato qilingan so'zlar ro'yxati.\n` +
           `• 💾 <b>Aqlli Lug'at</b>: Istalgan inglizcha so'z yuboring — tarjimasi va IELTS kontekst misolini to'plamingizga saqlaydi.\n` +
           `• 🌐 <b>Web Platforma</b>: Lexora veb-ilovasi bilan to'liq integratsiya.`;
+
+        // Send Lucide Welcome Sticker
+        try {
+          await sendTelegramSticker(chatId, LEXORA_STICKERS.sparkles);
+        } catch {
+          // Ignore if sticker fails
+        }
 
         await sendTelegramMessage(chatId, "⚡️ Quyidagi menyudan kerakli bo'limni tanlang:", {
           reply_markup: getMainReplyKeyboard(appUrl),
@@ -549,6 +558,11 @@ async function renderUserStats(
   if (messageId) {
     await editTelegramMessage(chatId, messageId, statsText, extra);
   } else {
+    try {
+      await sendTelegramSticker(chatId, LEXORA_STICKERS.barchart);
+    } catch {
+      // Ignore sticker error
+    }
     await sendTelegramMessage(chatId, statsText, extra);
   }
 }
@@ -597,6 +611,11 @@ async function renderHardWords(
   if (messageId) {
     await editTelegramMessage(chatId, messageId, fullText, extra);
   } else {
+    try {
+      await sendTelegramSticker(chatId, LEXORA_STICKERS.bookmark);
+    } catch {
+      // Ignore sticker error
+    }
     await sendTelegramMessage(chatId, fullText, extra);
   }
 }
@@ -692,6 +711,13 @@ async function renderQuizQuestion(
   if (messageId) {
     await editTelegramMessage(chatId, messageId, questionText, extra);
   } else {
+    if (questionNum === 1) {
+      try {
+        await sendTelegramSticker(chatId, LEXORA_STICKERS.zap);
+      } catch {
+        // Ignore sticker error
+      }
+    }
     await sendTelegramMessage(chatId, questionText, extra);
   }
 }

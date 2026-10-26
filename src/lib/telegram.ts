@@ -74,6 +74,23 @@ export async function sendTelegramSticker(
   });
 }
 
+// User-generated Lucide sticker set from @Stickers (lexora1 pack)
+export const LEXORA_STICKERS = {
+  user: "CAACAgIAAxUAAWrfEv6bi5EZ-Pd944y0OHyQ2NLzAALsrwAC8AL4Snq5AS03NkfmPQQ",
+  calendar: "CAACAgIAAxUAAWrfEv7_wBMBBFRwnr9O7ouneWvgAAKPqwACU8X5SiBbU3eewCKXPQQ",
+  barchart: "CAACAgIAAxUAAWrfEv7o9PQCMRpmsOhQUtFO0PUmAAKIqAAC7XT5SgUFjXSo0iuPPQQ",
+  zap: "CAACAgIAAxUAAWrfEv7FQTa9g3BAMO9fZ8hUsig_AAJooQACehT5SgABlrNmU5HEbT0E",
+  bookmark: "CAACAgIAAxUAAWrfEv5QfnyqVWVUQSWaIOtecoR4AAJuqgACpD_4Sl62mT_zh9Z7PQQ",
+  bell: "CAACAgIAAxUAAWrfEv7izPKXPFFDRM72-ZTDAAHLKQACkq4AAnrG-Uq71oVDDZImST0E",
+  globe: "CAACAgIAAxUAAWrfEv5u044c8c6jgCFrV1sVnMuxAAJ2oQADhPhKTW01Cr7pKXE9BA",
+  book: "CAACAgIAAxUAAWrfEv5_Lo7KMwunbZy9r8H9DFr9AALKtAACzoT5SkVytpM1DpXYPQQ",
+  check: "CAACAgIAAxUAAWrfEv7tiRSjRlHL8TYgVNfwUNtHAAISoQACSYn4SluOXALPokoHPQQ",
+  wrong: "CAACAgIAAxUAAWrfEv7lv0QvlnSYSl-VQ4AVrzptAAKBoQAC4L75Sq-arQKLSklePQQ",
+  flame: "CAACAgIAAxUAAWrfEv7QtnxfFLJlRrtP2TRKaD0uAALopwACkhcBS_jJsCbTllnzPQQ",
+  sparkles: "CAACAgIAAxUAAWrfEv5WNvx_jwpm0LNRcGYUnUq5AAJVsgAC9ZH4Sqn7RWV9S2xwPQQ",
+  help: "CAACAgIAAxUAAWrfEv6_fns5TEgeuX9yRp677nL-AAKlrQACQzb4Su_5UH6Avr5NPQQ",
+};
+
 export async function editTelegramMessage(
   chatId: number | string,
   messageId: number,
