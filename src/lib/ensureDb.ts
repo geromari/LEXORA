@@ -61,6 +61,22 @@ export async function ensureLexoraDb() {
       CREATE INDEX IF NOT EXISTS "StudyProgress_userId_cardId_idx" ON "StudyProgress"("userId", "cardId");
     `);
 
+    await prisma.$executeRawUnsafe(`
+      CREATE TABLE IF NOT EXISTS "TelegramAuthSession" (
+        "id" SERIAL PRIMARY KEY,
+        "sessionToken" TEXT UNIQUE NOT NULL,
+        "userId" TEXT REFERENCES "User"("id") ON DELETE CASCADE,
+        "telegramId" BIGINT,
+        "status" TEXT NOT NULL DEFAULT 'pending',
+        "jwtToken" TEXT,
+        "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    await prisma.$executeRawUnsafe(`
+      CREATE INDEX IF NOT EXISTS "TelegramAuthSession_sessionToken_idx" ON "TelegramAuthSession"("sessionToken");
+    `);
+
     isEnsured = true;
 
     // 2. Boshlang'ich to'plamlarni tekshirish va seed qilish

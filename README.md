@@ -62,8 +62,34 @@ LEXORA/
    * `DATABASE_URL`: Serverless PostgreSQL (masalan, bepul **Neon Postgres** yoki Vercel Storage) havolasi.
    * `JWT_SECRET`: Ixtiyoriy maxfiy kalit.
    * `GEMINI_API_KEY`: (Ixtiyoriy) Gemini AI kaliti (kiritilmasa avtomatik aqlli fallback ishlaydi).
+   * `TELEGRAM_BOT_TOKEN`: (Ixtiyoriy) Telegram botingiz tokeni (masalan, `@BotFather` orqali olingan).
+   * `TELEGRAM_BOT_USERNAME`: Telegram botingiz username'i (masalan: `lexora_uzbot`).
+   * `NEXT_PUBLIC_APP_URL`: Deploy bo'lgan Vercel domenining havolasi (masalan: `https://lexora.vercel.app`).
 4. **"Deploy"** tugmasini bosing! 
    * Vercel frontend va barcha backend API larni avtomatik tarzda bitta domenda deploy qiladi.
+
+---
+
+## 🤖 Telegram Botni Vercel'da Faollashtirish (Webhook)
+
+Vercel — **Serverless** platforma bo'lib, unda doimiy ishlaydigan background jarayonlar (Long Polling) mavjud emas. Shuning uchun Telegram bot Vercel'da **Webhook** orqali ishlaydi:
+
+1. **Vercel'da Environment Variables kiriting**:
+   - `TELEGRAM_BOT_TOKEN`: Bot tokeningiz.
+   - `TELEGRAM_BOT_USERNAME`: Masalan, `lexora_uzbot`.
+   - `NEXT_PUBLIC_APP_URL`: Vercel domen manzilingiz (masalan: `https://sizning-domen.vercel.app`).
+2. **Webhookni 1-klikda faollashtirish**:
+   Deploy bo'lgandan so'ng, brauzeringizda quyidagi manzilni oching:
+   ```text
+   https://sizning-domen.vercel.app/api/telegram/setup
+   ```
+   Ushbu sahifa Telegram API'ga avtomatik ravishda Webhook manzilini bog'laydi va bot ma'lumotlarini qaytaradi.
+3. **Botingizni tekshiring**:
+   Telegram ilovasida botingizga kiring va `/start` tugmasini bosing:
+   - 🎯 **Tezkor Quiz (5 ta so'z)** — Interaktiv test.
+   - 🔍 **Aqlli Lug'at** — Istalgan inglizcha so'z yuborib ma'nosini ko'rish va 1 bosishda saqlash.
+   - 👤 **Profil & Statistika** — SRS seriyangiz va o'rganilgan so'zlar.
+   - 🔗 **Veb-saytga 1-klikda kirish** — Saytdagi "Telegram orqali kirish" tugmasi orqali parolsiz avtorizatsiya.
 
 ---
 

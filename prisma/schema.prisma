@@ -20,6 +20,7 @@ model User {
 
   decks          Deck[]
   progressRecords StudyProgress[]
+  authSessions   TelegramAuthSession[]
 }
 
 model Deck {
@@ -60,4 +61,18 @@ model StudyProgress {
   card          Card            @relation(fields: [cardId], references: [id], onDelete: Cascade)
 
   @@index([userId, cardId])
+}
+
+model TelegramAuthSession {
+  id           Int      @id @default(autoincrement())
+  sessionToken String   @unique
+  userId       String?
+  telegramId   BigInt?
+  status       String   @default("pending")
+  jwtToken     String?
+  createdAt    DateTime @default(now())
+
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([sessionToken])
 }

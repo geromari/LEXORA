@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { signToken, COOKIE_NAME } from "@/lib/auth";
+import { ensureLexoraDb } from "@/lib/ensureDb";
 
 export async function POST(req: NextRequest) {
   try {
+    await ensureLexoraDb();
     const body = await req.json();
     const { telegram_id, username, first_name, photo_url } = body;
 
