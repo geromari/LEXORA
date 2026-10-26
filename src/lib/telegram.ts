@@ -126,22 +126,56 @@ export async function getTelegramBotMe() {
 // ============================================================================
 
 export function getMainReplyKeyboard(appUrl: string) {
+  const emojiUser = process.env.TELEGRAM_EMOJI_USER;
+  const emojiCalendar = process.env.TELEGRAM_EMOJI_CALENDAR;
+  const emojiStats = process.env.TELEGRAM_EMOJI_STATS;
+  const emojiQuiz = process.env.TELEGRAM_EMOJI_QUIZ;
+  const emojiBookmark = process.env.TELEGRAM_EMOJI_HARD_WORDS;
+  const emojiBell = process.env.TELEGRAM_EMOJI_REMINDER;
+  const emojiWeb = process.env.TELEGRAM_EMOJI_WEBAPP;
+
   return {
     keyboard: [
       [
-        { text: "⚡️ Tezkor Quiz (5 ta so'z)", style: "primary" },
+        {
+          text: emojiQuiz ? "Tezkor Quiz (5 ta so'z)" : "⚡️ Tezkor Quiz (5 ta so'z)",
+          style: "primary",
+          ...(emojiQuiz ? { icon_custom_emoji_id: emojiQuiz } : {}),
+        },
       ],
       [
-        { text: "👥 Profil", style: "success" },
-        { text: "📊 Statistika", style: "success" },
+        {
+          text: emojiUser ? "Profil" : "👤 Profil",
+          style: "primary", // Blue button matching Lucide User in Image 0
+          ...(emojiUser ? { icon_custom_emoji_id: emojiUser } : {}),
+        },
+        {
+          text: emojiCalendar ? "Kunlik takrorlash" : "🗓 Kunlik takrorlash",
+          style: "success", // Green button matching Lucide Calendar in Image 1
+          ...(emojiCalendar ? { icon_custom_emoji_id: emojiCalendar } : {}),
+        },
       ],
       [
-        { text: "🔄 Kunlik takrorlash" },
-        { text: "📑 Qiyin so'zlarim" },
+        {
+          text: emojiStats ? "Statistika" : "📊 Statistika",
+          style: "success",
+          ...(emojiStats ? { icon_custom_emoji_id: emojiStats } : {}),
+        },
+        {
+          text: emojiBookmark ? "Qiyin so'zlarim" : "📑 Qiyin so'zlarim",
+          ...(emojiBookmark ? { icon_custom_emoji_id: emojiBookmark } : {}),
+        },
       ],
       [
-        { text: "🔔 Eslatmalar" },
-        { text: "🌐 Lexora Web Platformasi ↗️", style: "primary" },
+        {
+          text: emojiBell ? "Eslatmalar" : "🔔 Eslatmalar",
+          ...(emojiBell ? { icon_custom_emoji_id: emojiBell } : {}),
+        },
+        {
+          text: emojiWeb ? "Lexora Web App ↗️" : "🌐 Lexora Web Platformasi ↗️",
+          style: "primary",
+          ...(emojiWeb ? { icon_custom_emoji_id: emojiWeb } : {}),
+        },
       ],
     ],
     resize_keyboard: true,
@@ -149,41 +183,56 @@ export function getMainReplyKeyboard(appUrl: string) {
 }
 
 export function getWelcomeInlineKeyboard(appUrl: string) {
+  const emojiUser = process.env.TELEGRAM_EMOJI_USER;
+  const emojiCalendar = process.env.TELEGRAM_EMOJI_CALENDAR;
+  const emojiStats = process.env.TELEGRAM_EMOJI_STATS;
+  const emojiQuiz = process.env.TELEGRAM_EMOJI_QUIZ;
+  const emojiBookmark = process.env.TELEGRAM_EMOJI_HARD_WORDS;
+  const emojiBell = process.env.TELEGRAM_EMOJI_REMINDER;
+  const emojiWeb = process.env.TELEGRAM_EMOJI_WEBAPP;
+
   return {
     inline_keyboard: [
       [
         {
-          text: "⚡️ Tezkor Quiz (5 ta so'z)",
+          text: emojiQuiz ? "Tezkor Quiz (5 ta so'z)" : "⚡️ Tezkor Quiz (5 ta so'z)",
           callback_data: "quiz:start",
           style: "primary",
+          ...(emojiQuiz ? { icon_custom_emoji_id: emojiQuiz } : {}),
         },
       ],
       [
         {
-          text: "👥 Profil",
+          text: emojiUser ? "Profil" : "👤 Profil",
           callback_data: "stats",
-          style: "success",
+          style: "primary",
+          ...(emojiUser ? { icon_custom_emoji_id: emojiUser } : {}),
         },
         {
-          text: "📊 Statistika",
-          callback_data: "stats",
-          style: "success",
-        },
-      ],
-      [
-        {
-          text: "🔄 Kunlik takrorlash",
+          text: emojiCalendar ? "Kunlik takrorlash" : "🗓 Kunlik takrorlash",
           callback_data: "quiz:start",
-        },
-        {
-          text: "📑 Qiyin so'zlarim",
-          callback_data: "hard_words",
+          style: "success",
+          ...(emojiCalendar ? { icon_custom_emoji_id: emojiCalendar } : {}),
         },
       ],
       [
         {
-          text: "🔔 Eslatmalar",
+          text: emojiStats ? "Statistika" : "📊 Statistika",
+          callback_data: "stats",
+          style: "success",
+          ...(emojiStats ? { icon_custom_emoji_id: emojiStats } : {}),
+        },
+        {
+          text: emojiBookmark ? "Qiyin so'zlarim" : "📑 Qiyin so'zlarim",
+          callback_data: "hard_words",
+          ...(emojiBookmark ? { icon_custom_emoji_id: emojiBookmark } : {}),
+        },
+      ],
+      [
+        {
+          text: emojiBell ? "Eslatmalar" : "🔔 Eslatmalar",
           callback_data: "reminder:toggle",
+          ...(emojiBell ? { icon_custom_emoji_id: emojiBell } : {}),
         },
         {
           text: "📖 Bot qo'llanmasi",
@@ -192,9 +241,10 @@ export function getWelcomeInlineKeyboard(appUrl: string) {
       ],
       [
         {
-          text: "🌐 Lexora Web Platformasi ↗️",
+          text: emojiWeb ? "Lexora Web App ↗️" : "🌐 Lexora Web Platformasi ↗️",
           url: appUrl,
           style: "primary",
+          ...(emojiWeb ? { icon_custom_emoji_id: emojiWeb } : {}),
         },
       ],
     ],
