@@ -151,29 +151,29 @@ export function CreateDeckModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#FAF8F5] border-[3px] border-[#121212] shadow-[8px_8px_0px_#121212] p-6 sm:p-8 text-[#121212]"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-zinc-950 border border-white/10 shadow-[0_0_60px_rgba(239,35,60,0.18)] p-6 sm:p-8 text-white"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b-2 border-[#121212]/15">
+        <div className="flex items-center justify-between pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#FFCC00] border-2 border-[#121212] flex items-center justify-center shadow-[2px_2px_0px_#121212]">
-              <Sparkles className="w-5 h-5 text-[#121212]" />
+            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#ef233c] shadow-[0_0_12px_rgba(239,35,60,0.4)]">
+              <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-xl font-black text-[#121212]">Yangi To&apos;plam Yaratish</h3>
-              <p className="text-xs text-zinc-600 font-medium">
-                IELTS & CEFR so&apos;zlari to&apos;plamini qo&apos;shing va SRS bilan o&apos;rganing
+              <h3 className="text-xl font-bold font-manrope text-white">Yangi To&apos;plam Yaratish</h3>
+              <p className="text-xs text-zinc-400 font-inter">
+                IELTS &amp; CEFR so&apos;zlari to&apos;plamini qo&apos;shing va SRS bilan o&apos;rganing
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl border-2 border-[#121212] bg-white text-[#121212] hover:bg-zinc-100 shadow-[2px_2px_0px_#121212] cursor-pointer"
+            className="p-2 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 cursor-pointer transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -181,8 +181,8 @@ export function CreateDeckModal({
 
         {/* Error message */}
         {errorMessage && (
-          <div className="mt-4 p-3 rounded-xl bg-rose-50 border-2 border-rose-500 flex items-center gap-2.5 text-xs font-bold text-rose-700">
-            <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+          <div className="mt-4 p-3 rounded-xl bg-red-950/50 border border-red-500/40 flex items-center gap-2.5 text-xs font-medium text-red-300">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -191,7 +191,7 @@ export function CreateDeckModal({
           {/* Deck Title & Level Row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="sm:col-span-2 space-y-1.5">
-              <label className="text-xs font-black text-[#121212] uppercase tracking-wider">
+              <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">
                 To&apos;plam Nomi *
               </label>
               <input
@@ -200,18 +200,18 @@ export function CreateDeckModal({
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Masalan: IELTS Writing Task 2 Collocations"
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-white border-2 border-[#121212] focus:shadow-[3px_3px_0px_#121212] outline-none text-sm font-bold text-[#121212] placeholder-zinc-400 transition-all"
+                className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 focus:border-[#ef233c] outline-none text-sm font-medium text-white placeholder:text-zinc-500 transition-all font-inter"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-black text-[#121212] uppercase tracking-wider">
+              <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">
                 Daraja (Level)
               </label>
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-white border-2 border-[#121212] font-bold text-sm text-[#121212] shadow-[2px_2px_0px_#121212] outline-none"
+                className="w-full px-3 py-2.5 rounded-xl bg-zinc-900 border border-white/10 font-medium text-sm text-white outline-none focus:border-[#ef233c]"
               >
                 <option value="IELTS">IELTS Academic</option>
                 <option value="C1">C1 (Advanced)</option>
@@ -223,7 +223,7 @@ export function CreateDeckModal({
 
           {/* Description */}
           <div className="space-y-1.5">
-            <label className="text-xs font-black text-[#121212] uppercase tracking-wider">
+            <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">
               Tavsif (Ixtiyoriy)
             </label>
             <input
@@ -231,19 +231,19 @@ export function CreateDeckModal({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="To'plam haqida qisqacha ma'lumot..."
-              className="w-full px-4 py-2 rounded-xl bg-white border-2 border-[#121212] text-sm text-[#121212] placeholder-zinc-400 outline-none"
+              className="w-full px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder:text-zinc-500 outline-none focus:border-[#ef233c]"
             />
           </div>
 
           {/* Mode Switch Tabs */}
-          <div className="flex border-b-2 border-[#121212]/15 gap-2 pt-2">
+          <div className="flex border-b border-white/10 gap-2 pt-2">
             <button
               type="button"
               onClick={() => setActiveTab("bulk")}
-              className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-black border-b-2 transition-all cursor-pointer ${
+              className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-bold font-manrope border-b-2 transition-all cursor-pointer ${
                 activeTab === "bulk"
-                  ? "border-[#FA5A2A] text-[#FA5A2A]"
-                  : "border-transparent text-zinc-500 hover:text-[#121212]"
+                  ? "border-[#ef233c] text-[#ef233c]"
+                  : "border-transparent text-zinc-400 hover:text-white"
               }`}
             >
               <FileText className="w-4 h-4" />
@@ -252,10 +252,10 @@ export function CreateDeckModal({
             <button
               type="button"
               onClick={() => setActiveTab("manual")}
-              className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-black border-b-2 transition-all cursor-pointer ${
+              className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-bold font-manrope border-b-2 transition-all cursor-pointer ${
                 activeTab === "manual"
-                  ? "border-[#FA5A2A] text-[#FA5A2A]"
-                  : "border-transparent text-zinc-500 hover:text-[#121212]"
+                  ? "border-[#ef233c] text-[#ef233c]"
+                  : "border-transparent text-zinc-400 hover:text-white"
               }`}
             >
               <ListPlus className="w-4 h-4" />
@@ -266,7 +266,7 @@ export function CreateDeckModal({
           {/* Bulk Input Tab */}
           {activeTab === "bulk" ? (
             <div className="space-y-2">
-              <p className="text-xs text-zinc-600 font-medium leading-relaxed">
+              <p className="text-xs text-zinc-400 font-inter leading-relaxed">
                 Har bir qatorga so&apos;z va uning tarjimasini tire (<code>-</code>) yoki ikki nuqta (<code>:</code>) bilan kiriting:
               </p>
               <textarea
@@ -274,7 +274,7 @@ export function CreateDeckModal({
                 onChange={(e) => setBulkText(e.target.value)}
                 rows={6}
                 placeholder={`ubiquitous - hamma joyda uchraydigan\nscrutinize - sinchiklab o'rganmoq\nmitigate - yumshatmoq, kamaytirmoq`}
-                className="w-full px-4 py-3 rounded-2xl bg-white border-2 border-[#121212] font-mono text-xs sm:text-sm text-[#121212] placeholder-zinc-400 focus:shadow-[3px_3px_0px_#121212] outline-none transition-all leading-relaxed"
+                className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 font-mono text-xs sm:text-sm text-white placeholder:text-zinc-500 focus:border-[#ef233c] outline-none transition-all leading-relaxed"
               />
             </div>
           ) : (
@@ -283,17 +283,17 @@ export function CreateDeckModal({
               {manualCards.map((card, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-2xl bg-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] space-y-2.5"
+                  className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-zinc-600">
+                    <span className="text-xs font-mono text-zinc-400">
                       #{idx + 1} Karta
                     </span>
                     {manualCards.length > 1 && (
                       <button
                         type="button"
                         onClick={() => handleRemoveManualRow(idx)}
-                        className="text-zinc-400 hover:text-rose-600 p-1 cursor-pointer"
+                        className="text-zinc-500 hover:text-red-400 p-1 cursor-pointer transition"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -307,7 +307,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "term_en", e.target.value)
                       }
                       placeholder="Inglizcha so'z *"
-                      className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#121212] text-xs font-black text-[#121212] outline-none"
+                      className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs font-semibold text-white outline-none focus:border-[#ef233c]"
                     />
                     <input
                       type="text"
@@ -316,7 +316,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "meaning_uz", e.target.value)
                       }
                       placeholder="O'zbekcha tarjima *"
-                      className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#121212] text-xs font-bold text-[#121212] outline-none"
+                      className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs font-semibold text-white outline-none focus:border-[#ef233c]"
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -327,7 +327,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "synonyms", e.target.value)
                       }
                       placeholder="Sinonimlar (ixtiyoriy)"
-                      className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#121212]/30 text-xs text-zinc-600 outline-none"
+                      className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs text-zinc-300 outline-none focus:border-[#ef233c]"
                     />
                     <input
                       type="text"
@@ -336,7 +336,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "example_en", e.target.value)
                       }
                       placeholder="IELTS namunaviy gap (ixtiyoriy)"
-                      className="px-3 py-1.5 rounded-xl bg-[#FAF8F5] border border-[#121212]/30 text-xs text-zinc-600 outline-none italic"
+                      className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs text-zinc-300 outline-none focus:border-[#ef233c] italic"
                     />
                   </div>
                 </div>
@@ -345,30 +345,30 @@ export function CreateDeckModal({
               <button
                 type="button"
                 onClick={handleAddManualRow}
-                className="w-full py-2 rounded-xl border-2 border-dashed border-[#121212] bg-white font-bold text-xs text-[#121212] hover:bg-[#F4EFEA] flex items-center justify-center gap-1.5 cursor-pointer transition"
+                className="w-full py-2 rounded-xl border border-dashed border-white/20 bg-white/5 font-semibold text-xs text-zinc-300 hover:text-white hover:bg-white/10 flex items-center justify-center gap-1.5 cursor-pointer transition"
               >
-                <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
+                <Plus className="w-3.5 h-3.5 text-[#ef233c]" />
                 <span>Yana so&apos;z qo&apos;shish</span>
               </button>
             </div>
           )}
 
           {/* Action Footer */}
-          <div className="pt-4 border-t-2 border-[#121212]/15 flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
             <button
               type="button"
               onClick={onClose}
               disabled={isSubmitting}
-              className="px-5 py-2.5 rounded-xl border-2 border-[#121212] bg-white text-[#121212] font-bold text-xs sm:text-sm shadow-[2px_2px_0px_#121212] hover:bg-zinc-100 transition cursor-pointer"
+              className="px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 font-semibold text-xs sm:text-sm transition cursor-pointer"
             >
               Bekor Qilish
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-xl border-2 border-[#121212] bg-[#FFCC00] hover:bg-[#F0C000] text-[#121212] font-black text-xs sm:text-sm shadow-[2px_2px_0px_#121212] flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-[0_0_20px_rgba(239,35,60,0.4)] flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 stroke-[2.5]" />
+              <Sparkles className="w-4 h-4" />
               <span>{isSubmitting ? "Saqlanmoqda..." : "To'plamni Saqlash"}</span>
             </button>
           </div>

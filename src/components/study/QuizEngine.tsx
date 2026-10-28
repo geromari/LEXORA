@@ -1,22 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { 
   Volume2, 
   ArrowRight, 
   RotateCcw, 
   Sparkles, 
-  BrainCircuit, 
   CheckCircle2, 
   XCircle,
   Trophy, 
-  Shuffle, 
   PenLine, 
   ListChecks,
   Languages
 } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { GlassButton } from "@/components/ui/GlassButton";
 import { Card, DeckDetail } from "@/lib/api";
 import { checkSmartMatch } from "@/lib/smartMatch";
 import { playPronunciation } from "@/lib/speech";
@@ -48,41 +45,33 @@ export function QuizEngine({
 
   const currentCard = cards[currentIndex];
 
-  // Determine question type for mixed mode
   const currentQuestionType = useMemo(() => {
     if (mode === "mcq") return "mcq";
     if (mode === "written") return "written";
-    // Mixed: alternates or picks based on index
     return currentIndex % 2 === 0 ? "mcq" : "written";
   }, [mode, currentIndex]);
 
-  // Generate 4 randomized options for MCQ
   const mcqOptions = useMemo(() => {
     if (!currentCard || cards.length < 2) return [];
 
     const isEnToUz = direction === "en_to_uz";
     const correctAnswer = isEnToUz ? currentCard.meaning_uz : currentCard.term_en;
 
-    // Pick 3 distractors from other cards
     const distractors = cards
       .filter((c) => c.id !== currentCard.id)
       .map((c) => (isEnToUz ? c.meaning_uz : c.term_en))
-      .filter((v, i, arr) => arr.indexOf(v) === i); // unique
+      .filter((v, i, arr) => arr.indexOf(v) === i);
 
-    // Shuffle distractors and pick 3
     const shuffledDistractors = [...distractors].sort(() => 0.5 - Math.random()).slice(0, 3);
     const combined = [correctAnswer, ...shuffledDistractors];
 
-    // Shuffle combined options
     return combined.sort(() => 0.5 - Math.random());
   }, [currentCard, cards, direction, currentIndex]);
 
-  // Trigger audio pronunciation
   const handlePronounce = (term?: string) => {
     playPronunciation(term || currentCard?.term_en || "");
   };
 
-  // Submit answer
   const handleSubmitAnswer = async (givenAnswer: string, optionIdx?: number) => {
     if (isAnswered || !currentCard || isSubmitting) return;
 
@@ -94,7 +83,6 @@ export function QuizEngine({
     const targetText = isEnToUz ? currentCard.meaning_uz : currentCard.term_en;
     const targetLang = isEnToUz ? "uz" : "en";
 
-    // Validate using checkSmartMatch
     const correct =
       optionIdx !== undefined
         ? givenAnswer.trim() === targetText.trim()
@@ -117,7 +105,6 @@ export function QuizEngine({
     }
   };
 
-  // Next Question
   const handleNext = () => {
     if (currentIndex + 1 < cards.length) {
       setCurrentIndex((prev) => prev + 1);
@@ -130,7 +117,6 @@ export function QuizEngine({
     }
   };
 
-  // Keyboard navigation: Enter to submit written / advance
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (sessionCompleted) return;
@@ -155,45 +141,42 @@ export function QuizEngine({
 
   if (!currentCard) return null;
 
-  // Session Completed Screen
   if (sessionCompleted) {
     const total = stats.correct + stats.wrong;
     const accuracy = total > 0 ? Math.round((stats.correct / total) * 100) : 100;
 
     return (
-      <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6">
-        <div className="w-20 h-20 rounded-2xl bg-[#FFCC00] border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex items-center justify-center mx-auto text-black">
-          <Trophy className="w-10 h-10 text-black" />
+      <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
+        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(239,35,60,0.3)] flex items-center justify-center mx-auto text-[#ef233c]">
+          <Trophy className="w-10 h-10" />
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-black text-black">
+          <h2 className="text-2xl sm:text-3xl font-bold font-manrope text-white">
             Quiz Yakunlandi!
           </h2>
-          <p className="text-sm font-bold text-black/70">
+          <p className="text-sm font-inter text-zinc-400">
             {deck.title} to&apos;plamidan {total} ta so&apos;z sinovdan o&apos;tkazildi.
           </p>
         </div>
 
         <div className="grid grid-cols-3 gap-3 pt-2">
-          <div className="p-3.5 rounded-xl bg-[#A3E635] border-2 border-black shadow-[2px_2px_0px_#000]">
-            <div className="text-2xl font-black text-black">{stats.correct}</div>
-            <div className="text-xs font-bold text-black/80 mt-1">To&apos;g&apos;ri</div>
+          <div className="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40">
+            <div className="text-2xl font-bold font-manrope text-emerald-300">{stats.correct}</div>
+            <div className="text-xs text-zinc-400 mt-1">To&apos;g&apos;ri</div>
           </div>
-          <div className="p-3.5 rounded-xl bg-[#FF8080] border-2 border-black shadow-[2px_2px_0px_#000]">
-            <div className="text-2xl font-black text-black">{stats.wrong}</div>
-            <div className="text-xs font-bold text-black/80 mt-1">Xato</div>
+          <div className="p-3.5 rounded-xl bg-red-950/40 border border-red-500/40">
+            <div className="text-2xl font-bold font-manrope text-red-300">{stats.wrong}</div>
+            <div className="text-xs text-zinc-400 mt-1">Xato</div>
           </div>
-          <div className="p-3.5 rounded-xl bg-[#00E5FF] border-2 border-black shadow-[2px_2px_0px_#000]">
-            <div className="text-2xl font-black text-black">{accuracy}%</div>
-            <div className="text-xs font-bold text-black/80 mt-1">Aniqlik</div>
+          <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+            <div className="text-2xl font-bold font-manrope text-white">{accuracy}%</div>
+            <div className="text-xs text-zinc-400 mt-1">Aniqlik</div>
           </div>
         </div>
 
         <div className="pt-4 flex items-center justify-center gap-3">
-          <GlassButton
-            variant="ai"
-            size="md"
+          <button
             onClick={() => {
               setSessionCompleted(false);
               setCurrentIndex(0);
@@ -203,10 +186,13 @@ export function QuizEngine({
               setWrittenInput("");
               setStats({ correct: 0, wrong: 0 });
             }}
-            leftIcon={<RotateCcw className="w-4 h-4 mr-1.5" />}
+            className="shiny-cta py-3 px-6"
           >
-            Qaytadan Boshlash
-          </GlassButton>
+            <span className="relative z-10 flex items-center gap-2 text-white font-bold text-xs">
+              <RotateCcw className="w-4 h-4 text-[#ef233c]" />
+              <span>Qaytadan Boshlash</span>
+            </span>
+          </button>
         </div>
       </GlassCard>
     );
@@ -218,9 +204,9 @@ export function QuizEngine({
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Mode & Direction Selectors Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-2.5 rounded-2xl bg-white border-2 border-black shadow-[3px_3px_0px_#000]">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-1.5 rounded-full bg-zinc-950/80 border border-white/10 backdrop-blur-xl">
         {/* Mode Selector */}
-        <div className="flex items-center gap-1.5 w-full sm:w-auto">
+        <div className="flex items-center gap-1 w-full sm:w-auto">
           {[
             { id: "mcq", label: "Variantli", icon: ListChecks },
             { id: "written", label: "Yozma", icon: PenLine },
@@ -237,10 +223,10 @@ export function QuizEngine({
                   setSelectedOption(null);
                   setWrittenInput("");
                 }}
-                className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-xs font-black transition-all inline-flex items-center justify-center gap-1.5 ${
+                className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-full text-xs font-bold font-manrope transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer ${
                   isActive
-                    ? "bg-[#FFCC00] text-black border-2 border-black shadow-[2px_2px_0px_#000]"
-                    : "text-black/70 hover:text-black hover:bg-[#F4EFEA] border-2 border-transparent"
+                    ? "bg-[#ef233c] text-white shadow-[0_0_12px_rgba(239,35,60,0.5)]"
+                    : "text-zinc-400 hover:text-white hover:bg-white/5"
                 }`}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -251,7 +237,7 @@ export function QuizEngine({
         </div>
 
         {/* Direction Selector */}
-        <div className="flex items-center gap-1.5 w-full sm:w-auto">
+        <div className="flex items-center gap-1 w-full sm:w-auto">
           <button
             onClick={() => {
               setDirection("en_to_uz");
@@ -259,13 +245,13 @@ export function QuizEngine({
               setSelectedOption(null);
               setWrittenInput("");
             }}
-            className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-xs font-black transition-all inline-flex items-center justify-center gap-1.5 ${
+            className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-full text-xs font-bold font-manrope transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer ${
               direction === "en_to_uz"
-                ? "bg-[#00E5FF] text-black border-2 border-black shadow-[2px_2px_0px_#000]"
-                : "text-black/70 hover:text-black hover:bg-[#F4EFEA] border-2 border-transparent"
+                ? "bg-white/15 text-white border border-white/20"
+                : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
-            <Languages className="w-3.5 h-3.5 text-black" />
+            <Languages className="w-3.5 h-3.5" />
             <span>EN → UZ</span>
           </button>
           <button
@@ -275,46 +261,46 @@ export function QuizEngine({
               setSelectedOption(null);
               setWrittenInput("");
             }}
-            className={`flex-1 sm:flex-initial px-3 py-1.5 rounded-xl text-xs font-black transition-all inline-flex items-center justify-center gap-1.5 ${
+            className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-full text-xs font-bold font-manrope transition-all inline-flex items-center justify-center gap-1.5 cursor-pointer ${
               direction === "uz_to_en"
-                ? "bg-[#00E5FF] text-black border-2 border-black shadow-[2px_2px_0px_#000]"
-                : "text-black/70 hover:text-black hover:bg-[#F4EFEA] border-2 border-transparent"
+                ? "bg-white/15 text-white border border-white/20"
+                : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
-            <Languages className="w-3.5 h-3.5 text-black" />
+            <Languages className="w-3.5 h-3.5" />
             <span>UZ → EN</span>
           </button>
         </div>
       </div>
 
-      {/* Progress Counter & Striped Ruler Bar */}
+      {/* Progress Counter & Bar */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs font-black text-black">
+        <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
           <span>
             Savol {currentIndex + 1} / {cards.length}
           </span>
-          <span className="px-2.5 py-0.5 rounded border border-black bg-yellow-200 text-black uppercase shadow-[1px_1px_0px_#000]">
+          <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300">
             {currentQuestionType === "mcq" ? "Variantni tanlang" : "Javobni yozing"}
           </span>
         </div>
-        <div className="w-full h-3 bg-white border-2 border-black rounded-full overflow-hidden shadow-[2px_2px_0px_#000] p-0.5">
+        <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#FFCC00] border-r-2 border-black rounded-full transition-all duration-300"
+            className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_10px_rgba(239,35,60,0.6)] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
       </div>
 
       {/* Main Question Card */}
-      <GlassCard padding="xl" className="text-center relative overflow-hidden">
+      <GlassCard padding="xl" className="text-center relative overflow-hidden border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
         <div className="flex items-center justify-between mb-4">
-          <span className="px-3 py-1 rounded-lg border-2 border-black bg-[#FFCC00] text-black font-black text-xs uppercase tracking-wider shadow-[2px_2px_0px_#000]">
+          <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase tracking-wider">
             {deck.level || "C1"} • {direction === "en_to_uz" ? "Inglizcha so'z" : "O'zbekcha ma'no"}
           </span>
           {direction === "en_to_uz" && (
             <button
               onClick={() => handlePronounce()}
-              className="p-2 rounded-xl border-2 border-black bg-white hover:bg-yellow-200 text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+              className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
               title="Talaffuzni tinglash"
             >
               <Volume2 className="w-4 h-4" />
@@ -324,12 +310,12 @@ export function QuizEngine({
 
         {/* Prompt */}
         <div className="py-6">
-          <h2 className="text-3xl sm:text-5xl font-black text-black tracking-tight leading-snug">
+          <h2 className="text-3xl sm:text-5xl font-bold font-manrope text-white tracking-tight leading-snug">
             {promptText}
           </h2>
           {direction === "en_to_uz" && currentCard.synonyms && (
             <div className="mt-3">
-              <span className="px-3 py-1 rounded-lg border border-black/30 bg-[#F4EFEA] text-xs font-mono text-black inline-block">
+              <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-zinc-400 inline-block">
                 Sinonimlar: {currentCard.synonyms}
               </span>
             </div>
@@ -347,15 +333,15 @@ export function QuizEngine({
                   ? currentCard.meaning_uz.trim()
                   : currentCard.term_en.trim());
 
-              let btnStyle = "bg-[#FFFDF9] hover:bg-[#FEF08A] border-2 border-black text-black shadow-[3px_3px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:-translate-y-0.5";
+              let btnStyle = "bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:border-[#ef233c]/50";
 
               if (isAnswered) {
                 if (isTarget) {
-                  btnStyle = "bg-[#A3E635] border-2 border-black text-black font-black shadow-[4px_4px_0px_#000]";
+                  btnStyle = "bg-emerald-950/60 border border-emerald-500 text-emerald-300 font-bold shadow-[0_0_20px_rgba(16,185,129,0.3)]";
                 } else if (isSelected && !isTarget) {
-                  btnStyle = "bg-[#FF8080] border-2 border-black text-black font-black shadow-[4px_4px_0px_#000]";
+                  btnStyle = "bg-red-950/60 border border-[#ef233c] text-red-300 font-bold shadow-[0_0_20px_rgba(239,35,60,0.3)]";
                 } else {
-                  btnStyle = "opacity-40 border-2 border-black/30 bg-zinc-100 text-black/50 shadow-none";
+                  btnStyle = "opacity-30 border border-white/5 bg-black/40 text-zinc-500";
                 }
               }
 
@@ -364,17 +350,17 @@ export function QuizEngine({
                   key={idx}
                   onClick={() => handleSubmitAnswer(opt, idx)}
                   disabled={isAnswered}
-                  className={`p-4 rounded-xl text-sm font-bold text-left transition-all duration-150 flex items-start gap-3 select-none cursor-pointer ${btnStyle}`}
+                  className={`p-4 rounded-xl text-sm font-medium text-left transition-all duration-150 flex items-start gap-3 select-none cursor-pointer ${btnStyle}`}
                 >
-                  <span className="w-6 h-6 rounded-md bg-black text-white flex items-center justify-center text-xs font-black shrink-0 shadow-[1px_1px_0px_#333]">
+                  <span className="w-6 h-6 rounded-md bg-white/10 text-white flex items-center justify-center text-xs font-mono shrink-0">
                     {idx + 1}
                   </span>
-                  <span className="leading-relaxed flex-1 text-black font-bold">{opt}</span>
+                  <span className="leading-relaxed flex-1 font-inter">{opt}</span>
                   {isAnswered && isTarget && (
-                    <CheckCircle2 className="w-5 h-5 text-black shrink-0 ml-auto" />
+                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 ml-auto" />
                   )}
                   {isAnswered && isSelected && !isTarget && (
-                    <XCircle className="w-5 h-5 text-black shrink-0 ml-auto" />
+                    <XCircle className="w-5 h-5 text-red-400 shrink-0 ml-auto" />
                   )}
                 </button>
               );
@@ -395,27 +381,26 @@ export function QuizEngine({
                     ? "O'zbekcha tarjimasini kiriting..."
                     : "Inglizcha so'zni yozing..."
                 }
-                className={`w-full px-5 py-3.5 rounded-xl border-2 outline-none text-base font-bold text-black placeholder-zinc-500 transition-all ${
+                className={`w-full px-5 py-3.5 rounded-xl border outline-none text-base font-medium text-white placeholder:text-zinc-500 transition-all font-inter ${
                   isAnswered
                     ? isCorrect
-                      ? "border-black bg-[#A3E635] shadow-[3px_3px_0px_#000]"
-                      : "border-black bg-[#FF8080] shadow-[3px_3px_0px_#000]"
-                    : "border-black bg-white shadow-[3px_3px_0px_#000] focus:shadow-[4px_4px_0px_#000]"
+                      ? "border-emerald-500 bg-emerald-950/40 text-emerald-300"
+                      : "border-[#ef233c] bg-red-950/40 text-red-300"
+                    : "border-white/10 bg-zinc-950/80 focus:border-[#ef233c]"
                 }`}
               />
             </div>
 
             {!isAnswered && (
-              <GlassButton
-                variant="primary"
-                size="md"
+              <button
+                type="button"
                 onClick={() => handleSubmitAnswer(writtenInput)}
                 disabled={!writtenInput.trim()}
-                className="w-full"
-                rightIcon={<ArrowRight className="w-4 h-4 ml-1.5" />}
+                className="w-full py-3 px-4 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,35,60,0.4)] disabled:opacity-40 transition cursor-pointer"
               >
-                Tekshirish [Enter]
-              </GlassButton>
+                <span>Tekshirish [Enter]</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             )}
           </div>
         )}
@@ -425,21 +410,23 @@ export function QuizEngine({
       {isAnswered && (
         <GlassCard
           padding="lg"
-          className={`border-2 border-black shadow-[4px_4px_0px_#000] transition-all animate-in fade-in duration-300 ${
-            isCorrect ? "bg-[#DCFCE7]" : "bg-[#FEE2E2]"
+          className={`border transition-all animate-in fade-in duration-300 ${
+            isCorrect
+              ? "bg-emerald-950/40 border-emerald-500/40"
+              : "bg-red-950/40 border-red-500/40"
           }`}
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
               <div className="flex items-center gap-2">
                 {isCorrect ? (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-black bg-[#A3E635] text-black text-xs font-black shadow-[1px_1px_0px_#000]">
-                    <CheckCircle2 className="w-4 h-4 text-black" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold font-manrope">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                     To&apos;g&apos;ri javob! (+1 SRS)
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border border-black bg-[#FF8080] text-black text-xs font-black shadow-[1px_1px_0px_#000]">
-                    <XCircle className="w-4 h-4 text-black" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-bold font-manrope">
+                    <XCircle className="w-4 h-4 text-red-400" />
                     Xato javob (0-qutiga qaytdi)
                   </span>
                 )}
@@ -447,28 +434,26 @@ export function QuizEngine({
 
               {/* Correct Dictionary Entry */}
               <div className="pt-1">
-                <div className="text-base font-black text-black flex items-center gap-2">
+                <div className="text-base font-bold font-manrope text-white flex items-center gap-2">
                   <span>{currentCard.term_en}</span>
-                  <span className="text-black/50">→</span>
-                  <span className="text-emerald-700 underline">{currentCard.meaning_uz}</span>
+                  <span className="text-zinc-500">→</span>
+                  <span className="text-emerald-400 underline">{currentCard.meaning_uz}</span>
                 </div>
                 {currentCard.example_en && (
-                  <p className="text-xs text-black/80 italic mt-1 leading-relaxed border-l-2 border-black/40 pl-2">
+                  <p className="text-xs text-zinc-400 italic mt-1 leading-relaxed border-l-2 border-white/20 pl-2 font-inter">
                     &ldquo;{currentCard.example_en}&rdquo;
                   </p>
                 )}
               </div>
             </div>
 
-            <GlassButton
-              variant="ai"
-              size="md"
+            <button
               onClick={handleNext}
-              rightIcon={<ArrowRight className="w-4 h-4 ml-1.5" />}
-              className="shrink-0"
+              className="shrink-0 px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,35,60,0.4)] transition cursor-pointer"
             >
-              Keyingi Savol [Enter]
-            </GlassButton>
+              <span>Keyingi Savol [Enter]</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </GlassCard>
       )}

@@ -45,55 +45,55 @@ export function MobileBottomDock() {
     >
       <nav 
         aria-label="Mobil navigatsiya menyusi"
-        className="rounded-3xl bg-white border-2 border-[#121212] p-1.5 shadow-[4px_4px_0px_#121212] flex items-center justify-around relative"
+        className="rounded-full bg-black/85 border border-white/10 p-1.5 backdrop-blur-2xl shadow-2xl flex items-center justify-around relative"
       >
-        {/* 1. Bosh sahifa */}
+        {/* 1. Asosiy */}
         <Link
           href="/"
-          className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl text-[10px] font-black transition-all duration-200 ${
+          className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold font-manrope transition-all duration-200 ${
             pathname === "/"
-              ? "text-[#121212] bg-[#FFCC00] border border-[#121212]"
-              : "text-zinc-600 hover:text-[#121212]"
+              ? "text-white bg-[#ef233c] shadow-[0_0_12px_rgba(239,35,60,0.5)]"
+              : "text-zinc-400 hover:text-white"
           }`}
         >
-          <Home className="w-5 h-5 mb-0.5" />
+          <Home className="w-4 h-4 mb-0.5" />
           <span>Asosiy</span>
         </Link>
 
         {/* 2. Bugungi Takrorlash Arena */}
         <Link
           href="/review"
-          className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl text-[10px] font-black transition-all duration-200 relative ${
+          className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold font-manrope transition-all duration-200 relative ${
             pathname === "/review"
-              ? "text-white bg-[#FA5A2A] border border-[#121212]"
-              : "text-zinc-600 hover:text-[#121212]"
+              ? "text-white bg-[#ef233c] shadow-[0_0_12px_rgba(239,35,60,0.5)]"
+              : "text-zinc-400 hover:text-white"
           }`}
         >
           <div className="relative">
             <Flame
-              className={`w-5 h-5 mb-0.5 ${
+              className={`w-4 h-4 mb-0.5 ${
                 pathname === "/review"
                   ? "text-white fill-white animate-pulse"
-                  : "text-[#FA5A2A]"
+                  : "text-[#ef233c]"
               }`}
             />
             {hasDueCards && (
-              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-rose-500 border border-white animate-ping" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#ef233c] animate-ping" />
             )}
           </div>
-          <span>Takrorlash</span>
+          <span>Arena</span>
         </Link>
 
         {/* 3. AI Text-to-Deck Center Action */}
         <Link
           href="/?ai=true"
           onClick={handleOpenAiModal}
-          className="flex flex-col items-center justify-center -mt-6 group"
+          className="flex flex-col items-center justify-center -mt-5 group"
         >
-          <div className="w-12 h-12 rounded-2xl bg-[#FFCC00] border-2 border-[#121212] flex items-center justify-center shadow-[2px_2px_0px_#121212] group-hover:scale-105 group-active:scale-95 transition-transform duration-200">
-            <Sparkles className="w-6 h-6 text-[#121212]" />
+          <div className="w-11 h-11 rounded-full bg-[#ef233c] text-white flex items-center justify-center shadow-[0_0_20px_rgba(239,35,60,0.6)] group-hover:scale-105 group-active:scale-95 transition-transform duration-200 border border-white/20">
+            <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <span className="text-[10px] font-black text-[#121212] mt-1 tracking-tight">
+          <span className="text-[10px] font-bold text-zinc-300 mt-1 tracking-tight">
             AI Import
           </span>
         </Link>
@@ -101,9 +101,9 @@ export function MobileBottomDock() {
         {/* 4. Lug'atlar to'plamlari */}
         <Link
           href="/#decks"
-          className="flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl text-[10px] font-black text-zinc-600 hover:text-[#121212] transition-all duration-200"
+          className="flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold text-zinc-400 hover:text-white transition-all duration-200"
         >
-          <BookOpen className="w-5 h-5 mb-0.5 text-[#2563EB]" />
+          <BookOpen className="w-4 h-4 mb-0.5" />
           <span>To&apos;plamlar</span>
         </Link>
 
@@ -111,9 +111,9 @@ export function MobileBottomDock() {
         <Link
           href="/?create=true"
           onClick={handleOpenCreateModal}
-          className="flex flex-col items-center justify-center py-1.5 px-3 rounded-2xl text-[10px] font-black text-zinc-600 hover:text-[#121212] transition-all duration-200"
+          className="flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold text-zinc-400 hover:text-white transition-all duration-200"
         >
-          <Plus className="w-5 h-5 mb-0.5 text-[#10B981] stroke-[2.5]" />
+          <Plus className="w-4 h-4 mb-0.5 text-[#ef233c]" />
           <span>Yangi</span>
         </Link>
       </nav>

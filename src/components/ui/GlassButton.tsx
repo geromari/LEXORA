@@ -13,23 +13,23 @@ export interface GlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement
 
 const variantStyles = {
   primary:
-    "bg-[#FA5A2A] hover:bg-[#E04719] text-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] font-black active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+    "bg-[#ef233c] hover:bg-red-700 text-white font-bold shadow-[0_0_20px_rgba(239,35,60,0.35)] active:scale-95 border border-transparent",
   ai:
-    "bg-[#FFCC00] hover:bg-[#F0C000] text-[#121212] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] font-black active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+    "bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold active:scale-95 shadow-[0_0_15px_rgba(255,255,255,0.1)]",
   secondary:
-    "bg-white hover:bg-zinc-100 text-[#121212] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] font-bold active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+    "bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium active:scale-95",
   success:
-    "bg-[#10B981] hover:bg-[#059669] text-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] font-bold active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+    "bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-[0_0_15px_rgba(16,185,129,0.35)] active:scale-95 border border-transparent",
   danger:
-    "bg-rose-500 hover:bg-rose-600 text-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] font-bold active:translate-x-[1px] active:translate-y-[1px] active:shadow-none",
+    "bg-rose-600 hover:bg-rose-500 text-white font-bold active:scale-95 border border-transparent",
   ghost:
-    "bg-transparent hover:bg-[#121212]/5 text-[#121212] font-bold border border-transparent",
+    "bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white font-medium border border-transparent",
 };
 
 const sizeStyles = {
-  sm: "px-3 py-1.5 text-xs font-bold rounded-xl gap-1.5",
-  md: "px-4 py-2.5 text-sm font-bold rounded-xl gap-2",
-  lg: "px-6 py-3.5 text-base font-black rounded-xl gap-2.5",
+  sm: "px-3 py-1.5 text-xs font-semibold rounded-lg gap-1.5",
+  md: "px-4 py-2.5 text-sm font-semibold rounded-xl gap-2",
+  lg: "px-6 py-3.5 text-base font-bold rounded-xl gap-2.5",
   icon: "h-10 w-10 p-2 rounded-xl flex items-center justify-center",
 };
 
@@ -53,7 +53,7 @@ export const GlassButton = forwardRef<HTMLButtonElement, GlassButtonProps>(
         ref={ref}
         disabled={disabled || isLoading}
         className={cn(
-          "inline-flex items-center justify-center transition-all duration-150 cursor-pointer select-none outline-none disabled:opacity-50 disabled:pointer-events-none",
+          "inline-flex items-center justify-center transition-all duration-150 cursor-pointer select-none outline-none disabled:opacity-50 disabled:pointer-events-none font-manrope",
           variantStyles[variant],
           sizeStyles[size],
           className

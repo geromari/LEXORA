@@ -1,23 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { 
   Sparkles, 
   Volume2, 
   Send, 
   CheckCircle2, 
-  AlertCircle, 
   ArrowRight, 
   RotateCcw, 
   Copy, 
   Check, 
-  Wand2,
-  Trophy,
-  BrainCircuit,
-  PenLine
+  Wand2, 
+  Trophy, 
+  PenLine 
 } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { GlassButton } from "@/components/ui/GlassButton";
 import { Card, DeckDetail, CheckSentenceResponse, api } from "@/lib/api";
 import { playPronunciation } from "@/lib/speech";
 
@@ -62,7 +59,6 @@ export function AISentenceChecker({
       setEvalResult(res);
       setScoresHistory((prev) => [...prev, res.score]);
 
-      // If score is 7 or higher, consider it mastered/correct for SRS
       const isPassed = res.score >= 7;
       await onReviewSubmitted(currentCard.id, isPassed);
     } catch (err: any) {
@@ -102,29 +98,29 @@ export function AISentenceChecker({
         : 8.5;
 
     return (
-      <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6">
-        <div className="w-20 h-20 rounded-2xl bg-[#FA5A2A] border-[2.5px] border-black shadow-[4px_4px_0px_#000] flex items-center justify-center mx-auto text-white">
-          <Trophy className="w-10 h-10 text-white" />
+      <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
+        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(239,35,60,0.3)] flex items-center justify-center mx-auto text-[#ef233c]">
+          <Trophy className="w-10 h-10" />
         </div>
 
         <div className="space-y-2">
-          <h2 className="text-2xl sm:text-3xl font-black text-black">
+          <h2 className="text-2xl sm:text-3xl font-bold font-manrope text-white">
             AI Writing Sessiyasi Yakunlandi!
           </h2>
-          <p className="text-sm font-bold text-black/70">
+          <p className="text-sm font-inter text-zinc-400">
             Jami {scoresHistory.length} ta murakkab ibora bilan IELTS akademik gaplari tuzildi.
           </p>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#FFCC00] border-2 border-black shadow-[3px_3px_0px_#000] max-w-xs mx-auto">
-          <div className="text-3xl font-black text-black">{avgScore} / 10</div>
-          <div className="text-xs font-black text-black/80 mt-1 uppercase tracking-wider">O&apos;rtacha IELTS Band Bahosi</div>
+        <div className="p-4 rounded-xl bg-white/5 border border-white/10 max-w-xs mx-auto">
+          <div className="text-3xl font-bold font-manrope text-[#ef233c]">{avgScore} / 10</div>
+          <div className="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider">
+            O&apos;rtacha IELTS Band Bahosi
+          </div>
         </div>
 
         <div className="pt-4 flex items-center justify-center gap-3">
-          <GlassButton
-            variant="ai"
-            size="md"
+          <button
             onClick={() => {
               setSessionCompleted(false);
               setCurrentIndex(0);
@@ -132,10 +128,13 @@ export function AISentenceChecker({
               setEvalResult(null);
               setScoresHistory([]);
             }}
-            leftIcon={<RotateCcw className="w-4 h-4 mr-1.5" />}
+            className="shiny-cta py-3 px-6"
           >
-            Qaytadan Mashq Qilish
-          </GlassButton>
+            <span className="relative z-10 flex items-center gap-2 text-white font-bold text-xs">
+              <RotateCcw className="w-4 h-4 text-[#ef233c]" />
+              <span>Qaytadan Mashq Qilish</span>
+            </span>
+          </button>
         </div>
       </GlassCard>
     );
@@ -147,32 +146,32 @@ export function AISentenceChecker({
     <div className="max-w-2xl mx-auto space-y-6">
       {/* Progress & Counter */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs font-black text-black">
+        <div className="flex items-center justify-between text-xs font-mono text-zinc-400">
           <span>
             Ibora {currentIndex + 1} / {cards.length}
           </span>
-          <span className="px-2.5 py-0.5 rounded border border-black bg-yellow-200 text-black uppercase shadow-[1px_1px_0px_#000] flex items-center gap-1.5">
-            <Wand2 className="w-3.5 h-3.5" />
+          <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 flex items-center gap-1.5">
+            <Wand2 className="w-3.5 h-3.5 text-[#ef233c]" />
             AI Writing Tahlili
           </span>
         </div>
-        <div className="w-full h-3 bg-white border-2 border-black rounded-full overflow-hidden shadow-[2px_2px_0px_#000] p-0.5">
+        <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-[#FA5A2A] border-r-2 border-black rounded-full transition-all duration-300"
+            className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_10px_rgba(239,35,60,0.6)] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
       </div>
 
       {/* Target Phrase Prompt Card */}
-      <GlassCard padding="xl" className="text-center space-y-5">
+      <GlassCard padding="xl" className="text-center space-y-5 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
         <div className="flex items-center justify-between">
-          <span className="px-3 py-1 rounded-lg border-2 border-black bg-[#FFCC00] text-black font-black text-xs uppercase tracking-wider shadow-[2px_2px_0px_#000]">
+          <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase tracking-wider">
             {deck.level || "C1"} Target Collocation
           </span>
           <button
             onClick={handlePronounce}
-            className="p-2 rounded-xl border-2 border-black bg-white hover:bg-yellow-200 text-black shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all cursor-pointer"
+            className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
             title="Talaffuzni tinglash"
           >
             <Volume2 className="w-4 h-4" />
@@ -181,15 +180,15 @@ export function AISentenceChecker({
 
         {/* Term & Uzbek Meaning */}
         <div className="space-y-2 py-2">
-          <h2 className="text-3xl sm:text-4xl font-black text-black tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold font-manrope text-white tracking-tight">
             &ldquo;{currentCard.term_en}&rdquo;
           </h2>
-          <p className="text-base font-bold text-black/80">
+          <p className="text-base font-medium text-zinc-300 font-inter">
             {currentCard.meaning_uz}
           </p>
           {currentCard.synonyms && (
             <div className="mt-1">
-              <span className="px-3 py-1 rounded-lg border border-black/30 bg-[#F4EFEA] text-xs font-mono text-black inline-block">
+              <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-xs font-mono text-zinc-400 inline-block">
                 Sinonimlar: {currentCard.synonyms}
               </span>
             </div>
@@ -197,8 +196,8 @@ export function AISentenceChecker({
         </div>
 
         {/* Instruction */}
-        <p className="text-xs text-black font-black flex items-center justify-center gap-1.5 bg-[#FEF08A] p-2.5 rounded-xl border border-black/30">
-          <PenLine className="w-4 h-4 text-black shrink-0" />
+        <p className="text-xs text-zinc-300 flex items-center justify-center gap-2 bg-white/5 p-2.5 rounded-xl border border-white/10 font-inter">
+          <PenLine className="w-4 h-4 text-[#ef233c] shrink-0" />
           <span>Ushbu so&apos;z yoki iborani qatnashtirib IELTS darajasidagi akademik gap tuzing:</span>
         </p>
 
@@ -210,22 +209,20 @@ export function AISentenceChecker({
             disabled={evalResult !== null || isEvaluating}
             rows={3}
             placeholder={`Masalan: In modern society, multinational corporations wield outsized influence over...`}
-            className="w-full px-4 py-3 rounded-xl border-2 border-black bg-white outline-none text-xs sm:text-sm font-bold text-black placeholder-zinc-500 shadow-[3px_3px_0px_#000] focus:shadow-[4px_4px_0px_#000] transition-all leading-relaxed resize-none"
+            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-zinc-950/80 outline-none text-xs sm:text-sm font-medium text-white placeholder:text-zinc-500 focus:border-[#ef233c] transition-all leading-relaxed resize-none font-inter"
           />
 
           {!evalResult && (
             <div className="flex items-center justify-end">
-              <GlassButton
-                variant="ai"
-                size="md"
+              <button
+                type="button"
                 onClick={handleEvaluate}
-                isLoading={isEvaluating}
                 disabled={!userSentence.trim() || isEvaluating}
-                rightIcon={<Send className="w-4 h-4 ml-1.5" />}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-[0_0_20px_rgba(239,35,60,0.4)] flex items-center justify-center gap-2 disabled:opacity-40 transition cursor-pointer"
               >
-                AI Bilan Tekshirish
-              </GlassButton>
+                <span>{isEvaluating ? "Tahlil qilinmoqda..." : "AI Bilan Tekshirish"}</span>
+                <Send className="w-4 h-4" />
+              </button>
             </div>
           )}
         </div>
@@ -235,20 +232,20 @@ export function AISentenceChecker({
       {evalResult && (
         <GlassCard
           padding="lg"
-          className={`border-2 border-black shadow-[4px_4px_0px_#000] space-y-4 animate-in fade-in duration-300 ${
-            evalResult.score >= 7 ? "bg-[#DCFCE7]" : "bg-[#FEF3C7]"
+          className={`border space-y-4 animate-in fade-in duration-300 ${
+            evalResult.score >= 7 ? "bg-emerald-950/30 border-emerald-500/40" : "bg-zinc-900/80 border-white/15"
           }`}
         >
           {/* Header Score & Indicators */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b-2 border-black/20">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10">
             <div className="flex items-center gap-3">
               <div
-                className={`px-3 py-1.5 rounded-xl font-black text-sm border-2 border-black shadow-[2px_2px_0px_#000] ${
+                className={`px-3 py-1.5 rounded-xl font-bold font-manrope text-sm border ${
                   evalResult.score >= 8
-                    ? "bg-[#A3E635] text-black"
+                    ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
                     : evalResult.score >= 6
-                    ? "bg-[#FFCC00] text-black"
-                    : "bg-[#FF8080] text-black"
+                    ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
+                    : "bg-red-500/20 text-red-300 border-red-500/40"
                 }`}
               >
                 Baholash: {evalResult.score} / 10
@@ -256,56 +253,55 @@ export function AISentenceChecker({
 
               <div className="flex items-center gap-2 text-xs">
                 {evalResult.grammar_correct && (
-                  <span className="flex items-center gap-1 text-black font-black px-2 py-0.5 rounded border border-black bg-[#A3E635]">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-black" />
+                  <span className="flex items-center gap-1 text-emerald-300 font-semibold px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-500/30">
+                    <CheckCircle2 className="w-3.5 h-3.5" />
                     Grammatika to&apos;g&apos;ri
                   </span>
                 )}
                 {evalResult.natural_usage && (
-                  <span className="flex items-center gap-1 text-black font-black px-2 py-0.5 rounded border border-black bg-[#00E5FF]">
-                    <Sparkles className="w-3.5 h-3.5 text-black" />
+                  <span className="flex items-center gap-1 text-cyan-300 font-semibold px-2 py-0.5 rounded-md bg-cyan-500/15 border border-cyan-500/30">
+                    <Sparkles className="w-3.5 h-3.5" />
                     Tabiiy kollokatsiya
                   </span>
                 )}
               </div>
             </div>
 
-            <GlassButton
-              variant="ai"
-              size="sm"
+            <button
               onClick={handleNext}
-              rightIcon={<ArrowRight className="w-3.5 h-3.5 ml-1" />}
+              className="px-5 py-2 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(239,35,60,0.4)] transition cursor-pointer"
             >
-              Keyingi Ibora
-            </GlassButton>
+              <span>Keyingi Ibora</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Feedback in Uzbek */}
           <div className="space-y-1">
-            <div className="text-xs font-black text-black uppercase tracking-wider">
+            <div className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
               Tahlil va Tavsiya (O&apos;zbek tilida):
             </div>
-            <p className="text-xs sm:text-sm text-black font-bold leading-relaxed">
+            <p className="text-xs sm:text-sm text-zinc-200 font-medium leading-relaxed font-inter">
               {evalResult.feedback_uz}
             </p>
           </div>
 
           {/* Improved C1 Sentence Suggestion */}
           {evalResult.improved_sentence && (
-            <div className="p-3.5 rounded-xl bg-white border-2 border-black shadow-[2px_2px_0px_#000] space-y-1.5">
+            <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
               <div className="flex items-center justify-between text-xs">
-                <span className="font-black text-black flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+                <span className="font-semibold text-zinc-300 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-[#ef233c]" />
                   Tavsiya etilgan Band 8.5+ C1 namunasi:
                 </span>
                 <button
                   onClick={handleCopyImproved}
-                  className="text-black font-bold hover:underline flex items-center gap-1 text-xs cursor-pointer"
+                  className="text-zinc-400 hover:text-white flex items-center gap-1 text-xs cursor-pointer transition"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
-                      <span className="text-emerald-600 font-bold">Nusxalandi</span>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400 font-bold">Nusxalandi</span>
                     </>
                   ) : (
                     <>
@@ -316,7 +312,7 @@ export function AISentenceChecker({
                 </button>
               </div>
 
-              <p className="text-xs sm:text-sm text-black font-medium italic leading-relaxed font-sans">
+              <p className="text-xs sm:text-sm text-zinc-300 font-medium italic leading-relaxed font-inter">
                 &ldquo;{evalResult.improved_sentence}&rdquo;
               </p>
             </div>

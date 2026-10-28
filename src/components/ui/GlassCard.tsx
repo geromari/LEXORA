@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
-  glow?: "none" | "indigo" | "violet" | "emerald" | "rose";
+  glow?: "none" | "red" | "indigo" | "violet" | "emerald" | "rose";
   padding?: "none" | "sm" | "md" | "lg" | "xl";
 }
 
@@ -33,9 +33,10 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-2xl border-[2.5px] border-[#121212] bg-white shadow-[4px_4px_0px_#121212] text-[#121212] transition-all duration-150",
+          "rounded-2xl border border-white/10 bg-zinc-950/70 backdrop-blur-xl text-white shadow-xl transition-all duration-200 relative overflow-hidden",
           interactive &&
-            "cursor-pointer hover:shadow-[6px_6px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5",
+            "cursor-pointer hover:border-[#ef233c]/50 hover:shadow-[0_0_30px_rgba(239,35,60,0.15)] hover:-translate-y-0.5",
+          glow === "red" && "border-[#ef233c]/60 shadow-[0_0_30px_rgba(239,35,60,0.2)]",
           paddingStyles[padding],
           className
         )}
