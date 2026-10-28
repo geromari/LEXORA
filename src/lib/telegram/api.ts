@@ -5,7 +5,7 @@ export function getBotToken(): string {
 }
 
 export function getBotUsername(): string {
-  return process.env.TELEGRAM_BOT_USERNAME?.trim() || "lexora_uzbot";
+  return process.env.TELEGRAM_BOT_USERNAME?.trim() || "vydex_uzbot";
 }
 
 export function getAppUrl(): string {

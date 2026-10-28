@@ -386,7 +386,7 @@ export default function LandingPage() {
               },
               {
                 q: "Telegram bot bilan qanday bog'lanadi?",
-                a: "Saytda 'Telegram bot orqali kirish' tugmasini bosing yoki Telegramda @lexora_uzbot botiga kiring. Barcha natijalaringiz va xotira seriyangiz (streak) avtomatik sinxronlanadi.",
+                a: "Saytda 'Telegram bot orqali kirish' tugmasini bosing yoki Telegramda @vydex_uzbot botiga kiring. Barcha natijalaringiz va xotira seriyangiz (streak) avtomatik sinxronlanadi.",
               },
               {
                 q: "AI qanday qilib matndan lug'at to'plami yaratadi?",
@@ -453,7 +453,7 @@ export default function LandingPage() {
               )}
 
               <a
-                href="https://t.me/lexora_uzbot"
+                href="https://t.me/vydex_uzbot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-7 py-4 rounded-full bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-300 dark:border-white/10 text-zinc-800 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white font-medium transition-all flex items-center justify-center gap-2 text-sm shadow-sm"

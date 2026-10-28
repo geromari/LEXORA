@@ -216,7 +216,7 @@ export function GlassNavbar() {
 
               {/* Telegram Bot */}
               <a
-                href="https://t.me/lexora_uzbot"
+                href="https://t.me/vydex_uzbot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors flex items-center gap-1.5"
@@ -259,7 +259,7 @@ export function GlassNavbar() {
               </Link>
 
               <a
-                href="https://t.me/lexora_uzbot"
+                href="https://t.me/vydex_uzbot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors flex items-center gap-1.5"
@@ -546,7 +546,7 @@ export function GlassNavbar() {
 
                   {/* 6. Telegram Bot */}
                   <a
-                    href="https://t.me/lexora_uzbot"
+                    href="https://t.me/vydex_uzbot"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
@@ -554,7 +554,7 @@ export function GlassNavbar() {
                   >
                     <div className="flex items-center gap-3">
                       <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
-                      <span>Telegram Bot (@lexora_uzbot)</span>
+                      <span>Telegram Bot (@vydex_uzbot)</span>
                     </div>
                     <span className="text-[10px] text-zinc-400 font-mono">↗</span>
                   </a>
@@ -629,7 +629,7 @@ export function GlassNavbar() {
                   </Link>
 
                   <a
-                    href="https://t.me/lexora_uzbot"
+                    href="https://t.me/vydex_uzbot"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
@@ -637,7 +637,7 @@ export function GlassNavbar() {
                   >
                     <div className="flex items-center gap-3">
                       <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
-                      <span>Telegram Bot (@lexora_uzbot)</span>
+                      <span>Telegram Bot (@vydex_uzbot)</span>
                     </div>
                     <span className="text-[10px] text-zinc-400 font-mono">↗</span>
                   </a>

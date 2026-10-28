@@ -316,7 +316,7 @@ export function AuthModal() {
                   className="w-full py-4 px-5 rounded-2xl bg-[#229ED9] hover:bg-[#1E8BC0] text-white text-sm font-bold font-manrope transition-all flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(34,158,217,0.4)]"
                 >
                   <TelegramIcon className="w-5 h-5 text-white shrink-0" />
-                  <span>Telegram Botni Ochish (@lexora_uzbot) ↗️</span>
+                  <span>Telegram Botni Ochish (@vydex_uzbot) ↗️</span>
                 </a>
               )}
 
