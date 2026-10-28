@@ -127,13 +127,13 @@ export function RetroHeroSection({ onAnalyzeText }: RetroHeroSectionProps) {
           )}
 
           <a
-            href="https://t.me/vydex_uzbot"
+            href="https://t.me/lexora_uzbot"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-[#229ED9]/15 hover:bg-[#229ED9]/25 text-[#229ED9] border border-[#229ED9]/40 font-semibold text-sm transition flex items-center justify-center gap-2"
           >
             <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
-            <span>Telegram Bot (@vydex_uzbot)</span>
+            <span>Telegram Bot (@lexora_uzbot)</span>
           </a>
         </div>
 
@@ -239,7 +239,7 @@ export function RetroHeroSection({ onAnalyzeText }: RetroHeroSectionProps) {
                 Bot Sync
               </span>
             </div>
-            <div className="text-xl font-bold font-manrope text-zinc-900 dark:text-white mb-1">@vydex_uzbot</div>
+            <div className="text-xl font-bold font-manrope text-zinc-900 dark:text-white mb-1">@lexora_uzbot</div>
             <p className="text-xs text-zinc-600 dark:text-zinc-400 font-inter mb-4">
               Har kuni 5 ta yangi IELTS so&apos;zi va interaktiv viktorina
             </p>

@@ -5,17 +5,13 @@ export function getBotToken(): string {
 }
 
 export function getBotUsername(): string {
-  return process.env.TELEGRAM_BOT_USERNAME?.trim() || "vydex_uzbot";
+  return process.env.TELEGRAM_BOT_USERNAME?.trim() || "lexora_uzbot";
 }
 
 export function getAppUrl(): string {
   let url =
     process.env.NEXT_PUBLIC_APP_URL ||
-    (process.env.VERCEL_PROJECT_PRODUCTION_URL
-      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-      : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "https://vydex.uz");
+    "https://lexora-ustasy.vercel.app";
 
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
     url = `https://${url}`;

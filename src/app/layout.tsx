@@ -143,13 +143,13 @@ export default function RootLayout({
               <ul className="space-y-3.5 text-zinc-600 dark:text-zinc-400 text-sm">
                 <li>
                   <a
-                    href="https://t.me/vydex_uzbot"
+                    href="https://t.me/lexora_uzbot"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-[#229ED9] transition-colors flex items-center gap-1.5"
                   >
                     <span>Telegram Bot</span>
-                    <span className="text-[10px] text-[#ef233c] font-mono">@vydex_uzbot</span>
+                    <span className="text-[10px] text-[#ef233c] font-mono">@lexora_uzbot</span>
                   </a>
                 </li>
                 <li>
@@ -177,7 +177,7 @@ export default function RootLayout({
             <p>© 2026 Vydex AI. O&apos;zbekiston. Barcha huquqlar himoyalangan.</p>
             <div className="flex gap-6">
               <a
-                href="https://t.me/vydex_uzbot"
+                href="https://t.me/lexora_uzbot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-zinc-800 dark:hover:text-zinc-300 transition-colors"

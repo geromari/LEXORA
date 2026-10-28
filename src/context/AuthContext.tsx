@@ -49,18 +49,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const handleAuthSuccess = useCallback((tokenRes: TokenResponse) => {
+    const rawUser: any = tokenRes.user;
+    const normalizedUser: UserProfile = {
+      ...rawUser,
+      streak_count:
+        rawUser.streak_count ?? rawUser.streakCount ?? 1,
+      avatar_url: rawUser.avatar_url ?? rawUser.avatarUrl ?? null,
+      created_at: rawUser.created_at ?? rawUser.createdAt ?? new Date().toISOString(),
+    };
+
     if (typeof window !== "undefined") {
       localStorage.setItem("vydex_auth_token", tokenRes.access_token);
-      localStorage.setItem("vydex_user", JSON.stringify(tokenRes.user));
-      localStorage.setItem("vydex_streak", String(tokenRes.user.streak_count));
+      localStorage.setItem("vydex_user", JSON.stringify(normalizedUser));
+      localStorage.setItem("vydex_streak", String(normalizedUser.streak_count));
       // Backward compatibility
       localStorage.setItem("lexora_auth_token", tokenRes.access_token);
-      localStorage.setItem("lexora_user", JSON.stringify(tokenRes.user));
+      localStorage.setItem("lexora_user", JSON.stringify(normalizedUser));
       window.dispatchEvent(new CustomEvent("vydex-auth-changed"));
       window.dispatchEvent(new CustomEvent("lexora-auth-changed"));
+
+      // Seamless redirect to dashboard upon login from landing page
+      if (window.location.pathname === "/") {
+        window.location.href = "/dashboard";
+      }
     }
     setToken(tokenRes.access_token);
-    setUser(tokenRes.user);
+    setUser(normalizedUser);
     setIsAuthModalOpen(false);
   }, []);
 

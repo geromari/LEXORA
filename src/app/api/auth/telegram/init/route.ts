@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const botUsername = process.env.TELEGRAM_BOT_USERNAME || "vydex_uzbot";
+    const botUsername = process.env.TELEGRAM_BOT_USERNAME || "lexora_uzbot";
     const botUrl = `https://t.me/${botUsername}?start=auth_${sessionToken}`;
 
     return NextResponse.json({

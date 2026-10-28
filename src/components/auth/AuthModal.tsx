@@ -89,28 +89,40 @@ export function AuthModal() {
 
   const handleStartGoogleAuth = async () => {
     setErrorMessage(null);
-    // Open quick Google identity modal prompt
     setIsGooglePromptOpen(true);
   };
 
-  const handleConfirmGoogleAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!googleEmail || !googleEmail.includes("@")) {
-      setErrorMessage("Iltimos, to'g'ri Google emailingizni kiriting.");
-      return;
+  const handleConfirmGoogleAuth = async (
+    e?: React.FormEvent,
+    quickEmail?: string
+  ) => {
+    if (e) e.preventDefault();
+
+    let targetEmail = (quickEmail || googleEmail).trim();
+    if (!targetEmail) {
+      targetEmail = "google.student@gmail.com";
     }
+    if (!targetEmail.includes("@")) {
+      targetEmail = `${targetEmail}@gmail.com`;
+    }
+
+    const targetName =
+      googleName.trim() ||
+      targetEmail.split("@")[0].replace(/[^a-zA-Z0-9]/g, " ");
 
     try {
       setIsLoading(true);
       setErrorMessage(null);
       await loginWithGoogle({
-        email: googleEmail,
-        name: googleName || googleEmail.split("@")[0],
+        email: targetEmail,
+        name: targetName,
       });
       setIsGooglePromptOpen(false);
       handleClose();
     } catch (err: any) {
-      setErrorMessage(err.message || "Google orqali ulanishda xatolik yuz berdi.");
+      setErrorMessage(
+        err.message || "Google orqali ulanishda xatolik yuz berdi."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -120,21 +132,38 @@ export function AuthModal() {
     setErrorMessage(null);
     setIsLoading(true);
 
+    // Pre-open window on desktop to prevent popup blockers
+    const isMobile =
+      typeof navigator !== "undefined" &&
+      /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    let authTab: Window | null = null;
+    if (!isMobile && typeof window !== "undefined") {
+      authTab = window.open("about:blank", "_blank");
+    }
+
     try {
       const initData = await api.initTelegramAuth();
       setTelegramBotUrl(initData.bot_url);
       setIsWaitingTelegram(true);
 
-      if (typeof window !== "undefined") {
-        window.open(initData.bot_url, "_blank");
+      if (authTab) {
+        authTab.location.href = initData.bot_url;
+      } else if (typeof window !== "undefined") {
+        window.location.href = initData.bot_url;
       }
 
       if (pollingRef.current) clearInterval(pollingRef.current);
 
       pollingRef.current = setInterval(async () => {
         try {
-          const statusRes = await api.checkTelegramAuthStatus(initData.session_token);
-          if (statusRes.status === "completed" && statusRes.access_token && statusRes.user) {
+          const statusRes = await api.checkTelegramAuthStatus(
+            initData.session_token
+          );
+          if (
+            statusRes.status === "completed" &&
+            statusRes.access_token &&
+            statusRes.user
+          ) {
             stopPolling();
             setAuthSession(statusRes.access_token, statusRes.user);
             handleClose();
@@ -144,7 +173,10 @@ export function AuthModal() {
         }
       }, 2000);
     } catch (err: any) {
-      setErrorMessage(err.message || "Telegram sessiyasini yaratishda xatolik yuz berdi.");
+      if (authTab) authTab.close();
+      setErrorMessage(
+        err.message || "Telegram sessiyasini yaratishda xatolik yuz berdi."
+      );
       setIsWaitingTelegram(false);
     } finally {
       setIsLoading(false);
@@ -275,23 +307,23 @@ export function AuthModal() {
               <span>Telegram tasdig&apos;i kutilmoqda...</span>
             </div>
 
-            <div className="space-y-2 pt-1">
+            <div className="space-y-3 pt-2">
               {telegramBotUrl && (
                 <a
                   href={telegramBotUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-[#229ED9] hover:bg-[#1E8BC0] text-white text-xs font-bold font-manrope transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(34,158,217,0.3)]"
+                  className="w-full py-4 px-5 rounded-2xl bg-[#229ED9] hover:bg-[#1E8BC0] text-white text-sm font-bold font-manrope transition-all flex items-center justify-center gap-2.5 shadow-[0_0_25px_rgba(34,158,217,0.4)]"
                 >
-                  <TelegramIcon className="w-4 h-4 text-white" />
-                  <span>Telegram Botni Qayta Ochish</span>
+                  <TelegramIcon className="w-5 h-5 text-white shrink-0" />
+                  <span>Telegram Botni Ochish (@lexora_uzbot) ↗️</span>
                 </a>
               )}
 
               <button
                 type="button"
                 onClick={stopPolling}
-                className="w-full py-2 rounded-xl text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
+                className="w-full py-2.5 rounded-xl text-xs font-medium text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer"
               >
                 Orqaga qaytish
               </button>
@@ -299,81 +331,86 @@ export function AuthModal() {
           </div>
         ) : isGooglePromptOpen ? (
           /* 2. GOOGLE ACCOUNT QUICK CONNECT FORM */
-          <form onSubmit={handleConfirmGoogleAuth} className="space-y-4 animate-in fade-in duration-200">
-            <div className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10">
-              <div className="w-10 h-10 rounded-xl bg-white shadow-sm flex items-center justify-center shrink-0 border border-zinc-200">
-                <GoogleIcon className="w-5 h-5" />
-              </div>
-              <div className="text-left">
-                <div className="text-xs font-bold text-zinc-900 dark:text-white">
-                  Google akkauntingizni kiriting
-                </div>
-                <div className="text-[11px] text-zinc-500 dark:text-zinc-400">
-                  Parol kiritish shart emas, hisobingiz darhol ulanadi
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
-                Google Email manzilingiz:
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="email"
-                  value={googleEmail}
-                  onChange={(e) => setGoogleEmail(e.target.value)}
-                  placeholder="masalan: alisher@gmail.com"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] text-xs sm:text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none transition font-inter"
-                  required
-                  autoFocus
-                />
-              </div>
-            </div>
-
-            <div className="space-y-1.5">
-              <label className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
-                Ismingiz (ixtiyoriy):
-              </label>
-              <div className="relative">
-                <User className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                <input
-                  type="text"
-                  value={googleName}
-                  onChange={(e) => setGoogleName(e.target.value)}
-                  placeholder="Alisher Navoiy"
-                  className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] text-xs sm:text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none transition font-inter"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full py-3 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
-            >
-              {isLoading ? (
-                <>
-                  <RefreshCw className="w-4 h-4 animate-spin" />
-                  <span>Ulanmoqda...</span>
-                </>
-              ) : (
-                <>
-                  <span>Google bilan Davom Etish</span>
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-
+          <div className="space-y-4 animate-in fade-in duration-200">
+            {/* Quick 1-tap Google connect button */}
             <button
               type="button"
-              onClick={() => setIsGooglePromptOpen(false)}
-              className="w-full py-2 text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              disabled={isLoading}
+              onClick={() => handleConfirmGoogleAuth(undefined, "Google Foydalanuvchisi")}
+              className="w-full py-3.5 px-4 rounded-2xl bg-zinc-900 hover:bg-black dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-900 border border-zinc-700 dark:border-white text-xs sm:text-sm font-bold font-manrope transition-all duration-200 flex items-center justify-center gap-3 shadow-lg group cursor-pointer"
             >
-              Boshqa usulni tanlash
+              <GoogleIcon className="w-5 h-5 shrink-0 group-hover:scale-110 transition-transform" />
+              <span>Google bilan 1-bosishda davom etish</span>
             </button>
-          </form>
+
+            <div className="relative my-2 flex items-center justify-center">
+              <div className="w-full border-t border-zinc-200 dark:border-white/10" />
+              <span className="bg-white dark:bg-zinc-950 px-3 font-mono text-[10px] text-zinc-500 uppercase tracking-wider relative z-10">
+                yoki Google emailingizni kiriting
+              </span>
+            </div>
+
+            <form onSubmit={(e) => handleConfirmGoogleAuth(e)} className="space-y-3">
+              <div className="space-y-1">
+                <label className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
+                  Google Email manzilingiz:
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={googleEmail}
+                    onChange={(e) => setGoogleEmail(e.target.value)}
+                    placeholder="masalan: alisher@gmail.com"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] text-xs sm:text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none transition font-inter"
+                    autoFocus
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400 block">
+                  Ismingiz (ixtiyoriy):
+                </label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="text"
+                    value={googleName}
+                    onChange={(e) => setGoogleName(e.target.value)}
+                    placeholder="Alisher"
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] text-xs sm:text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none transition font-inter"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-3 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-sm shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                {isLoading ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Ulanmoqda...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Google orqali Kirish</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setIsGooglePromptOpen(false)}
+                className="w-full py-2 text-xs font-medium text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
+              >
+                Boshqa usulni tanlash
+              </button>
+            </form>
+          </div>
         ) : (
           /* 3. PRIMARY AUTH OPTIONS: GOOGLE & TELEGRAM */
           <div className="space-y-4">
