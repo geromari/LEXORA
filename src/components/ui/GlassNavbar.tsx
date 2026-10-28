@@ -46,9 +46,19 @@ export function GlassNavbar() {
   const handleLinkTelegram = async () => {
     try {
       setIsLinkingTelegram(true);
+      const isMobile =
+        typeof navigator !== "undefined" &&
+        /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      let authTab: Window | null = null;
+      if (!isMobile && typeof window !== "undefined") {
+        authTab = window.open("about:blank", "_blank");
+      }
+
       const res = await api.initTelegramAuth();
-      if (typeof window !== "undefined") {
-        window.open(res.bot_url, "_blank");
+      if (authTab) {
+        authTab.location.href = res.bot_url;
+      } else if (typeof window !== "undefined") {
+        window.location.href = res.bot_url;
       }
 
       if (linkPollingRef.current) clearInterval(linkPollingRef.current);
@@ -206,7 +216,7 @@ export function GlassNavbar() {
 
               {/* Telegram Bot */}
               <a
-                href="https://t.me/vydex_uzbot"
+                href="https://t.me/lexora_uzbot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors flex items-center gap-1.5"
@@ -249,7 +259,7 @@ export function GlassNavbar() {
               </Link>
 
               <a
-                href="https://t.me/vydex_uzbot"
+                href="https://t.me/lexora_uzbot"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors flex items-center gap-1.5"
@@ -536,7 +546,7 @@ export function GlassNavbar() {
 
                   {/* 6. Telegram Bot */}
                   <a
-                    href="https://t.me/vydex_uzbot"
+                    href="https://t.me/lexora_uzbot"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
@@ -544,7 +554,7 @@ export function GlassNavbar() {
                   >
                     <div className="flex items-center gap-3">
                       <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
-                      <span>Telegram Bot (@vydex_uzbot)</span>
+                      <span>Telegram Bot (@lexora_uzbot)</span>
                     </div>
                     <span className="text-[10px] text-zinc-400 font-mono">↗</span>
                   </a>
@@ -564,14 +574,6 @@ export function GlassNavbar() {
                       <span>Telegram hisobini ulash</span>
                     </button>
                   )}
-
-                  <Link
-                    href="/"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block text-center text-xs text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 py-1 transition"
-                  >
-                    🌐 Landing sahifasini ko&apos;rish
-                  </Link>
                 </div>
               </>
             ) : (
@@ -627,7 +629,7 @@ export function GlassNavbar() {
                   </Link>
 
                   <a
-                    href="https://t.me/vydex_uzbot"
+                    href="https://t.me/lexora_uzbot"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setMobileMenuOpen(false)}
@@ -635,7 +637,7 @@ export function GlassNavbar() {
                   >
                     <div className="flex items-center gap-3">
                       <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
-                      <span>Telegram Bot (@vydex_uzbot)</span>
+                      <span>Telegram Bot (@lexora_uzbot)</span>
                     </div>
                     <span className="text-[10px] text-zinc-400 font-mono">↗</span>
                   </a>
