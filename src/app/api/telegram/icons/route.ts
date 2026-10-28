@@ -8,15 +8,25 @@ export async function GET(req: NextRequest) {
     const appUrl = getAppUrl();
 
     // 1. If pack name is provided, fetch document IDs directly from Telegram API!
-    let packInfo: any = null;
+    let packInfo: {
+      name: string;
+      title: string;
+      is_custom_emoji: boolean;
+      stickers: Array<{ emoji: string; custom_emoji_id?: string; file_id: string }>;
+    } | null = null;
     if (packName) {
-      const stickerSet = await callTelegramApi("getStickerSet", { name: packName });
+      const stickerSet = await callTelegramApi<{
+        name: string;
+        title: string;
+        sticker_type: string;
+        stickers: Array<{ emoji: string; custom_emoji_id?: string; file_id: string }>;
+      }>("getStickerSet", { name: packName });
       if (stickerSet.ok && stickerSet.result) {
         packInfo = {
           name: stickerSet.result.name,
           title: stickerSet.result.title,
           is_custom_emoji: stickerSet.result.sticker_type === "custom_emoji",
-          stickers: stickerSet.result.stickers.map((s: any) => ({
+          stickers: stickerSet.result.stickers.map((s) => ({
             emoji: s.emoji,
             custom_emoji_id: s.custom_emoji_id,
             file_id: s.file_id,
@@ -43,7 +53,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       message: "Lucide Icons (https://lucide.dev/icons/) for Telegram Bot",
-      download_all_zip: `${appUrl}/telegram-icons/lexora-lucide-icons.zip`,
+      download_all_zip: `${appUrl}/telegram-icons/vydex-lucide-icons.zip`,
       visual_preview_url: `${appUrl}/telegram-icons/preview.html`,
       note_on_visibility: "Ikonkalar shaffof fonda bo'lgani uchun, oq ikonkalarni ko'rishda fonni qora yoki rangli qilib oching. Standart oq fonda ko'rish uchun 1_dark_icons papkasidagi qora ikonkalardan foydalaning.",
       icons: availableIcons,
@@ -57,7 +67,8 @@ export async function GET(req: NextRequest) {
         "6. Olingan ID larni Vercel Environment Variables ga (TELEGRAM_EMOJI_USER, TELEGRAM_EMOJI_CALENDAR va h.k.) kiriting.",
       ],
     });
-  } catch (error: any) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Error";
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
 }

@@ -40,7 +40,9 @@ export default function ReviewArenaPage() {
     if (user) {
       setStreakCount(user.streak_count);
     } else if (typeof window !== "undefined") {
-      const savedStreak = localStorage.getItem("lexora_streak");
+      const savedStreak =
+        localStorage.getItem("vydex_streak") ||
+        localStorage.getItem("lexora_streak");
       if (savedStreak) {
         setStreakCount(Number(savedStreak));
       }
@@ -114,6 +116,8 @@ export default function ReviewArenaPage() {
           setStreakCount(newStreak);
           setStreakIncremented(true);
           if (typeof window !== "undefined") {
+            localStorage.setItem("vydex_streak", String(newStreak));
+            localStorage.setItem("vydex_last_review", new Date().toISOString());
             localStorage.setItem("lexora_streak", String(newStreak));
             localStorage.setItem("lexora_last_review", new Date().toISOString());
           }

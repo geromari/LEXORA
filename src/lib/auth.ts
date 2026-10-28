@@ -3,10 +3,11 @@ import { cookies } from "next/headers";
 import prisma from "./prisma";
 
 const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || "lexora-secret-key-2026-production-jwt"
+  process.env.JWT_SECRET || "vydex-secret-key-2026-production-jwt"
 );
 
-export const COOKIE_NAME = "lexora_session";
+export const COOKIE_NAME = "vydex_session";
+export const LEGACY_COOKIE_NAME = "lexora_session";
 
 export interface TokenPayload {
   userId: string;
@@ -40,13 +41,17 @@ export async function getSessionUser(req?: Request) {
       token = authHeader.split(" ")[1];
     } else {
       const cookieHeader = req.headers.get("cookie") || "";
-      const match = cookieHeader.match(new RegExp(`(^|;\\s*)${COOKIE_NAME}=([^;]*)`));
+      const match =
+        cookieHeader.match(new RegExp(`(^|;\\s*)${COOKIE_NAME}=([^;]*)`)) ||
+        cookieHeader.match(new RegExp(`(^|;\\s*)${LEGACY_COOKIE_NAME}=([^;]*)`));
       if (match) token = match[2];
     }
   } else {
     try {
       const cookieStore = await cookies();
-      token = cookieStore.get(COOKIE_NAME)?.value;
+      token =
+        cookieStore.get(COOKIE_NAME)?.value ||
+        cookieStore.get(LEGACY_COOKIE_NAME)?.value;
     } catch {
       // Outside Request / Server Action context
     }

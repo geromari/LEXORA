@@ -1,4 +1,4 @@
-# 🌌 LEXORA — AI-Powered IELTS & CEFR Vocabulary Platform
+# 🌌 VYDEX — AI-Powered IELTS & CEFR Vocabulary Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-16.4-black?style=for-the-badge&logo=next.js" alt="Next.js" />
@@ -13,7 +13,7 @@
 
 ## 📖 Loyiha Haqida (About The Project)
 
-**Lexora** — O'zbekistonlik o'quvchi va abituriyentlar uchun maxsus ishlab chiqilgan, **sun'iy intellekt (Gemini AI)** hamda **interval takrorlash (Spaced Repetition System — Leitner Box 0–5)** tizimiga asoslangan ilg'or akademik lug'at platformasi.
+**Vydex** — O'zbekistonlik o'quvchi va abituriyentlar uchun maxsus ishlab chiqilgan, **sun'iy intellekt (Gemini AI)** hamda **interval takrorlash (Spaced Repetition System — Leitner Box 0–5)** tizimiga asoslangan ilg'or akademik lug'at platformasi.
 
 Barcha frontend va backend API marshrutlari yagona **Next.js Fullstack (App Router)** arxitekturasida jamlangan bo'lib, **faqatgina Vercel'ning o'zida bir zumda (1-klikda)** deploy qilinishi uchun to'liq moslashtirilgan.
 
@@ -24,7 +24,7 @@ Barcha frontend va backend API marshrutlari yagona **Next.js Fullstack (App Rout
 Loyihaning barcha qismlari bitta `src/` katalogida jamlangan:
 
 ```text
-LEXORA/
+VYDEX/
 ├── prisma/
 │   ├── schema.prisma      # Prisma sxemasi (User, Deck, Card, StudyProgress)
 │   ├── seed.ts            # 102 ta Flagship so'zlarni bazaga kiritish skripti
@@ -42,7 +42,7 @@ LEXORA/
 │   │   ├── review/        # Takrorlash arenasi
 │   │   ├── layout.tsx     # Asosiy sahifa skeleti
 │   │   ├── page.tsx       # Boshqaruv paneli (Dashboard)
-│   │   └── globals.css    # Tailwind CSS v4 Neo-brutalism dizayn tokenlari
+│   │   └── globals.css    # Tailwind CSS v4 dizayn tokenlari
 │   ├── components/        # UI, Dashboard, Study va Auth interfeyslari
 │   ├── context/           # AuthContext
 │   └── lib/               # Prisma, Auth (Jose), SRS, SmartMatch, Speech API
@@ -63,8 +63,8 @@ LEXORA/
    * `JWT_SECRET`: Ixtiyoriy maxfiy kalit.
    * `GEMINI_API_KEY`: (Ixtiyoriy) Gemini AI kaliti (kiritilmasa avtomatik aqlli fallback ishlaydi).
    * `TELEGRAM_BOT_TOKEN`: (Ixtiyoriy) Telegram botingiz tokeni (masalan, `@BotFather` orqali olingan).
-   * `TELEGRAM_BOT_USERNAME`: Telegram botingiz username'i (masalan: `lexora_uzbot`).
-   * `NEXT_PUBLIC_APP_URL`: Deploy bo'lgan Vercel domenining havolasi (masalan: `https://lexora.vercel.app`).
+   * `TELEGRAM_BOT_USERNAME`: Telegram botingiz username'i (masalan: `vydex_uzbot`).
+   * `NEXT_PUBLIC_APP_URL`: Deploy bo'lgan Vercel domenining havolasi (masalan: `https://lexora-two-cyan.vercel.app` yoki `https://vydex.uz`).
 4. **"Deploy"** tugmasini bosing! 
    * Vercel frontend va barcha backend API larni avtomatik tarzda bitta domenda deploy qiladi.
 
@@ -76,7 +76,7 @@ Vercel — **Serverless** platforma bo'lib, unda doimiy ishlaydigan background j
 
 1. **Vercel'da Environment Variables kiriting**:
    - `TELEGRAM_BOT_TOKEN`: Bot tokeningiz.
-   - `TELEGRAM_BOT_USERNAME`: Masalan, `lexora_uzbot`.
+   - `TELEGRAM_BOT_USERNAME`: Masalan, `vydex_uzbot`.
    - `NEXT_PUBLIC_APP_URL`: Vercel domen manzilingiz (masalan: `https://sizning-domen.vercel.app`).
 2. **Webhookni 1-klikda faollashtirish**:
    Deploy bo'lgandan so'ng, brauzeringizda quyidagi manzilni oching:
@@ -113,4 +113,4 @@ Platforma `http://localhost:3000` manzilida ishga tushadi.
 
 ## 📄 Litsenziya
 
-MIT License © 2026 Lexora Team.
+MIT License © 2026 Vydex AI Team.

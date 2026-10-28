@@ -1,13 +1,14 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import {
   getBotToken,
   getAppUrl,
   getTelegramBotMe,
   getTelegramWebhookInfo,
   setTelegramWebhook,
+  setMyBotCommands,
 } from "@/lib/telegram";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     const token = getBotToken();
     if (!token) {
@@ -46,22 +47,27 @@ export async function GET(req: NextRequest) {
       process.env.TELEGRAM_WEBHOOK_SECRET
     );
 
-    // 3. Get Current Webhook Info
+    // 3. Register Bot Menu Commands (/quiz, /review, /stats, /hard, /check, etc.)
+    const commandsRes = await setMyBotCommands();
+
+    // 4. Get Current Webhook Info
     const infoRes = await getTelegramWebhookInfo();
 
     return NextResponse.json({
       ok: true,
-      message: "Telegram Bot Webhook muvaffaqiyatli sozlandi!",
+      message: "Telegram Bot Webhook va menyu buyruqlari muvaffaqiyatli sozlandi!",
       bot: botMe.result,
       webhook_url: webhookUrl,
       set_webhook_result: setRes,
+      commands_registered: commandsRes.ok,
       webhook_status: infoRes.result,
       hint: "Endi Telegramda botingizga /start buyrug'ini yuborib tekshirib ko'rishingiz mumkin.",
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMsg = error instanceof Error ? error.message : "Xatolik yuz berdi";
     console.error("Telegram setup error:", error);
     return NextResponse.json(
-      { ok: false, error: error.message || "Xatolik yuz berdi" },
+      { ok: false, error: errorMsg },
       { status: 500 }
     );
   }

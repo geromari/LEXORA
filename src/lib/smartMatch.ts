@@ -1,5 +1,5 @@
 /**
- * Smart Match Validator for Lexora IELTS/CEFR Vocabulary Platform
+ * Smart Match Validator for Vydex IELTS/CEFR Vocabulary Platform
  * Supports Uzbek Latin diacritics, apostrophes, and flexible keyword matching
  */
 

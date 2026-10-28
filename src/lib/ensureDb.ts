@@ -3,7 +3,7 @@ import seedWordsData from "../../prisma/seed_words.json";
 
 let isEnsured = false;
 
-export async function ensureLexoraDb() {
+export async function ensureVydexDb() {
   if (isEnsured) return;
 
   try {
@@ -85,9 +85,12 @@ export async function ensureLexoraDb() {
       await autoSeedDecks();
     }
   } catch (err) {
-    console.warn("ensureLexoraDb notice:", err);
+    console.warn("ensureVydexDb notice:", err);
   }
 }
+
+// Backward-compatible alias
+export const ensureLexoraDb = ensureVydexDb;
 
 async function autoSeedDecks() {
   try {

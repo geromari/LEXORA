@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # ==============================================================================
-#  LEXORA — Unified Next.js Fullstack Platform
+#  VYDEX — Unified Next.js Fullstack Platform
 # ==============================================================================
 
 set -e
@@ -15,7 +15,7 @@ RESET="\033[0m"
 
 echo -e "${PURPLE}${BOLD}"
 echo "=================================================================="
-echo "          🌌 LEXORA FULLSTACK PLATFORM (VERCEL READY)             "
+echo "          🌌 VYDEX FULLSTACK PLATFORM (VERCEL READY)              "
 echo "=================================================================="
 echo -e "${RESET}"
 
@@ -27,7 +27,7 @@ if [ ! -d "node_modules" ]; then
     npm install
 fi
 
-echo -e "${GREEN}✨ Lexora Next.js Fullstack ilovasi ishga tushirilmoqda...${RESET}"
+echo -e "${GREEN}✨ Vydex Next.js Fullstack ilovasi ishga tushirilmoqda...${RESET}"
 echo -e "🌐 Web: ${CYAN}http://localhost:3000${RESET}\n"
 
 exec npm run dev -- -p 3000

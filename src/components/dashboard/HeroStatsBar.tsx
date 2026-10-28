@@ -34,8 +34,8 @@ export function HeroStatsBar({
       value: safeTotalLearned,
       subValue: `${safeTotalCards} ta jami so'zdan`,
       icon: BookOpen,
-      iconColor: "text-zinc-300",
-      href: "/#decks",
+      iconColor: "text-zinc-600 dark:text-zinc-300",
+      href: "/dashboard#decks",
     },
     {
       id: "streak",
@@ -62,7 +62,7 @@ export function HeroStatsBar({
       value: `${safeAccuracy}%`,
       subValue: "xotira ko'rsatkichi",
       icon: Target,
-      iconColor: "text-emerald-400",
+      iconColor: "text-emerald-500",
       href: "/review",
     },
   ];
@@ -75,40 +75,48 @@ export function HeroStatsBar({
           <Link
             key={stat.id}
             href={stat.href}
-            className={`group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between relative overflow-hidden bg-gradient-to-b from-zinc-900/60 to-black ${
+            className={`group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between relative overflow-hidden bg-white dark:bg-zinc-950/80 shadow-sm dark:shadow-none ${
               stat.highlight
-                ? "border-[#ef233c]/60 shadow-[0_0_30px_rgba(239,35,60,0.18)]"
-                : "border-white/10 hover:border-white/20"
+                ? "border-[#ef233c] shadow-[0_0_25px_rgba(239,35,60,0.15)] ring-1 ring-[#ef233c]/20"
+                : "border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-md"
             }`}
           >
             {/* Top row */}
             <div className="flex items-center justify-between mb-4 relative z-10">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
                 {stat.label}
               </span>
-              <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 group-hover:scale-105 transition-transform">
+              <div className="p-2.5 rounded-xl bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 group-hover:scale-105 transition-transform">
                 <Icon className={`w-4 h-4 ${stat.iconColor}`} />
               </div>
             </div>
 
             {/* Value display */}
             <div className="space-y-1 relative z-10">
-              <div className="text-3xl sm:text-4xl font-bold font-manrope text-white tracking-tight">
+              <div className="text-3xl sm:text-4xl font-bold font-manrope text-zinc-900 dark:text-white tracking-tight">
                 {isLoading ? (
-                  <span className="inline-block w-20 h-9 bg-zinc-800 animate-pulse rounded-lg" />
+                  <span className="inline-block w-20 h-9 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded-lg" />
                 ) : (
                   stat.value
                 )}
               </div>
-              <p className="text-xs text-zinc-400 font-inter">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-inter">
                 {stat.subValue}
               </p>
             </div>
 
-            {/* Subtle red hover glow */}
+            {/* Footer arrow hint */}
+            <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between text-[11px] font-medium text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors relative z-10">
+              <span>Batafsil ko&apos;rish</span>
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#ef233c]" />
+            </div>
+
+            {/* Ambient hover glow */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity pointer-events-none"
-              style={{ background: "radial-gradient(circle at top right, #ef233c, transparent 70%)" }}
+              className="absolute inset-0 opacity-0 group-hover:opacity-10 dark:group-hover:opacity-10 transition-opacity pointer-events-none"
+              style={{
+                background: "radial-gradient(circle at top right, #ef233c, transparent 70%)",
+              }}
             />
           </Link>
         );

@@ -5,7 +5,7 @@ import * as path from "path";
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log("Seeding Lexora Database with 102 Flagship Academic Words...");
+  console.log("Seeding Vydex Database with 102 Flagship Academic Words...");
 
   const jsonPath = path.join(__dirname, "seed_words.json");
   const rawData = fs.readFileSync(jsonPath, "utf-8");

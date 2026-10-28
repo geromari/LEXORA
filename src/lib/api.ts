@@ -115,7 +115,10 @@ export interface CheckSentenceResponse {
 
 function getAuthToken(): string | null {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("lexora_auth_token");
+    return (
+      localStorage.getItem("vydex_auth_token") ||
+      localStorage.getItem("lexora_auth_token")
+    );
   }
   return null;
 }
@@ -173,6 +176,16 @@ export const api = {
     avatar_url?: string;
   }) =>
     request<TokenResponse>("/api/auth/telegram", {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  loginGoogle: (payload: {
+    email: string;
+    name?: string;
+    avatar_url?: string;
+    google_id?: string;
+  }) =>
+    request<TokenResponse>("/api/auth/google", {
       method: "POST",
       body: JSON.stringify(payload),
     }),

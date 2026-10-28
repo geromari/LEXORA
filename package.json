@@ -1,7 +1,7 @@
 {
-  "name": "lexora",
+  "name": "vydex",
   "version": "1.0.0",
-  "description": "Lexora — O'zbek o'quvchilari uchun AI IELTS/CEFR Lug'at Platformasi",
+  "description": "Vydex — O'zbek o'quvchilari uchun AI IELTS/CEFR Lug'at Platformasi",
   "private": true,
   "scripts": {
     "dev": "next dev",

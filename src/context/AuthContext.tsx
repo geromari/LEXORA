@@ -19,6 +19,12 @@ interface AuthContextType {
     first_name?: string;
     avatar_url?: string;
   }) => Promise<void>;
+  loginWithGoogle: (googleData: {
+    email: string;
+    name?: string;
+    avatar_url?: string;
+    google_id?: string;
+  }) => Promise<void>;
   setAuthSession: (access_token: string, user: UserProfile) => void;
   logout: () => void;
   refreshUser: () => Promise<void>;
@@ -44,9 +50,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const handleAuthSuccess = useCallback((tokenRes: TokenResponse) => {
     if (typeof window !== "undefined") {
+      localStorage.setItem("vydex_auth_token", tokenRes.access_token);
+      localStorage.setItem("vydex_user", JSON.stringify(tokenRes.user));
+      localStorage.setItem("vydex_streak", String(tokenRes.user.streak_count));
+      // Backward compatibility
       localStorage.setItem("lexora_auth_token", tokenRes.access_token);
       localStorage.setItem("lexora_user", JSON.stringify(tokenRes.user));
-      localStorage.setItem("lexora_streak", String(tokenRes.user.streak_count));
+      window.dispatchEvent(new CustomEvent("vydex-auth-changed"));
       window.dispatchEvent(new CustomEvent("lexora-auth-changed"));
     }
     setToken(tokenRes.access_token);
@@ -59,8 +69,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const profile = await api.getMe();
       setUser(profile);
       if (typeof window !== "undefined") {
+        localStorage.setItem("vydex_user", JSON.stringify(profile));
+        localStorage.setItem("vydex_streak", String(profile.streak_count));
         localStorage.setItem("lexora_user", JSON.stringify(profile));
-        localStorage.setItem("lexora_streak", String(profile.streak_count));
       }
     } catch (err) {
       console.error("Failed to refresh user profile:", err);
@@ -71,8 +82,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initAuth = async () => {
       if (typeof window !== "undefined") {
-        const savedToken = localStorage.getItem("lexora_auth_token");
-        const savedUserStr = localStorage.getItem("lexora_user");
+        const savedToken =
+          localStorage.getItem("vydex_auth_token") ||
+          localStorage.getItem("lexora_auth_token");
+        const savedUserStr =
+          localStorage.getItem("vydex_user") ||
+          localStorage.getItem("lexora_user");
 
         if (savedToken) {
           setToken(savedToken);
@@ -88,10 +103,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           try {
             const profile = await api.getMe();
             setUser(profile);
-            localStorage.setItem("lexora_user", JSON.stringify(profile));
-            localStorage.setItem("lexora_streak", String(profile.streak_count));
+            localStorage.setItem("vydex_user", JSON.stringify(profile));
+            localStorage.setItem("vydex_streak", String(profile.streak_count));
           } catch (err) {
             console.warn("Token expired or invalid, logging out:", err);
+            localStorage.removeItem("vydex_auth_token");
+            localStorage.removeItem("vydex_user");
             localStorage.removeItem("lexora_auth_token");
             localStorage.removeItem("lexora_user");
             setToken(null);
@@ -136,6 +153,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     handleAuthSuccess(res);
   };
 
+  const loginWithGoogle = async (googleData: {
+    email: string;
+    name?: string;
+    avatar_url?: string;
+    google_id?: string;
+  }) => {
+    const res = await api.loginGoogle(googleData);
+    handleAuthSuccess(res);
+  };
+
   const setAuthSession = useCallback((access_token: string, newUser: UserProfile) => {
     handleAuthSuccess({
       access_token,
@@ -146,8 +173,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     if (typeof window !== "undefined") {
+      localStorage.removeItem("vydex_auth_token");
+      localStorage.removeItem("vydex_user");
       localStorage.removeItem("lexora_auth_token");
       localStorage.removeItem("lexora_user");
+      window.dispatchEvent(new CustomEvent("vydex-auth-changed"));
       window.dispatchEvent(new CustomEvent("lexora-auth-changed"));
     }
     setToken(null);
@@ -167,6 +197,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         login,
         register,
         loginWithTelegram,
+        loginWithGoogle,
         setAuthSession,
         logout,
         refreshUser,
