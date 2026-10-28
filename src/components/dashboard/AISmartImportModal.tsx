@@ -99,31 +99,29 @@ export function AISmartImportModal({
   const handleSaveDeck = async () => {
     const cardsToSave = extractedCards.filter((_, idx) => selectedIndices.includes(idx));
     if (cardsToSave.length === 0) {
-      setErrorMessage("To'plam yaratish uchun kamida bitta so'z tanlang.");
+      setErrorMessage("Kamida bitta so'z tanlanishi kerak.");
       return;
     }
 
     try {
       setIsSaving(true);
       setErrorMessage(null);
-
       const newDeck = await api.createDeck({
-        title: deckTitle.trim() || "Yangi AI To'plami",
-        description: deckDescription.trim(),
+        title: deckTitle || "AI Tahlili So'zlar To'plami",
+        description: deckDescription || `AI yordamida yaratilgan ${cardsToSave.length} ta so'z`,
         level: level,
-        is_public: false,
         cards: cardsToSave.map((c) => ({
-          term_en: c.term_en.trim(),
-          meaning_uz: c.meaning_uz.trim(),
-          synonyms: c.synonyms || undefined,
-          example_en: c.example_en || undefined,
+          term_en: c.term_en,
+          meaning_uz: c.meaning_uz,
+          synonyms: c.synonyms,
+          example_en: c.example_en,
         })),
       });
 
       onDeckCreated(newDeck);
       onClose();
     } catch (err: any) {
-      console.error("Save deck error:", err);
+      console.error("Save AI deck error:", err);
       setErrorMessage(err.message || "To'plamni saqlashda xatolik yuz berdi.");
     } finally {
       setIsSaving(false);
@@ -132,34 +130,34 @@ export function AISmartImportModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 dark:bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-zinc-950 border border-white/10 shadow-[0_0_60px_rgba(239,35,60,0.18)] p-6 sm:p-8 text-white"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-white/10 shadow-2xl dark:shadow-[0_0_60px_rgba(239,35,60,0.18)] p-6 sm:p-8 text-zinc-900 dark:text-white transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#ef233c] shadow-[0_0_12px_rgba(239,35,60,0.4)]">
+            <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#ef233c] shadow-sm">
               <Wand2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-xl font-bold font-manrope text-white">Smart Text-to-Deck</h3>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#ef233c]/20 text-[#ef233c] border border-[#ef233c]/30 uppercase font-mono">
+                <h3 className="text-xl font-bold font-manrope text-zinc-900 dark:text-white">Smart Text-to-Deck</h3>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 dark:bg-[#ef233c]/20 text-[#ef233c] border border-red-200 dark:border-[#ef233c]/30 uppercase font-mono">
                   Gemini AI
                 </span>
               </div>
-              <p className="text-xs text-zinc-400 font-inter">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-inter">
                 Istalgan inglizcha maqola yoki mavzudan C1/IELTS so&apos;zlarni o&apos;zbekcha tarjimasi bilan ajratib oling
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl border border-white/10 bg-white/5 text-zinc-400 hover:text-white hover:bg-white/10 cursor-pointer transition"
+            className="p-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white cursor-pointer transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -167,8 +165,8 @@ export function AISmartImportModal({
 
         {/* Error message */}
         {errorMessage && (
-          <div className="mt-4 p-3 rounded-xl bg-red-950/50 border border-red-500/40 flex items-center gap-2.5 text-xs font-medium text-red-300">
-            <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-500/40 flex items-center gap-2.5 text-xs font-medium text-red-600 dark:text-red-300">
+            <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -177,7 +175,7 @@ export function AISmartImportModal({
         {extractedCards.length === 0 ? (
           <div className="mt-6 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <label className="text-xs font-mono uppercase tracking-wider text-zinc-400">
+              <label className="text-xs font-mono uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
                 IELTS Reading yoki mavzu matnini kiriting:
               </label>
 
@@ -189,11 +187,11 @@ export function AISmartImportModal({
                 >
                   Namunaviy IELTS Matni
                 </button>
-                <span className="text-zinc-600">•</span>
+                <span className="text-zinc-400">•</span>
                 <select
                   value={level}
                   onChange={(e) => setLevel(e.target.value)}
-                  className="px-2.5 py-1 rounded-lg bg-zinc-900 border border-white/10 text-xs font-medium text-white outline-none focus:border-[#ef233c]"
+                  className="px-2.5 py-1 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 text-xs font-medium text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
                 >
                   <option value="C1">C1 (Advanced)</option>
                   <option value="C2">C2 (Proficiency)</option>
@@ -208,14 +206,14 @@ export function AISmartImportModal({
               onChange={(e) => setPassageText(e.target.value)}
               rows={8}
               placeholder="Inglizcha matn yoki so'zlarni shu yerga yozing..."
-              className="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/10 focus:border-[#ef233c] outline-none text-xs sm:text-sm font-inter text-white placeholder:text-zinc-500 transition-all leading-relaxed resize-y"
+              className="w-full px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] outline-none text-xs sm:text-sm font-inter text-zinc-900 dark:text-white placeholder:text-zinc-400 transition-all leading-relaxed resize-y"
             />
 
             <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:text-white hover:bg-white/10 font-semibold text-xs sm:text-sm transition cursor-pointer"
+                className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white font-semibold text-xs sm:text-sm transition cursor-pointer"
               >
                 Bekor Qilish
               </button>
@@ -224,7 +222,7 @@ export function AISmartImportModal({
                 type="button"
                 onClick={handleExtract}
                 disabled={isExtracting || passageText.trim().length < 10}
-                className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-[0_0_20px_rgba(239,35,60,0.4)] flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{isExtracting ? "Tahlil qilinmoqda..." : "AI Bilan Tahlil Qilish"}</span>
@@ -235,39 +233,39 @@ export function AISmartImportModal({
           /* Preview Phase: Editable Extracted Cards & Deck Creation */
           <div className="mt-6 space-y-5">
             {/* Deck Metadata Config */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+            <div className="p-4 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div className="sm:col-span-2 space-y-1">
-                  <label className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+                  <label className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
                     Yangi To&apos;plam Nomi
                   </label>
                   <input
                     type="text"
                     value={deckTitle}
                     onChange={(e) => setDeckTitle(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-xs sm:text-sm font-semibold text-white outline-none focus:border-[#ef233c]"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">
+                  <label className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400 uppercase tracking-wider">
                     Daraja
                   </label>
                   <input
                     type="text"
                     value={level}
                     onChange={(e) => setLevel(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-xs sm:text-sm font-semibold text-white outline-none focus:border-[#ef233c]"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
                   />
                 </div>
               </div>
             </div>
 
             {/* Extracted Words Toolbar */}
-            <div className="flex items-center justify-between text-xs text-zinc-400 px-1 font-medium">
+            <div className="flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400 px-1 font-medium">
               <span>
                 Tanlangan:{" "}
-                <strong className="text-white font-bold">
+                <strong className="text-zinc-900 dark:text-white font-bold">
                   {selectedIndices.length} / {extractedCards.length}
                 </strong>{" "}
                 ta so&apos;z
@@ -284,7 +282,7 @@ export function AISmartImportModal({
                 <button
                   type="button"
                   onClick={() => setExtractedCards([])}
-                  className="text-zinc-400 hover:text-white"
+                  className="text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
                 >
                   Matnni qayta kiritish
                 </button>
@@ -300,8 +298,8 @@ export function AISmartImportModal({
                     key={idx}
                     className={`p-3.5 rounded-2xl border transition-all ${
                       isSelected
-                        ? "bg-zinc-900/60 border-white/20 shadow-md"
-                        : "bg-black/40 border-white/5 opacity-50"
+                        ? "bg-white dark:bg-zinc-900/60 border-[#ef233c]/40 dark:border-white/20 shadow-sm"
+                        : "bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/5 opacity-60"
                     }`}
                   >
                     <div className="flex items-center justify-between gap-3 mb-2">
@@ -312,12 +310,12 @@ export function AISmartImportModal({
                           className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all cursor-pointer ${
                             isSelected
                               ? "bg-[#ef233c] border-[#ef233c] text-white"
-                              : "bg-white/5 border-white/20"
+                              : "bg-white dark:bg-white/5 border-zinc-300 dark:border-white/20"
                           }`}
                         >
                           {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                         </button>
-                        <span className="text-xs font-mono text-zinc-400">
+                        <span className="text-xs font-mono text-zinc-500 dark:text-zinc-400">
                           #{idx + 1}
                         </span>
                       </div>
@@ -325,7 +323,7 @@ export function AISmartImportModal({
                       <button
                         type="button"
                         onClick={() => handleDeleteCard(idx)}
-                        className="text-zinc-500 hover:text-red-400 p-1 transition-colors cursor-pointer"
+                        className="text-zinc-400 hover:text-red-500 p-1 transition-colors cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -337,14 +335,14 @@ export function AISmartImportModal({
                         value={card.term_en}
                         onChange={(e) => handleUpdateCard(idx, "term_en", e.target.value)}
                         placeholder="Inglizcha so'z"
-                        className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs font-bold text-white outline-none focus:border-[#ef233c]"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-bold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
                       />
                       <input
                         type="text"
                         value={card.meaning_uz}
                         onChange={(e) => handleUpdateCard(idx, "meaning_uz", e.target.value)}
                         placeholder="O'zbekcha tarjima"
-                        className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-xs font-medium text-white outline-none focus:border-[#ef233c]"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-medium text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
                       />
                     </div>
 
@@ -354,14 +352,14 @@ export function AISmartImportModal({
                         value={card.synonyms || ""}
                         onChange={(e) => handleUpdateCard(idx, "synonyms", e.target.value)}
                         placeholder="Sinonimlar"
-                        className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-[11px] text-zinc-400 outline-none focus:border-[#ef233c]"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-[11px] text-zinc-600 dark:text-zinc-400 outline-none focus:border-[#ef233c]"
                       />
                       <input
                         type="text"
                         value={card.example_en || ""}
                         onChange={(e) => handleUpdateCard(idx, "example_en", e.target.value)}
                         placeholder="Namunaviy gap"
-                        className="px-3 py-1.5 rounded-xl bg-black/60 border border-white/10 text-[11px] text-zinc-400 outline-none focus:border-[#ef233c] italic"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-[11px] text-zinc-600 dark:text-zinc-400 outline-none focus:border-[#ef233c] italic"
                       />
                     </div>
                   </div>
@@ -370,11 +368,11 @@ export function AISmartImportModal({
             </div>
 
             {/* Action Bar */}
-            <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+            <div className="pt-4 border-t border-zinc-200 dark:border-white/10 flex items-center justify-between">
               <button
                 type="button"
                 onClick={() => setExtractedCards([])}
-                className="px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:text-white font-semibold text-xs sm:text-sm transition cursor-pointer"
+                className="px-5 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 bg-zinc-100 dark:bg-white/5 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white font-semibold text-xs sm:text-sm transition cursor-pointer"
               >
                 Orqaga
               </button>
@@ -383,7 +381,7 @@ export function AISmartImportModal({
                 type="button"
                 onClick={handleSaveDeck}
                 disabled={selectedIndices.length === 0 || isSaving}
-                className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-[0_0_20px_rgba(239,35,60,0.4)] flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>To&apos;plam Sifatida Saqlash ({selectedIndices.length})</span>

@@ -15,15 +15,15 @@ const variantStyles = {
   primary:
     "bg-[#ef233c] hover:bg-red-700 text-white font-bold shadow-[0_0_20px_rgba(239,35,60,0.35)] active:scale-95 border border-transparent",
   ai:
-    "bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold active:scale-95 shadow-[0_0_15px_rgba(255,255,255,0.1)]",
+    "bg-zinc-900 dark:bg-white/10 hover:bg-black dark:hover:bg-white/20 text-white border border-zinc-800 dark:border-white/20 font-bold active:scale-95 shadow-sm",
   secondary:
-    "bg-white/5 hover:bg-white/10 text-zinc-300 hover:text-white border border-white/10 font-medium active:scale-95",
+    "bg-zinc-100 hover:bg-zinc-200 dark:bg-white/5 dark:hover:bg-white/10 text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white border border-zinc-200 dark:border-white/10 font-medium active:scale-95",
   success:
     "bg-emerald-600 hover:bg-emerald-500 text-white font-bold shadow-[0_0_15px_rgba(16,185,129,0.35)] active:scale-95 border border-transparent",
   danger:
     "bg-rose-600 hover:bg-rose-500 text-white font-bold active:scale-95 border border-transparent",
   ghost:
-    "bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white font-medium border border-transparent",
+    "bg-transparent hover:bg-zinc-100 dark:hover:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white font-medium border border-transparent",
 };
 
 const sizeStyles = {

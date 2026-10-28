@@ -113,28 +113,32 @@ export async function smartLookupWord(queryRaw: string): Promise<WordLookupResul
   if (!cleanTerm || cleanTerm.length > 80) return null;
 
   // 1. Check Database Cards
-  const existingCard = await prisma.card.findFirst({
-    where: {
-      termEn: {
-        equals: cleanTerm,
-        mode: "insensitive",
+  try {
+    const existingCard = await prisma.card.findFirst({
+      where: {
+        termEn: {
+          equals: cleanTerm,
+          mode: "insensitive",
+        },
       },
-    },
-    include: { deck: true },
-  });
+      include: { deck: true },
+    });
 
-  if (existingCard) {
-    return {
-      termEn: existingCard.termEn,
-      meaningUz: existingCard.meaningUz,
-      phonetic: CURATED_LEXICON[cleanTerm]?.phonetic,
-      partOfSpeech: "academic term",
-      level: existingCard.deck?.level || "C1",
-      synonyms: existingCard.synonyms || undefined,
-      exampleEn: existingCard.exampleEn || undefined,
-      cardId: existingCard.id,
-      source: "database",
-    };
+    if (existingCard) {
+      return {
+        termEn: existingCard.termEn,
+        meaningUz: existingCard.meaningUz,
+        phonetic: CURATED_LEXICON[cleanTerm]?.phonetic,
+        partOfSpeech: "academic term",
+        level: existingCard.deck?.level || "C1",
+        synonyms: existingCard.synonyms || undefined,
+        exampleEn: existingCard.exampleEn || undefined,
+        cardId: existingCard.id,
+        source: "database",
+      };
+    }
+  } catch (dbErr) {
+    console.warn("DB lookup notice:", dbErr);
   }
 
   // 2. Check Seed words data
@@ -316,32 +320,37 @@ async function ensureDefaultDeckAndCard(
   synonyms: string,
   exampleEn: string
 ) {
-  let deck = await prisma.deck.findFirst({
-    where: { isPublic: true },
-  });
+  try {
+    let deck = await prisma.deck.findFirst({
+      where: { isPublic: true },
+    });
 
-  if (!deck) {
-    deck = await prisma.deck.create({
+    if (!deck) {
+      deck = await prisma.deck.create({
+        data: {
+          title: "IELTS & Academic Core",
+          description: "Akademik so'zlar va iboralar to'plami",
+          level: "C1",
+          isPublic: true,
+        },
+      });
+    }
+
+    const card = await prisma.card.create({
       data: {
-        title: "IELTS & Academic Core",
-        description: "Akademik so'zlar va iboralar to'plami",
-        level: "C1",
-        isPublic: true,
+        deckId: deck.id,
+        termEn,
+        meaningUz,
+        synonyms,
+        exampleEn,
       },
     });
+
+    return card;
+  } catch (err) {
+    console.warn("Could not save card to DB:", err);
+    return { id: 0, deckId: 0, termEn, meaningUz, synonyms, exampleEn };
   }
-
-  const card = await prisma.card.create({
-    data: {
-      deckId: deck.id,
-      termEn,
-      meaningUz,
-      synonyms,
-      exampleEn,
-    },
-  });
-
-  return card;
 }
 
 /**
