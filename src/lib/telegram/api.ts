@@ -133,6 +133,8 @@ export async function getTelegramBotMe() {
 
 export async function setMyBotCommands() {
   const commands = [
+    { command: "decks", description: "📚 Mening to'plamlarim va lug'atlar" },
+    { command: "all", description: "🔥 Barcha lug'atni takrorlash" },
     { command: "quiz", description: "⚡️ 5 ta so'zdan iborat tezkor SRS testi" },
     { command: "review", description: "🗓 Kunlik takrorlash navbati" },
     { command: "stats", description: "📊 Shaxsiy profil va xotira statistikasi" },

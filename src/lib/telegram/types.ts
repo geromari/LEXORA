@@ -87,7 +87,9 @@ export interface QuizSession {
   id: string;
   userId: string;
   chatId: number;
-  mode: "standard" | "hard" | "review";
+  mode: "standard" | "hard" | "review" | "deck" | "all";
+  deckId?: number;
+  deckTitle?: string;
   currentIndex: number;
   questions: QuizQuestion[];
   userAnswers: {

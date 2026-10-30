@@ -25,6 +25,11 @@ const DEFAULT_DISTRACTORS = [
   "mayda detallarigacha sinchiklab bajarilgan",
   "barqaror, uzoq muddat davom etuvchi",
   "muqarrar, qochib bo'lmaydigan",
+  "chuqur, teran, ta'sirli",
+  "muhim burilish nuqtasi",
+  "tez moslashuvchan, chidamli",
+  "keng qamrovli, har tomonlama",
+  "ravshan, yaqqol ko'rinib turgan",
 ];
 
 interface CardItem {
@@ -36,16 +41,82 @@ interface CardItem {
   exampleEn: string | null;
 }
 
+export interface CreateQuizOptions {
+  deckId?: number;
+  limit?: number | "all";
+}
+
 export async function createQuizSession(
   userId: string,
   chatId: number,
-  mode: "standard" | "hard" | "review" = "standard"
+  mode: "standard" | "hard" | "review" | "deck" | "all" = "standard",
+  options?: CreateQuizOptions
 ): Promise<QuizSession | null> {
   const now = new Date();
   let candidateCards: CardItem[] = [];
+  let deckTitle: string | undefined;
 
-  if (mode === "hard") {
-    // 1. Pick hard words (wrongCount > 0 or boxLevel 0)
+  // 1. Muayyan to'plam (Deck) bo'yicha takrorlash
+  if (mode === "deck" && options?.deckId) {
+    const deck = await prisma.deck.findUnique({
+      where: { id: options.deckId },
+      include: {
+        cards: {
+          orderBy: { id: "asc" },
+        },
+      },
+    });
+
+    if (!deck || deck.cards.length === 0) {
+      return null;
+    }
+
+    deckTitle = deck.title;
+
+    if (options.limit === 5 && deck.cards.length > 5) {
+      candidateCards = [...deck.cards].sort(() => 0.5 - Math.random()).slice(0, 5);
+    } else {
+      // Foydalanuvchi talabi: to'plamdagi BARCHA lug'atni to'liq takrorlash
+      candidateCards = [...deck.cards].sort(() => 0.5 - Math.random());
+    }
+  }
+
+  // 2. Barcha mavjud yuklangan lug'atlarni birdan takrorlash
+  else if (mode === "all") {
+    const accessibleDecks = await prisma.deck.findMany({
+      where: {
+        OR: [{ isPublic: true }, { userId }],
+      },
+      include: {
+        cards: true,
+      },
+    });
+
+    const allCards = accessibleDecks.flatMap((d) => d.cards);
+
+    // Unikal so'zlarni ajratib olish (termEn bo'yicha)
+    const seenTerms = new Set<string>();
+    const deduped: CardItem[] = [];
+    for (const card of allCards) {
+      const key = card.termEn.toLowerCase().trim();
+      if (!seenTerms.has(key)) {
+        seenTerms.add(key);
+        deduped.push(card);
+      }
+    }
+
+    deckTitle = "Barcha lug'atlar";
+
+    if (options?.limit && typeof options.limit === "number") {
+      candidateCards = deduped.sort(() => 0.5 - Math.random()).slice(0, options.limit);
+    } else {
+      // BARCHA yuklangan so'zlar
+      candidateCards = deduped.sort(() => 0.5 - Math.random());
+    }
+  }
+
+  // 3. Qiyin so'zlarni takrorlash
+  else if (mode === "hard") {
     const hardProgress = await prisma.studyProgress.findMany({
       where: {
         userId,
@@ -53,44 +124,52 @@ export async function createQuizSession(
       },
       include: { card: true },
       orderBy: [{ wrongCount: "desc" }, { boxLevel: "asc" }],
-      take: 15,
+      take: options?.limit && typeof options.limit === "number" ? options.limit : 50,
     });
     candidateCards = hardProgress.map((p) => p.card);
-  } else if (mode === "review") {
-    // 2. Pick due review words
+    deckTitle = "Qiyin so'zlar";
+
+    if (options?.limit === 5 && candidateCards.length > 5) {
+      candidateCards = candidateCards.slice(0, 5);
+    }
+  }
+
+  // 4. Kunlik takrorlash (SRS due)
+  else if (mode === "review") {
     const dueProgress = await prisma.studyProgress.findMany({
       where: {
         userId,
         nextReviewAt: { lte: now },
       },
       include: { card: true },
-      take: 15,
+      orderBy: { nextReviewAt: "asc" },
+      take: options?.limit && typeof options.limit === "number" ? options.limit : undefined,
     });
     candidateCards = dueProgress.map((p) => p.card);
+    deckTitle = "Kunlik takrorlash";
+
+    if (options?.limit === 5 && candidateCards.length > 5) {
+      candidateCards = candidateCards.slice(0, 5);
+    }
   }
 
-  // If candidate count < 5, supplement with other cards
-  if (candidateCards.length < 5) {
-    const existingIds = candidateCards.map((c) => c.id);
-    const needed = 5 - candidateCards.length;
+  // 5. Standart Tezkor Quiz
+  else {
+    deckTitle = "Tezkor Quiz";
+    const limit = typeof options?.limit === "number" ? options.limit : 5;
 
-    const extraCards = await prisma.card.findMany({
-      where: {
-        id: { notIn: existingIds },
-      },
-      take: 30,
+    const someCards = await prisma.card.findMany({
+      take: 50,
     });
-
-    // Shuffle and pick
-    const shuffledExtra = extraCards.sort(() => 0.5 - Math.random()).slice(0, needed);
-    candidateCards.push(...shuffledExtra);
+    candidateCards = someCards.sort(() => 0.5 - Math.random()).slice(0, limit);
   }
 
-  // If still < 5 (e.g. fresh empty DB), seed from seed_words.json
-  if (candidateCards.length < 5) {
+  // Standart yoki bo'sh bazada agar kartalar soni < 5 bo'lsa, seed_words dan to'ldirish
+  if (candidateCards.length < 5 && (mode === "standard" || candidateCards.length === 0)) {
     const seedPool = [
       ...(seedWordsData.core_47 || []),
       ...(seedWordsData.academic_55 || []),
+      ...((seedWordsData as any).architecture_urban_60 || []),
     ];
     let defaultDeck = await prisma.deck.findFirst({ where: { isPublic: true } });
     if (!defaultDeck) {
@@ -103,60 +182,72 @@ export async function createQuizSession(
       });
     }
 
-    const needed = 5 - candidateCards.length;
+    const needed = Math.max(5 - candidateCards.length, 5);
     for (let i = 0; i < needed; i++) {
       const item = seedPool[i % seedPool.length];
-      const created = await prisma.card.create({
-        data: {
-          deckId: defaultDeck.id,
-          termEn: item.term_en,
-          meaningUz: item.meaning_uz,
-          synonyms: item.synonyms,
-          exampleEn: item.example_en,
-        },
+      const existing = await prisma.card.findFirst({
+        where: { termEn: item.term_en },
       });
-      candidateCards.push(created);
+
+      if (existing) {
+        if (!candidateCards.some((c) => c.id === existing.id)) {
+          candidateCards.push(existing);
+        }
+      } else {
+        const created = await prisma.card.create({
+          data: {
+            deckId: defaultDeck.id,
+            termEn: item.term_en,
+            meaningUz: item.meaning_uz,
+            synonyms: item.synonyms,
+            exampleEn: item.example_en,
+          },
+        });
+        candidateCards.push(created);
+      }
     }
   }
 
-  // Pick exactly 5 distinct cards and shuffle them
-  const selectedCards = candidateCards
-    .filter((c, idx, arr) => arr.findIndex((x) => x.id === c.id) === idx)
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 5);
+  // Agar baribir so'z topilmasa
+  if (candidateCards.length === 0) return null;
 
-  if (selectedCards.length === 0) return null;
-
-  // Fetch a pool of distractor meanings from DB
+  // Distractorlar (noto'g'ri variantlar) bazasini shakllantirish
   const poolCards = await prisma.card.findMany({
     select: { meaningUz: true },
-    take: 50,
+    take: 150,
   });
 
-  const meaningPool = poolCards
-    .map((c) => c.meaningUz.trim())
-    .filter(Boolean)
-    .concat(DEFAULT_DISTRACTORS);
+  const meaningPool = Array.from(
+    new Set(
+      poolCards
+        .map((c) => c.meaningUz.trim())
+        .filter(Boolean)
+        .concat(DEFAULT_DISTRACTORS)
+    )
+  );
 
-  // Build 5 QuizQuestions
-  const questions: QuizQuestion[] = selectedCards.map((card) => {
+  // Barcha tanlangan kartalar bo'yicha savollarni tuzish
+  const questions: QuizQuestion[] = candidateCards.map((card) => {
     const correctMeaning = card.meaningUz.trim();
 
-    // Pick 3 random distractors that are not equal to correct meaning
+    // To'g'ri ma'nodan farqli 3 ta tasodifiy noto'g'ri variant
     const distractors = meaningPool
       .filter((m) => m !== correctMeaning)
       .sort(() => 0.5 - Math.random())
       .slice(0, 3);
 
-    // If still less than 3, pad with defaults
     while (distractors.length < 3) {
-      distractors.push(DEFAULT_DISTRACTORS[distractors.length]);
+      for (const def of DEFAULT_DISTRACTORS) {
+        if (def !== correctMeaning && !distractors.includes(def)) {
+          distractors.push(def);
+          if (distractors.length >= 3) break;
+        }
+      }
     }
 
     const rawOptions = [correctMeaning, ...distractors].sort(() => 0.5 - Math.random());
     const correctIndex = rawOptions.indexOf(correctMeaning);
 
-    // Shorten option if too long for inline button
     const options = rawOptions.map((opt) =>
       opt.length > 42 ? opt.slice(0, 40) + "..." : opt
     );
@@ -177,6 +268,8 @@ export async function createQuizSession(
     userId,
     chatId,
     mode,
+    deckId: options?.deckId,
+    deckTitle,
     currentIndex: 0,
     questions,
     userAnswers: [],
@@ -194,15 +287,21 @@ export function renderQuestionMessage(session: QuizSession, qIndex: number) {
   const total = session.questions.length;
   const num = qIndex + 1;
 
-  const modeBadge =
-    session.mode === "hard"
-      ? " [📌 Qiyin so'zlar mashqi]"
-      : session.mode === "review"
-      ? " [🗓 Kunlik takrorlash]"
-      : "";
+  let modeBadge = "";
+  if (session.mode === "deck") {
+    modeBadge = ` [📁 ${escapeHtml(session.deckTitle || "To'plam")}]`;
+  } else if (session.mode === "all") {
+    modeBadge = ` [🔥 Barcha lug'at]`;
+  } else if (session.mode === "review") {
+    modeBadge = ` [🗓 Kunlik takrorlash]`;
+  } else if (session.mode === "hard") {
+    modeBadge = ` [📌 Qiyin so'zlar]`;
+  } else {
+    modeBadge = ` [⚡️ Tezkor Quiz]`;
+  }
 
   const text =
-    `⚡️ <b>Tezkor Quiz • [${num}/${total}]</b>${modeBadge}\n\n` +
+    `⚡️ <b>Quiz • [${num}/${total}]</b>${modeBadge}\n\n` +
     `🇬🇧 <b>${escapeHtml(question.termEn)}</b>\n\n` +
     `<i>Ushbu so'zning to'g'ri o'zbekcha tarjimasini tanlang:</i>`;
 
@@ -220,11 +319,10 @@ export async function processQuizAnswer(
   const session = getQuizSession(sessionId);
   if (!session) {
     return {
-      error: "Quiz sessiyasi eskirgan. Yangi quiz boshlash uchun /quiz buyrug'ini bering.",
+      error: "Quiz sessiyasi eskirgan. Yangi test boshlash uchun /quiz yoki to'plamlar bo'limidan foydalaning.",
     };
   }
 
-  // Prevent double answering same question
   if (session.isAnswered && session.currentIndex === qIndex) {
     return { alreadyAnswered: true };
   }
@@ -247,7 +345,7 @@ export async function processQuizAnswer(
   session.isAnswered = true;
   saveQuizSession(session);
 
-  // 1. Update Spaced Repetition (SRS) Progress in DB
+  // 1. Spaced Repetition (SRS) ni yangilash
   try {
     const existingProg = await prisma.studyProgress.findFirst({
       where: { userId: user.id, cardId: question.cardId },
@@ -285,7 +383,7 @@ export async function processQuizAnswer(
     console.error("Failed to update StudyProgress:", err);
   }
 
-  // 2. Build Feedback text
+  // 2. Feedback xabarini tayyorlash
   const isLast = qIndex >= session.questions.length - 1;
   const statusHeader = isCorrect
     ? "✅ <b>To'g'ri javob! Barakalla!</b>"
@@ -316,36 +414,49 @@ export function renderQuizSummary(
 ) {
   const total = session.questions.length;
   const score = session.score;
-  const percent = Math.round((score / total) * 100);
+  const percent = total > 0 ? Math.round((score / total) * 100) : 0;
 
-  let rating = "";
   let badge = "";
+  let rating = "";
 
-  if (score === 5) {
-    badge = "🌟 Mukammal natija!";
-    rating = "Barcha 5 ta savolga to'g'ri javob berdingiz! C1 akademik so'z boyligingiz a'lo darajada.";
-  } else if (score >= 4) {
+  if (score === total && total > 0) {
+    badge = "🌟 Mukammal natija (100%)!";
+    rating = `Barcha <b>${total} ta</b> savolga to'g'ri javob berdingiz! Akademik so'z boyligingiz a'lo darajada.`;
+  } else if (percent >= 80) {
     badge = "👏 Ajoyib natija!";
-    rating = "Deyarli barcha so'zlarni to'g'ri topdingiz. Spaced Repetition xotirangiz mustahkamlanmoqda.";
-  } else if (score >= 3) {
-    badge = "👍 Yaxshi harakat!";
-    rating = "Yaxshi natija! Xato qilingan so'zlarni muntazam takrorlab boring.";
+    rating = `${total} tadan <b>${score} ta</b> so'zni to'g'ri topdingiz. Spaced Repetition xotirangiz mustahkamlanmoqda.`;
+  } else if (percent >= 60) {
+    badge = "👍 Yaxshi natija!";
+    rating = `${total} tadan <b>${score} ta</b> to'g'ri javob. Xato qilingan so'zlarni muntazam takrorlab boring.`;
   } else {
     badge = "💪 Davom eting!";
-    rating = "Xatolar — o'rganishning eng yaxshi yo'li. Qiyin so'zlar bo'limidan ushbu so'zlarni yana bir bor mashq qiling.";
+    rating = `${total} tadan <b>${score} ta</b> to'g'ri javob. Xatolar — o'rganishning eng yaxshi yo'li. Qayta takrorlab o'zlashtiring!`;
+  }
+
+  let modeDetail = "";
+  if (session.mode === "deck" && session.deckTitle) {
+    modeDetail = `📁 To'plam: <b>${escapeHtml(session.deckTitle)}</b>\n`;
+  } else if (session.mode === "all") {
+    modeDetail = `🔥 <b>Barcha lug'atlar bo'yicha to'liq takrorlash yakunlandi!</b>\n`;
+  } else if (session.mode === "review") {
+    modeDetail = `🗓 <b>Kunlik takrorlash yakunlandi!</b>\n`;
   }
 
   const text =
     `🏆 <b>Quiz Natijasi: ${score} / ${total} (${percent}%)</b>\n` +
     `<b>${badge}</b>\n\n` +
+    modeDetail +
     `${rating}\n\n` +
     `🔥 <b>Kunlik seriyangiz:</b> ${user.streakCount || 0} kun uzluksiz\n` +
-    `📦 <b>SRS Xotira:</b> Javoblaringiz Leitner tizimiga kiritildi va navbatdagi takrorlash vaqti belgilandi.\n\n` +
+    `📦 <b>SRS Xotira:</b> Javoblaringiz Leitner tizimiga kiritildi va navbatdagi takrorlash vaqtlari hisoblab chiqildi.\n\n` +
     `<i>Mashg'ulotni davom ettirish uchun quyidagi tugmalardan birini tanlang:</i>`;
 
-  const keyboard = getQuizSummaryKeyboard(appUrl);
+  const keyboard = getQuizSummaryKeyboard(appUrl, {
+    mode: session.mode,
+    deckId: session.deckId,
+  });
 
-  // Clean up session from memory
+  // Xotirani tozalash
   deleteQuizSession(session.id);
 
   return { text, keyboard };

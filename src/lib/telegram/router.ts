@@ -16,7 +16,16 @@ import {
   getHardWordsInlineKeyboard,
   getReviewPromptKeyboard,
   getWordLookupKeyboard,
+  getDecksListInlineKeyboard,
+  getDeckDetailInlineKeyboard,
 } from "./keyboards";
+import {
+  getUserDecks,
+  getTotalVocabCount,
+  getDeckWithCards,
+  formatDecksListHtml,
+  formatDeckDetailHtml,
+} from "./decks";
 import {
   getOrCreateTelegramUser,
   setUserPendingAction,
@@ -163,7 +172,9 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `<b>Vydex</b> — Spaced Repetition (SRS) va AI asosidagi akademik IELTS & CEFR so'z yodlash botiga xush kelibsiz!\n\n` +
           `🔥 <b>Kunlik seriyangiz:</b> ${user.streakCount} kun uzluksiz\n\n` +
           `<b>Asosiy imkoniyatlar:</b>\n` +
-          `• ⚡️ <b>Tezkor Quiz</b>: 5 ta so'zdan iborat interaktiv SRS testi\n` +
+          `• 📚 <b>Mening to'plamlarim</b>: Barcha to'plamlar va shaxsiy lug'atlar (har bir to'plamdagi barcha so'zlarni to'liq takrorlash)\n` +
+          `• 🔥 <b>Barcha lug'atni takrorlash</b>: Barcha yuklangan so'zlarni birdaniga to'liq mashq qilish\n` +
+          `• ⚡️ <b>Tezkor Quiz</b>: 5 ta so'zdan iborat tezkor SRS testi\n` +
           `• 🗓 <b>Kunlik takrorlash</b>: Unutilish arafasidagi so'zlarni vaqtida qaytarish\n` +
           `• 🔍 <b>Aqlli Lug'at</b>: Istalgan inglizcha so'z yuboring — tarjimasi, darajasi va IELTS misoli bilan to'plamingizga saqlaydi\n` +
           `• ✍️ <b>Gap tekshirish</b>: O'z gapingizni yuboring — AI IELTS Writing mezonlari bo'yicha baholaydi\n` +
@@ -212,6 +223,8 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
       if (text === "/help" || text.includes("Qo'llanma") || text.includes("Yordam")) {
         const helpText =
           `📖 <b>Vydex Bot Qo'llanmasi:</b>\n\n` +
+          `• <b>/decks</b> yoki <b>📚 Mening to'plamlarim</b> — Barcha to'plamlar va shaxsiy lug'atlarni ko'rish, har bir to'plamdagi barcha so'zlarni to'liq takrorlash\n` +
+          `• <b>/all</b> yoki <b>🔥 Barcha lug'atni takrorlash</b> — Barcha yuklangan so'zlarni to'liq mashq qilish\n` +
           `• <b>/quiz</b> yoki <b>⚡️ Tezkor Quiz (5 ta)</b> — 5 ta so'zdan iborat interaktiv SRS testi\n` +
           `• <b>/review</b> yoki <b>🗓 Kunlik takrorlash</b> — Bugun unutilish arafasidagi so'zlarni qaytarish\n` +
           `• <b>/stats</b> yoki <b>📊 Profil & Statistika</b> — Leitner xotira tahlili va seriyangiz\n` +
@@ -224,6 +237,40 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
         await sendTelegramMessage(chatId, helpText, {
           reply_markup: getWelcomeInlineKeyboard(appUrl),
         });
+        return NextResponse.json({ ok: true });
+      }
+
+      // 2.2.1 Handle /decks or "📚 Mening to'plamlarim"
+      if (
+        text === "/decks" ||
+        text === "/collections" ||
+        text.includes("to'plamlar") ||
+        text.includes("To'plamlar")
+      ) {
+        const decks = await getUserDecks(user.id);
+        const totalCount = await getTotalVocabCount(user.id);
+        const html = formatDecksListHtml(decks, totalCount);
+        const keyboard = getDecksListInlineKeyboard(decks, totalCount);
+        await sendTelegramMessage(chatId, html, { reply_markup: keyboard });
+        return NextResponse.json({ ok: true });
+      }
+
+      // 2.2.2 Handle /all or "🔥 Barcha lug'atni takrorlash"
+      if (
+        text === "/all" ||
+        text.includes("Barcha lug'at") ||
+        text.includes("barcha lug'at")
+      ) {
+        const session = await createQuizSession(user.id, chatId, "all");
+        if (!session || session.questions.length === 0) {
+          await sendTelegramMessage(
+            chatId,
+            "Hozircha bazada takrorlash uchun so'zlar topilmadi. Avval so'z yuborib lug'atga qo'shing."
+          );
+          return NextResponse.json({ ok: true });
+        }
+        const qMsg = renderQuestionMessage(session, 0);
+        await sendTelegramMessage(chatId, qMsg.text, { reply_markup: qMsg.keyboard });
         return NextResponse.json({ ok: true });
       }
 
@@ -247,7 +294,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
         const count = await getDailyReviewCount(user.id);
         const prompt = formatDailyReviewPrompt(count);
         await sendTelegramMessage(chatId, prompt.text, {
-          reply_markup: getReviewPromptKeyboard(prompt.hasDue),
+          reply_markup: getReviewPromptKeyboard(prompt.hasDue ? count : false),
         });
         return NextResponse.json({ ok: true });
       }
@@ -417,6 +464,105 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
         return NextResponse.json({ ok: true });
       }
 
+      // 3.1.1 Decks List: "Mening to'plamlarim"
+      if (data === "decks:list") {
+        const decks = await getUserDecks(user.id);
+        const totalCount = await getTotalVocabCount(user.id);
+        const html = formatDecksListHtml(decks, totalCount);
+        const keyboard = getDecksListInlineKeyboard(decks, totalCount);
+
+        if (messageId) {
+          await editTelegramMessage(chatId, messageId, html, {
+            reply_markup: keyboard,
+          });
+        } else {
+          await sendTelegramMessage(chatId, html, { reply_markup: keyboard });
+        }
+        await answerTelegramCallbackQuery(cq.id);
+        return NextResponse.json({ ok: true });
+      }
+
+      // 3.1.2 Deck Detail View
+      if (data.startsWith("deck:view:")) {
+        const deckId = parseInt(data.replace("deck:view:", ""), 10);
+        const deck = await getDeckWithCards(deckId);
+
+        if (!deck) {
+          await answerTelegramCallbackQuery(cq.id, "To'plam topilmadi.", true);
+          return NextResponse.json({ ok: true });
+        }
+
+        const html = formatDeckDetailHtml(deck);
+        const keyboard = getDeckDetailInlineKeyboard(deck.id, deck.cards.length);
+
+        if (messageId) {
+          await editTelegramMessage(chatId, messageId, html, {
+            reply_markup: keyboard,
+          });
+        } else {
+          await sendTelegramMessage(chatId, html, { reply_markup: keyboard });
+        }
+        await answerTelegramCallbackQuery(cq.id);
+        return NextResponse.json({ ok: true });
+      }
+
+      // 3.1.3 Deck Practice: all words or 5 words
+      if (data.startsWith("quiz:deck:")) {
+        const parts = data.split(":");
+        const deckId = parseInt(parts[2], 10);
+        const limitType = parts[3] || "all";
+        const limit = limitType === "5" ? 5 : "all";
+
+        const session = await createQuizSession(user.id, chatId, "deck", {
+          deckId,
+          limit,
+        });
+
+        if (!session || session.questions.length === 0) {
+          await answerTelegramCallbackQuery(
+            cq.id,
+            "Ushbu to'plamda takrorlash uchun so'zlar topilmadi.",
+            true
+          );
+          return NextResponse.json({ ok: true });
+        }
+
+        const qMsg = renderQuestionMessage(session, 0);
+        if (messageId) {
+          await editTelegramMessage(chatId, messageId, qMsg.text, {
+            reply_markup: qMsg.keyboard,
+          });
+        } else {
+          await sendTelegramMessage(chatId, qMsg.text, { reply_markup: qMsg.keyboard });
+        }
+        await answerTelegramCallbackQuery(cq.id);
+        return NextResponse.json({ ok: true });
+      }
+
+      // 3.1.4 All Vocabulary Practice
+      if (data === "quiz:all") {
+        const session = await createQuizSession(user.id, chatId, "all");
+        if (!session || session.questions.length === 0) {
+          await answerTelegramCallbackQuery(
+            cq.id,
+            "Takrorlash uchun hech qanday so'z topilmadi.",
+            true
+          );
+          return NextResponse.json({ ok: true });
+        }
+
+        const qMsg = renderQuestionMessage(session, 0);
+        if (messageId) {
+          await editTelegramMessage(chatId, messageId, qMsg.text, {
+            reply_markup: qMsg.keyboard,
+          });
+        } else {
+          await sendTelegramMessage(chatId, qMsg.text, { reply_markup: qMsg.keyboard });
+        }
+        await answerTelegramCallbackQuery(cq.id);
+        return NextResponse.json({ ok: true });
+      }
+
       // 3.2 Help
       if (data === "help") {
         const helpText =
@@ -505,11 +651,11 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
 
         if (messageId) {
           await editTelegramMessage(chatId, messageId, prompt.text, {
-            reply_markup: getReviewPromptKeyboard(prompt.hasDue),
+            reply_markup: getReviewPromptKeyboard(prompt.hasDue ? count : false),
           });
         } else {
           await sendTelegramMessage(chatId, prompt.text, {
-            reply_markup: getReviewPromptKeyboard(prompt.hasDue),
+            reply_markup: getReviewPromptKeyboard(prompt.hasDue ? count : false),
           });
         }
         await answerTelegramCallbackQuery(cq.id);
@@ -517,9 +663,12 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
       }
 
       // 3.7 Daily Review Quiz Execution
-      if (data === "review:do_quiz") {
-        const session = await createQuizSession(user.id, chatId, "review");
-        if (!session) {
+      if (data.startsWith("review:do_quiz")) {
+        const isLimit5 = data === "review:do_quiz:5";
+        const session = await createQuizSession(user.id, chatId, "review", {
+          limit: isLimit5 ? 5 : undefined,
+        });
+        if (!session || session.questions.length === 0) {
           await answerTelegramCallbackQuery(cq.id, "Takrorlash so'zlari topilmadi.");
           return NextResponse.json({ ok: true });
         }

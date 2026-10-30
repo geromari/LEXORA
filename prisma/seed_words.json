@@ -614,5 +614,367 @@
       "synonyms": "disintegration, undoing, breakdown, fragmentation",
       "example_en": "Without constant diplomatic vigilance, the fragile peace agreement risked complete unraveling."
     }
+  ],
+  "architecture_urban_60": [
+    {
+      "term_en": "Preserving",
+      "meaning_uz": "saqlash, asrab-avaylash",
+      "synonyms": "conserving, protecting, safeguarding, maintaining",
+      "example_en": "Preserving historic landmarks fosters a profound sense of continuity in modern cities."
+    },
+    {
+      "term_en": "Historic",
+      "meaning_uz": "tarixiy, tarixda muhim ahamiyatga ega",
+      "synonyms": "historical, ancient, legendary, consequential",
+      "example_en": "The municipality designated the old town as a historic district to shield it from rapid modern redevelopment."
+    },
+    {
+      "term_en": "Restored",
+      "meaning_uz": "qayta tiklangan, ta'mirlab asliga keltirilgan",
+      "synonyms": "rehabilitated, refurbished, renovated, revitalized",
+      "example_en": "Once a derelict warehouse, the restored structure now serves as a vibrant cultural center."
+    },
+    {
+      "term_en": "Urgency",
+      "meaning_uz": "shoshilinchlik, dolzarblik, kechiktirib bo'lmaslik",
+      "synonyms": "imperative, pressing need, extremity, exigency",
+      "example_en": "Climate change has added great urgency to the transition toward renewable building materials."
+    },
+    {
+      "term_en": "Inadequate",
+      "meaning_uz": "yetarli bo‘lmagan, nomaqbul",
+      "synonyms": "insufficient, deficient, lacking, meager",
+      "example_en": "Inadequate municipal funding often results in the deterioration of ancient civic structures."
+    },
+    {
+      "term_en": "Commerce",
+      "meaning_uz": "savdo, savdo-sotiq faoliyati",
+      "synonyms": "trade, business, mercantilism, transactions",
+      "example_en": "The historic bazaar has been a bustling epicenter of international commerce for centuries."
+    },
+    {
+      "term_en": "Inequality",
+      "meaning_uz": "tengsizlik, tafovut",
+      "synonyms": "disparity, imbalance, disproportion, inequity",
+      "example_en": "Unchecked gentrification can inadvertently deepen spatial and economic inequality in metropolitan areas."
+    },
+    {
+      "term_en": "Critics",
+      "meaning_uz": "tanqidchilar",
+      "synonyms": "detractors, reviewers, opponents, commentators",
+      "example_en": "Architectural critics warned that modern skyscrapers might overshadow the city's ancient silhouette."
+    },
+    {
+      "term_en": "Heritage",
+      "meaning_uz": "madaniy meros, meros",
+      "synonyms": "legacy, inheritance, tradition, cultural patrimony",
+      "example_en": "Preserving national heritage requires a delicate equilibrium between historical authenticity and civic modernization."
+    },
+    {
+      "term_en": "Generate",
+      "meaning_uz": "hosil qilmoq, yaratmoq, vujudga keltirmoq",
+      "synonyms": "produce, yield, create, stimulate",
+      "example_en": "Revitalized public squares generate considerable economic prosperity and tourism revenue."
+    },
+    {
+      "term_en": "Architecture",
+      "meaning_uz": "me’morchilik, me'moriy uslub",
+      "synonyms": "architectural design, structural design, building style",
+      "example_en": "Traditional Islamic architecture combines intricate geometric symmetry with passive cooling engineering."
+    },
+    {
+      "term_en": "Tourists",
+      "meaning_uz": "sayyohlar, sayyohlik vakillari",
+      "synonyms": "visitors, sightseers, travelers, vacationers",
+      "example_en": "Historic city centers captivate millions of international tourists each year."
+    },
+    {
+      "term_en": "Businesses",
+      "meaning_uz": "bizneslar, tadbirkorlik subyektlari",
+      "synonyms": "enterprises, firms, commercial entities, companies",
+      "example_en": "Small independent businesses thrive in walkable urban quarters rich in architectural character."
+    },
+    {
+      "term_en": "Improvements",
+      "meaning_uz": "yaxshilanishlar, ijobiy o'zgarishlar",
+      "synonyms": "enhancements, upgrades, advancements, refinements",
+      "example_en": "Targeted infrastructural improvements dramatically elevate the quality of living in heritage districts."
+    },
+    {
+      "term_en": "Urban",
+      "meaning_uz": "shahar, shaharga oid, shaharsozlik",
+      "synonyms": "metropolitan, municipal, civic, city-based",
+      "example_en": "Rapid urban expansion places immense pressure on historical landmarks and public green spaces."
+    },
+    {
+      "term_en": "Catalyst",
+      "meaning_uz": "turtki, tezlashtiruvchi omil, sababchi",
+      "synonyms": "stimulus, spark, prompt, driving force",
+      "example_en": "The construction of the new arts pavilion served as a powerful catalyst for regional regeneration."
+    },
+    {
+      "term_en": "Narrative",
+      "meaning_uz": "hikoya, rivoya, voqelik bayoni",
+      "synonyms": "storyline, account, tale, perspective",
+      "example_en": "Every ancient stone tells a narrative of triumph, trade, and cultural evolution."
+    },
+    {
+      "term_en": "Efficient",
+      "meaning_uz": "samarali, kam resurs sarflovchi",
+      "synonyms": "effective, productive, streamlined, resourceful",
+      "example_en": "Energy-efficient thermal retrofitting allows historical estates to meet modern ecological benchmarks."
+    },
+    {
+      "term_en": "Prestige",
+      "meaning_uz": "obro‘, nufuz, martaba",
+      "synonyms": "status, esteem, reputation, renown",
+      "example_en": "Hosting international design expos enhances the diplomatic prestige of any historic capital."
+    },
+    {
+      "term_en": "Sanitation",
+      "meaning_uz": "sanitariya, tozalik tizimi, kanalizatsiya",
+      "synonyms": "hygiene, public health, sewage system, cleanliness",
+      "example_en": "Nineteenth-century urban reformers revolutionized urban planning through systematic sanitation infrastructure."
+    },
+    {
+      "term_en": "Affordable",
+      "meaning_uz": "arzon, hamyonbop, qulay narxdagi",
+      "synonyms": "economical, low-cost, budget-friendly, accessible",
+      "example_en": "Providing affordable housing within historic cores ensures diverse demographics can coexist."
+    },
+    {
+      "term_en": "Commercial activity",
+      "meaning_uz": "savdo faoliyati, tijoriy faoliyat",
+      "synonyms": "mercantile trade, market operations, retail activity",
+      "example_en": "Restricted commercial activity in heritage zones prevents excessive commercialization and preserves quietude."
+    },
+    {
+      "term_en": "Functional",
+      "meaning_uz": "amaliy, foydali, qulay ishlaydigan",
+      "synonyms": "practical, utilitarian, operational, pragmatic",
+      "example_en": "Modernist urban planners favored functional structures over ornamental excesses."
+    },
+    {
+      "term_en": "Craftsmanship",
+      "meaning_uz": "hunarmandchilik, ustalik, yuksak mahorat",
+      "synonyms": "artistry, artisan skill, mastery, workmanship",
+      "example_en": "The intricate stone masonry showcases centuries of uncompromised artisanal craftsmanship."
+    },
+    {
+      "term_en": "Resilience",
+      "meaning_uz": "bardoshlilik, chidamlilik, o'zini tez tiklash",
+      "synonyms": "durability, endurance, fortitude, toughness",
+      "example_en": "Historical timber buildings in seismic regions exhibit extraordinary structural resilience."
+    },
+    {
+      "term_en": "Civic pride",
+      "meaning_uz": "fuqarolik g‘ururi, shahar ahli faxri",
+      "synonyms": "community pride, local patriotism, civic spirit",
+      "example_en": "Restoring an abandoned clock tower instills renewed civic pride among longtime residents."
+    },
+    {
+      "term_en": "Belonging",
+      "meaning_uz": "tegishlilik, mansublik, o'z joyidalik tuyg'usi",
+      "synonyms": "affiliation, inclusion, kinship, attachment",
+      "example_en": "Public architecture creates an enduring sense of community and social belonging."
+    },
+    {
+      "term_en": "Environmental",
+      "meaning_uz": "ekologik, atrof-muhitga oid",
+      "synonyms": "ecological, green, nature-oriented, ambient",
+      "example_en": "Adaptive architecture drastically diminishes the environmental burden of extracting raw building sand."
+    },
+    {
+      "term_en": "Demolishing",
+      "meaning_uz": "buzish, vayron qilish, yer bilan yakson qilish",
+      "synonyms": "tearing down, razing, dismantling, leveling",
+      "example_en": "Demolishing century-old neighborhoods irrevocably erases living cultural memories."
+    },
+    {
+      "term_en": "Materials",
+      "meaning_uz": "materiallar, xomashyo, qurilish mollari",
+      "synonyms": "substances, supplies, elements, building matter",
+      "example_en": "Locally sourced clay and timber remain the most sustainable materials for passive climatic design."
+    },
+    {
+      "term_en": "Scarce",
+      "meaning_uz": "kam, yetishmaydigan, tanqis",
+      "synonyms": "rare, sparse, deficient, meager",
+      "example_en": "Urban parkland is notoriously scarce in high-density commercial centers."
+    },
+    {
+      "term_en": "Facade",
+      "meaning_uz": "bino old qismi, fasad, tashqi ko'rinish",
+      "synonyms": "frontage, exterior, architectural front, outer face",
+      "example_en": "Behind its neo-classical marble facade lies a cutting-edge digital research laboratory."
+    },
+    {
+      "term_en": "Skyline",
+      "meaning_uz": "shahar manzarasi (osmon fonida), shahar silueti",
+      "synonyms": "cityscape, horizon, urban silhouette, skyline profile",
+      "example_en": "The historic skyline was carefully safeguarded by imposing strict height limits on new commercial towers."
+    },
+    {
+      "term_en": "Expediency",
+      "meaning_uz": "maqsadga muvofiqlik, o'z foydasini ko'zlash, vaqtinchalik manfaat",
+      "synonyms": "convenience, pragmatism, opportunism, utility",
+      "example_en": "Preservationists accused developers of sacrificing architectural integrity for financial expediency."
+    },
+    {
+      "term_en": "Soulless",
+      "meaning_uz": "jon yo‘q, ruhsiz, nursiz, xaraktersiz",
+      "synonyms": "sterile, characterless, bland, monotonous",
+      "example_en": "Residents lamented that the new concrete housing block felt completely soulless and alienating."
+    },
+    {
+      "term_en": "Continuity",
+      "meaning_uz": "uzluksizlik, davomiylik, o'tmish bilan bog'liqlik",
+      "synonyms": "persistence, uninterrupted flow, consistency, permanence",
+      "example_en": "Architectural conservation ensures cultural continuity across rapidly transforming generations."
+    },
+    {
+      "term_en": "Vanity project",
+      "meaning_uz": "shaxsiy obro‘ uchun loyiha, ko'rgazmali qimmat loyiha",
+      "synonyms": "ego project, ostentatious scheme, prestige monument",
+      "example_en": "Critics dismissed the lavish monumental arch as a taxpayer-funded vanity project with no civic utility."
+    },
+    {
+      "term_en": "Lavished",
+      "meaning_uz": "haddan tashqari sarflangan, saxiylik bilan to'kilgan",
+      "synonyms": "bestowed generously, squandered, showered, poured into",
+      "example_en": "Immense state resources were lavished on ceremonial facades while peripheral utilities were ignored."
+    },
+    {
+      "term_en": "Misaligned",
+      "meaning_uz": "noto‘g‘ri yo‘naltirilgan, mos kelmaydigan, nomutanosib",
+      "synonyms": "skewed, out of sync, ill-fitting, discordant",
+      "example_en": "Commercial developer objectives were misaligned with the community's demand for green recreational areas."
+    },
+    {
+      "term_en": "Integrated",
+      "meaning_uz": "uyg‘unlashtirilgan, integratsiyalashgan, yaxlit holga keltirilgan",
+      "synonyms": "harmonized, unified, incorporated, blended",
+      "example_en": "Modern transport networks must be seamlessly integrated into historical urban corridors."
+    },
+    {
+      "term_en": "Dual-purpose",
+      "meaning_uz": "ikki maqsadli, ko'p funksiyali",
+      "synonyms": "bifunctional, hybrid, versatile, multipurpose",
+      "example_en": "The courtyard serves a dual-purpose role as a storm reservoir during rains and a marketplace in dry seasons."
+    },
+    {
+      "term_en": "Homogenization",
+      "meaning_uz": "bir xillashuv, xilma-xillikning yo'qolishi",
+      "synonyms": "standardization, uniformization, loss of variety",
+      "example_en": "Globalization has driven the cultural homogenization of city retail corridors worldwide."
+    },
+    {
+      "term_en": "Anchors",
+      "meaning_uz": "tayanch, asosiy tayanch bo'g'in, qo‘llab-quvvatlovchi omillar",
+      "synonyms": "foundations, pillars, stabilizing elements, linchpins",
+      "example_en": "Historic libraries and town halls act as moral and cultural anchors for suburban neighborhoods."
+    },
+    {
+      "term_en": "Embodied carbon",
+      "meaning_uz": "qurilishdagi “yashirin” karbon izi, bino materiallaridagi karbon miqdori",
+      "synonyms": "embedded carbon footprint, upfront carbon emissions",
+      "example_en": "Retaining existing structures preserves their embodied carbon rather than generating tons of new concrete emissions."
+    },
+    {
+      "term_en": "Adaptive reuse",
+      "meaning_uz": "moslashtirib qayta foydalanish, eski binoni yangi maqsadga moslash",
+      "synonyms": "repurposing, structural retrofitting, architectural conversion",
+      "example_en": "Adaptive reuse breathes dynamic economic vitality into defunct industrial factories and rail terminals."
+    },
+    {
+      "term_en": "Sustainability",
+      "meaning_uz": "barqarorlik, uzoq muddatli ekologik muvozanat",
+      "synonyms": "durability, ecological viability, environmental balance",
+      "example_en": "Urban sustainability hinges upon conserving existing structures rather than relentlessly rebuilding."
+    },
+    {
+      "term_en": "Significance",
+      "meaning_uz": "ahamiyat, salmoq, qadr-qimmat",
+      "synonyms": "importance, prominence, weight, magnitude",
+      "example_en": "UNESCO recognized the unparalleled historical significance of Samarkand's ancient architectural complexes."
+    },
+    {
+      "term_en": "Documented",
+      "meaning_uz": "hujjatlashtirilgan, qayd qilib qoldirilgan",
+      "synonyms": "recorded, chronicled, archived, authenticated",
+      "example_en": "The thermal performance of earthen brick monuments is rigorously documented in recent architectural journals."
+    },
+    {
+      "term_en": "Public-private partnership",
+      "meaning_uz": "davlat va xususiy sektor hamkorligi (DXSH)",
+      "synonyms": "PPP, civic-commercial collaboration, joint venture",
+      "example_en": "The historic district restoration was funded through a transparent public-private partnership."
+    },
+    {
+      "term_en": "Taxpayer",
+      "meaning_uz": "soliq to‘lovchi, byudjetni ta'minlovchi fuqaro",
+      "synonyms": "citizen investor, contributor, ratepayer",
+      "example_en": "Municipal leaders must justify whether taxpayer funds should subsidize lavish private redevelopments."
+    },
+    {
+      "term_en": "Tug-of-war",
+      "meaning_uz": "kurash, ziddiyat, tortishuv",
+      "synonyms": "standoff, struggle for supremacy, contested rivalry",
+      "example_en": "A continuous tug-of-war unfolds between heritage conservationists and commercial property magnates."
+    },
+    {
+      "term_en": "Relentless change",
+      "meaning_uz": "tinimsiz o‘zgarish, tinmas evrilish",
+      "synonyms": "incessant transformation, unceasing evolution, unstoppable flux",
+      "example_en": "Amidst relentless change, historical quarters provide psychological anchors of tranquility."
+    },
+    {
+      "term_en": "Soulless sea of glass towers",
+      "meaning_uz": "ruhsiz shisha minoralar dengizi (metafora)",
+      "synonyms": "monotonous high-rise sprawl, sterile glass jungle",
+      "example_en": "The historical quarter was in danger of being consumed by a soulless sea of glass towers."
+    },
+    {
+      "term_en": "Breed resentment",
+      "meaning_uz": "nafrat uyg‘otmoq, norozilik keltirib chiqarmoq",
+      "synonyms": "fuel bitterness, provoke animosity, incite public grievance",
+      "example_en": "Exclusionary redevelopment schemes inevitably breed resentment among dislocated indigenous communities."
+    },
+    {
+      "term_en": "Model worth emulating",
+      "meaning_uz": "o‘rnak olishga arzigulik model, namuna qilib ko'rsatiladigan tizim",
+      "synonyms": "exemplary blueprint, paradigm of excellence, gold standard",
+      "example_en": "The city's heritage preservation strategy stands out as a pioneering model worth emulating worldwide."
+    },
+    {
+      "term_en": "Collective psyche",
+      "meaning_uz": "jamoaviy ong, xalq ruhiyati, jamiyat ruhiy olami",
+      "synonyms": "shared consciousness, communal ethos, cultural mentality",
+      "example_en": "Cathedrals and ancient citadels occupy an indelible sanctuary within the nation's collective psyche."
+    },
+    {
+      "term_en": "Global admiration",
+      "meaning_uz": "butun dunyo hayratiga sazovorlik, xalqaro e'tirof",
+      "synonyms": "worldwide acclaim, universal veneration, international reverence",
+      "example_en": "The meticulously restored Silk Road monuments command universal global admiration."
+    },
+    {
+      "term_en": "Cohesive communities",
+      "meaning_uz": "mustahkam jamoalar, ahil va birlashgan jamiyatlar",
+      "synonyms": "harmonious societies, unified neighborhoods, integrated circles",
+      "example_en": "Walkable historic neighborhoods nurture socially cohesive communities where neighbors actively interact."
+    },
+    {
+      "term_en": "Intangible wealth",
+      "meaning_uz": "moddiy bo‘lmagan boylik, ma'naviy xazina",
+      "synonyms": "cultural capital, non-material treasures, spiritual legacy",
+      "example_en": "Historical memory and master craftsmanship represent an irreplaceable intangible wealth of civilization."
+    },
+    {
+      "term_en": "Weave together past and present",
+      "meaning_uz": "o‘tmish va hozirni uyg‘unlashtirmoq, an'ana va zamonaviylikni birlashtirmoq",
+      "synonyms": "synthesize heritage and modernity, bridge epochs, interlace traditions",
+      "example_en": "Visionary urbanists strive to weave together past and present to cultivate vibrant, livable metropolises."
+    }
   ]
 }

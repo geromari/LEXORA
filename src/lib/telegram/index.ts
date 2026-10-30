@@ -2,6 +2,7 @@ export * from "./types";
 export * from "./api";
 export * from "./helpers";
 export * from "./keyboards";
+export * from "./decks";
 export * from "./dictionary";
 export * from "./quizEngine";
 export * from "./sentenceChecker";

@@ -13,6 +13,7 @@ export async function getDailyReviewCount(userId: string): Promise<number> {
 export function formatDailyReviewPrompt(dueCount: number): {
   text: string;
   hasDue: boolean;
+  dueCount: number;
 } {
   if (dueCount > 0) {
     const text =
@@ -20,7 +21,7 @@ export function formatDailyReviewPrompt(dueCount: number): {
       `Bugun xotirangizdan unutilish arafasidagi <b>${dueCount} ta so'z</b> navbatda turibdi.\n\n` +
       `<i>Leitner xotira qoidasi: so'zlarni uzoq muddatli xotiraga muhrlash uchun ularni aynan vaqtida takrorlash shart.</i>\n\n` +
       `Mashg'ulotni boshlash uchun quyidagi tugmani bosing:`;
-    return { text, hasDue: true };
+    return { text, hasDue: true, dueCount };
   }
 
   const text =
@@ -28,5 +29,5 @@ export function formatDailyReviewPrompt(dueCount: number): {
     `Sizda hozircha takrorlash navbatida turgan so'zlar yo'q. Spaced Repetition jadvali bo'yicha keyingi so'zlar vaqti kelganda eslatib turamiz.\n\n` +
     `💡 Yangi akademik so'zlar o'rganish uchun <b>Tezkor Quiz</b> topshirishingiz yoki botga yangi so'z yuborishingiz mumkin!`;
 
-  return { text, hasDue: false };
+  return { text, hasDue: false, dueCount: 0 };
 }
