@@ -146,6 +146,9 @@ export async function smartLookupWord(queryRaw: string): Promise<WordLookupResul
     ...(seedWordsData.core_47 || []),
     ...(seedWordsData.academic_55 || []),
     ...((seedWordsData as any).architecture_urban_60 || []),
+    ...((seedWordsData as any).ielts_reading_baobabs_37 || []),
+    ...((seedWordsData as any).ielts_reading_coins_38 || []),
+    ...((seedWordsData as any).ielts_reading_grapefruit_31 || []),
   ];
   const seedMatch = allSeedWords.find(
     (w) => w.term_en.toLowerCase() === cleanTerm

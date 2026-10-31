@@ -976,5 +976,647 @@
       "synonyms": "synthesize heritage and modernity, bridge epochs, interlace traditions",
       "example_en": "Visionary urbanists strive to weave together past and present to cultivate vibrant, livable metropolises."
     }
+  ],
+  "ielts_reading_baobabs_37": [
+    {
+      "term_en": "Ancient",
+      "meaning_uz": "qadimgi, ko‘hna",
+      "synonyms": "prehistoric, antique, archaic, age-old, primordial",
+      "example_en": "The ancient baobab trees of Madagascar have stood for thousands of years, enduring harsh climatic shifts."
+    },
+    {
+      "term_en": "Distinctive",
+      "meaning_uz": "o‘ziga xos, ajralib turadigan",
+      "synonyms": "characteristic, unique, idiosyncratic, unmistakable, peculiar",
+      "example_en": "With their massive, bottle-shaped trunks, baobabs possess a distinctive silhouette unmatched in the plant kingdom."
+    },
+    {
+      "term_en": "Uncertain",
+      "meaning_uz": "noaniq, mavhum",
+      "synonyms": "ambiguous, doubtful, precarious, unsettled, indeterminate",
+      "example_en": "The future survival of several rare baobab species remains deeply uncertain due to habitat fragmentation."
+    },
+    {
+      "term_en": "Spectacular",
+      "meaning_uz": "ajoyib, hayratlanarli",
+      "synonyms": "breathtaking, magnificent, extraordinary, striking, impressive",
+      "example_en": "The Avenue of the Baobabs offers a spectacular view that draws researchers and ecotourists from across the globe."
+    },
+    {
+      "term_en": "Massive",
+      "meaning_uz": "ulkan, juda katta",
+      "synonyms": "colossal, gigantic, enormous, immense, substantial",
+      "example_en": "The trees have massive swollen trunks capable of storing tens of thousands of liters of water during droughts."
+    },
+    {
+      "term_en": "Significance",
+      "meaning_uz": "ahamiyat, muhimlik",
+      "synonyms": "importance, consequence, magnitude, weight, implication",
+      "example_en": "Ecologists highlight the ecological significance of baobabs as a vital resource for fruit bats and lemurs."
+    },
+    {
+      "term_en": "Populous",
+      "meaning_uz": "aholisi zich, gavjum",
+      "synonyms": "densely populated, crowded, thronged, populous, teeming",
+      "example_en": "As neighboring valleys became more populous, agricultural land expanded directly into primary baobab forests."
+    },
+    {
+      "term_en": "Endangered",
+      "meaning_uz": "yo‘qolib ketish xavfi ostida qolgan",
+      "synonyms": "threatened, at risk, imperiled, vulnerable, jeopardized",
+      "example_en": "Six of the eight recognized baobab species are endemic to Madagascar, and three are critically endangered."
+    },
+    {
+      "term_en": "Contradiction",
+      "meaning_uz": "qarama-qarshilik, ziddiyat",
+      "synonyms": "paradox, incongruity, discrepancy, conflict, inconsistency",
+      "example_en": "There appears to be an apparent contradiction between their apparent abundance along roadways and their actual demographic decline."
+    },
+    {
+      "term_en": "Contradict",
+      "meaning_uz": "zid bo‘lmoq, inkor etmoq (savollarda)",
+      "synonyms": "refute, dispute, confute, oppose, disprove",
+      "example_en": "Field observations often contradict the assumption that scattered mature trees indicate a healthy breeding population."
+    },
+    {
+      "term_en": "Surrounding",
+      "meaning_uz": "atrof-muhitdagi, o‘rab turgan",
+      "synonyms": "neighboring, ambient, encircling, adjacent, environmental",
+      "example_en": "Intensive clearing of surrounding scrubland has deprived young baobab shoots of essential shade and moisture."
+    },
+    {
+      "term_en": "Renewable",
+      "meaning_uz": "qayta tiklanadigan",
+      "synonyms": "sustainable, replenishable, regenerable, inexhaustible",
+      "example_en": "Local communities traditionally harvested baobab bark as a renewable resource that grows back without killing the tree."
+    },
+    {
+      "term_en": "Deciduous",
+      "meaning_uz": "barg to‘kuvchi (daraxtlar haqida)",
+      "synonyms": "broadleaf, shedding, seasonal-leaf, non-evergreen",
+      "example_en": "Being deciduous trees, baobabs shed their foliage during the dry winter months to conserve internal moisture."
+    },
+    {
+      "term_en": "Irrigate",
+      "meaning_uz": "sug‘ormoq",
+      "synonyms": "water, hydrate, supply water, soak, inundate",
+      "example_en": "Diverting river systems to irrigate vast rice paddies altered the subterranean water table near baobab stands."
+    },
+    {
+      "term_en": "Adapt (to)",
+      "meaning_uz": "moslashmoq",
+      "synonyms": "adjust, acclimate, modify, conform, acclimatize",
+      "example_en": "Baobabs have evolved spongy, fibrous wood that allows them to adapt to extreme seasonal precipitation cycles."
+    },
+    {
+      "term_en": "Cope with",
+      "meaning_uz": "uddalamoq, bardosh bermoq",
+      "synonyms": "manage, handle, endure, withstand, survive",
+      "example_en": "Few tree species can cope with months of blistering heat and parched soil as effectively as the Malagasy baobab."
+    },
+    {
+      "term_en": "Waterlogged",
+      "meaning_uz": "suv bosgan, zax",
+      "synonyms": "saturated, soaked, sodden, flooded, marshy",
+      "example_en": "Excessively waterlogged soil causes the root systems of juvenile baobabs to rot before they reach maturity."
+    },
+    {
+      "term_en": "Susceptible (to)",
+      "meaning_uz": "ta’sirchan, moyil, zaif",
+      "synonyms": "vulnerable, prone, sensitive, predisposed, defenseless",
+      "example_en": "Saplings with thin bark are exceedingly susceptible to fires set deliberately to clear pastureland."
+    },
+    {
+      "term_en": "Uproot",
+      "meaning_uz": "ildizi bilan qo‘porib tashlamoq",
+      "synonyms": "deracinate, eradicate, extirpate, pull up, dislodge",
+      "example_en": "Severe cyclonic storms fueled by changing climate patterns have sufficient force to uproot majestic older specimens."
+    },
+    {
+      "term_en": "Native",
+      "meaning_uz": "mahalliy, tub (o‘sha yerga xos)",
+      "synonyms": "indigenous, endemic, aboriginal, regional, domestic",
+      "example_en": "The Grandidier’s baobab is strictly native to the spiny thickets and dry forests of south-western Madagascar."
+    },
+    {
+      "term_en": "Threat",
+      "meaning_uz": "xavf-xatar, tahdid",
+      "synonyms": "peril, menace, danger, hazard, risk",
+      "example_en": "Unchecked agricultural encroachment presents an immediate existential threat to wild plant biodiversity."
+    },
+    {
+      "term_en": "Suppress",
+      "meaning_uz": "bosib turmoq, to‘xtatmoq",
+      "synonyms": "inhibit, stifle, curtail, restrain, quench",
+      "example_en": "Overgrazing by domestic cattle tends to suppress new seedling growth across natural woodlands."
+    },
+    {
+      "term_en": "Regeneration",
+      "meaning_uz": "qayta tiklanish, yangilanish",
+      "synonyms": "renewal, rebirth, restoration, revival, rejuvenation",
+      "example_en": "The total absence of young saplings indicates that natural regeneration of the species has completely stalled."
+    },
+    {
+      "term_en": "Resistance",
+      "meaning_uz": "qarshilik, chidamlilik",
+      "synonyms": "endurance, resilience, tolerance, immunity, defiance",
+      "example_en": "Mature baobabs demonstrate extraordinary fire resistance thanks to thick, fibrous outer bark layers."
+    },
+    {
+      "term_en": "Succumb (to)",
+      "meaning_uz": "taslim bo‘lmoq, bardosh berolmaslik",
+      "synonyms": "yield, surrender, give in, capitulate, collapse",
+      "example_en": "Weakened by continuous dehydration and fungus, several historic trees finally succumbed to pathogen attacks."
+    },
+    {
+      "term_en": "Disturbance",
+      "meaning_uz": "bezovtalik, buzilish (muhitning buzilishi)",
+      "synonyms": "disruption, perturbation, upheaval, interference, alteration",
+      "example_en": "Ecological disturbance caused by road construction has fragmented the migratory corridors of local seed dispersers."
+    },
+    {
+      "term_en": "Logging",
+      "meaning_uz": "daraxt kesish",
+      "synonyms": "timber harvesting, deforestation, felling, lumbering, tree clearance",
+      "example_en": "Illegal logging for exotic timber continues to destroy old-growth canopies throughout protected reserves."
+    },
+    {
+      "term_en": "Germination",
+      "meaning_uz": "kurtak otish, unib chiqish",
+      "synonyms": "sprouting, budding, emergence, developing, shoots",
+      "example_en": "Baobab seeds require seed coat abrasion or passage through an animal digestive tract to trigger successful germination."
+    },
+    {
+      "term_en": "Dispersal",
+      "meaning_uz": "tarqalish, yoyilish",
+      "synonyms": "scattering, dissemination, distribution, spreading, diffusion",
+      "example_en": "The extinction of giant lemurs has disrupted the seed dispersal mechanisms of several large-fruited canopy trees."
+    },
+    {
+      "term_en": "Extinct",
+      "meaning_uz": "qirilib ketgan, yo‘q bo‘lib ketgan",
+      "synonyms": "vanished, eradicated, wiped out, defunct, non-existent",
+      "example_en": "Scientists fear that without aggressive intervention, specialized baobab pollinators could soon become extinct."
+    },
+    {
+      "term_en": "Vital",
+      "meaning_uz": "juda muhim, hayotiy",
+      "synonyms": "crucial, indispensable, essential, pivotal, critical",
+      "example_en": "Maintaining genetic diversity across isolated forest patches is vital for long-term botanical resilience."
+    },
+    {
+      "term_en": "Solitary",
+      "meaning_uz": "yolg‘iz, yakka",
+      "synonyms": "isolated, lone, lone-standing, single, secluded",
+      "example_en": "Travelers frequently encounter solitary baobabs towering over empty fields where dense dry forest once stood."
+    },
+    {
+      "term_en": "Intact",
+      "meaning_uz": "buzilmagan, bus-butun, daxlsiz",
+      "synonyms": "undamaged, pristine, unharmed, unbroken, unspoiled",
+      "example_en": "Only small pockets of intact primary forest remain preserved inside designated national parks."
+    },
+    {
+      "term_en": "Habitat",
+      "meaning_uz": "yashash muhiti, makon",
+      "synonyms": "environment, natural territory, biome, ecosystem, niche",
+      "example_en": "The loss of natural deciduous habitat forces endemic wildlife into increasingly perilous contact with human settlements."
+    },
+    {
+      "term_en": "Compile",
+      "meaning_uz": "to‘plamoq, tuzmoq",
+      "synonyms": "assemble, collate, collect, accumulate, gather",
+      "example_en": "Conservation biologists spent five years compiling a comprehensive botanical inventory of southern Madagascar."
+    },
+    {
+      "term_en": "Conservation",
+      "meaning_uz": "tabiatni muhofaza qilish, asrash",
+      "synonyms": "preservation, protection, safeguarding, stewardship, management",
+      "example_en": "Community-led conservation initiatives offer the best hope for protecting both forest reserves and local livelihoods."
+    },
+    {
+      "term_en": "Declining",
+      "meaning_uz": "kamayib borayotgan",
+      "synonyms": "dwindling, diminishing, deteriorating, decreasing, waning",
+      "example_en": "Recent satellite surveys confirm that declining forest cover poses an imminent risk to biodiversity hotspots."
+    }
+  ],
+  "ielts_reading_coins_38": [
+    {
+      "term_en": "Take for granted",
+      "meaning_uz": "o‘z-o‘zidan bo‘ladigandek qabul qilmoq, qadriga yetmaslik",
+      "synonyms": "assume, undervalue, fail to appreciate, take as given, overlook",
+      "example_en": "Modern citizens take physical currency for granted, seldom pondering the complex social conventions behind minted money."
+    },
+    {
+      "term_en": "Advent",
+      "meaning_uz": "paydo bo‘lish, kirib kelish",
+      "synonyms": "arrival, emergence, introduction, inception, dawn",
+      "example_en": "The advent of standardized coinage in Lydia marked a dramatic turning point in Mediterranean commerce."
+    },
+    {
+      "term_en": "Abandonment",
+      "meaning_uz": "voz kechish, tashlab ketish",
+      "synonyms": "desertion, forsaking, cessation, renunciation, relinquishment",
+      "example_en": "The eventual abandonment of barter systems catalyzed the growth of structured imperial market economies."
+    },
+    {
+      "term_en": "Intrinsic",
+      "meaning_uz": "ichki, asl, tabiiy (qiymat)",
+      "synonyms": "inherent, innate, essential, built-in, fundamental",
+      "example_en": "Gold coins retained broad acceptance because their intrinsic value was directly tied to the precious metal itself."
+    },
+    {
+      "term_en": "Obsolete",
+      "meaning_uz": "eskirgan, urfdan qolgan",
+      "synonyms": "outdated, superseded, archaic, outmoded, defunct",
+      "example_en": "Unstandardized metal ingots quickly became obsolete once official coins guaranteed exact weight and purity."
+    },
+    {
+      "term_en": "Overwhelming",
+      "meaning_uz": "juda ko‘p, aql bovar qilmas darajada",
+      "synonyms": "immense, staggering, irresistible, overpowering, massive",
+      "example_en": "Archaeologists uncovered an overwhelming quantity of Hellenistic coins beneath the ruins of the agora."
+    },
+    {
+      "term_en": "Durable",
+      "meaning_uz": "chidamli, uzoqqa chidaydigan",
+      "synonyms": "long-lasting, sturdy, resilient, enduring, tough",
+      "example_en": "Bronze and silver provided a durable medium of exchange that resisted wear over decades of circulation."
+    },
+    {
+      "term_en": "Artefact",
+      "meaning_uz": "tarixiy buyum, osori-atiqa",
+      "synonyms": "relic, antiquity, historical object, heirloom, curio",
+      "example_en": "Each excavated coin serves as an invaluable historical artefact illuminating ancient political allegiances."
+    },
+    {
+      "term_en": "Scrutinise",
+      "meaning_uz": "sinchiklab tekshirmoq, o‘rganmoq",
+      "synonyms": "inspect, examine closely, audit, investigate, probe",
+      "example_en": "Merchants used specialized touchstones to scrutinise precious coins for evidence of adulteration."
+    },
+    {
+      "term_en": "Ancestor",
+      "meaning_uz": "ajdod",
+      "synonyms": "forebear, forefather, predecessor, progenitor, precursor",
+      "example_en": "Electrum lumps stamped by private merchants are recognized as the direct ancestor of modern metallic money."
+    },
+    {
+      "term_en": "Millennia",
+      "meaning_uz": "ming yilliklar",
+      "synonyms": "thousands of years, epochs, eons, multiple millenniums",
+      "example_en": "Commodities like cattle and grain served as units of value for several millennia prior to the minting of coins."
+    },
+    {
+      "term_en": "Exquisite",
+      "meaning_uz": "nafis, juda chiroyli ishlov berilgan",
+      "synonyms": "delicate, finely crafted, elegant, superb, immaculate",
+      "example_en": "Classical Syracusan silver decadrachms display exquisite artistry unmatched in ancient coinage."
+    },
+    {
+      "term_en": "Craftsmanship / Workmanship",
+      "meaning_uz": "hunarmandchilik, mahorat",
+      "synonyms": "artistry, expertise, mastery, skill, technique",
+      "example_en": "The extraordinary craftsmanship of royal die-engravers made precise counterfeit replication virtually impossible."
+    },
+    {
+      "term_en": "Originate",
+      "meaning_uz": "kelib chiqmoq, boshlanmoq",
+      "synonyms": "stem, derive, emanate, arise, start",
+      "example_en": "Historians agree that Western coinage originated along the coastal settlements of western Asia Minor."
+    },
+    {
+      "term_en": "Commodity",
+      "meaning_uz": "tovar, mahsulot",
+      "synonyms": "merchandise, trade good, product, resource, cargo",
+      "example_en": "Salt was once a prized trade commodity used to pay soldiers throughout remote frontier regions."
+    },
+    {
+      "term_en": "Portable",
+      "meaning_uz": "olib yurishga qulay, ixcham",
+      "synonyms": "handy, easily carried, transportable, compact, lightweight",
+      "example_en": "Coins offered a portable and easily measurable store of wealth compared to bulky sacks of grain."
+    },
+    {
+      "term_en": "Spoilage",
+      "meaning_uz": "aynish, buzilish",
+      "synonyms": "decay, rot, deterioration, decomposition, perishable loss",
+      "example_en": "Precious metals eliminate the risk of spoilage that inevitably plagued agricultural commodities during storage."
+    },
+    {
+      "term_en": "Accumulate",
+      "meaning_uz": "to‘plamoq, yig‘moq",
+      "synonyms": "amass, hoard, stockpile, gather, store up",
+      "example_en": "Successful traders were able to accumulate capital without worrying about physical rot or pest infestation."
+    },
+    {
+      "term_en": "Temptation",
+      "meaning_uz": "vasvasa, qiziqtiruvchi narsa",
+      "synonyms": "allurement, enticement, lure, urge, attraction",
+      "example_en": "Corrupt rulers often faced the temptation to secretly debase currency during expensive military campaigns."
+    },
+    {
+      "term_en": "Decentralised",
+      "meaning_uz": "markazlashmagan",
+      "synonyms": "distributed, dispersed, non-centralized, devolved, widespread",
+      "example_en": "Before royal state monopolies arose, early token currencies functioned on a completely decentralised network of trust."
+    },
+    {
+      "term_en": "Inflation",
+      "meaning_uz": "inflyatsiya, pulning qadrsizlanishi",
+      "synonyms": "price spiral, currency depreciation, devaluation, economic expansion",
+      "example_en": "Flooding the marketplace with clipped silver coins provoked rampant inflation throughout the Roman Empire."
+    },
+    {
+      "term_en": "Purity",
+      "meaning_uz": "soflik, tozalik",
+      "synonyms": "fineness, genuineness, unadulterated state, clarity, authenticity",
+      "example_en": "The imperial seal stamped upon each coin guaranteed both its weight and the high purity of its gold alloy."
+    },
+    {
+      "term_en": "Accusation",
+      "meaning_uz": "ayblov",
+      "synonyms": "allegation, charge, indictment, denunciation, claim",
+      "example_en": "The master of the royal mint faced severe accusations of skimming precious silver from government reserves."
+    },
+    {
+      "term_en": "Fraud",
+      "meaning_uz": "firibgarlik, qalloblik",
+      "synonyms": "deception, swindling, forgery, illicit trickery, counterfeiting",
+      "example_en": "Milling grooves onto coin borders was introduced as a security measure to thwart fraudulent coin shaving."
+    },
+    {
+      "term_en": "Unrest",
+      "meaning_uz": "tartibsizlik, notinchlik",
+      "synonyms": "turmoil, agitation, rebellion, turbulence, disturbance",
+      "example_en": "A sudden devaluation of bronze coinage sparked economic unrest and protests among urban laborers."
+    },
+    {
+      "term_en": "Immerse",
+      "meaning_uz": "botirmoq, cho‘ktirmoq (suvga)",
+      "synonyms": "submerge, dip, plunge, dunk, sink",
+      "example_en": "Archimedes immersed the royal crown in water to measure displacement and detect hidden baser metals."
+    },
+    {
+      "term_en": "Engrave",
+      "meaning_uz": "o‘yib yozmoq / naqsh solmoq",
+      "synonyms": "inscribe, etch, carve, chisel, imprint",
+      "example_en": "Skilled artisans would engrave reverse dies with mythological symbols and celebratory civic emblems."
+    },
+    {
+      "term_en": "Artisan",
+      "meaning_uz": "hunarmand, kosib",
+      "synonyms": "craftsman, tradesman, metalworker, specialist, maker",
+      "example_en": "Every city-state employed a master artisan to design unique coinage that conveyed civic pride."
+    },
+    {
+      "term_en": "Anonymous",
+      "meaning_uz": "nomi noma’lum, anonim",
+      "synonyms": "unidentified, nameless, unsigned, unattributed, obscure",
+      "example_en": "The earliest stamped coins bore simple punch marks and remained entirely anonymous without ruler portraits."
+    },
+    {
+      "term_en": "Circulate",
+      "meaning_uz": "aylanmoq, muomalada bo‘lmoq",
+      "synonyms": "flow, pass around, disseminate, diffuse, spread",
+      "example_en": "Athenian silver 'owls' were trusted so thoroughly that they continued to circulate throughout the Levant."
+    },
+    {
+      "term_en": "Unaltered",
+      "meaning_uz": "o‘zgarishsiz, o‘zgartirilmagan",
+      "synonyms": "intact, unchanged, unadulterated, preserved, unvaried",
+      "example_en": "Centuries-old gold hoards discovered in ceramic jars remained remarkably unaltered by oxidation."
+    },
+    {
+      "term_en": "Uniform",
+      "meaning_uz": "bir xil, yagona shakldagi",
+      "synonyms": "consistent, standardized, homogenous, identical, even",
+      "example_en": "Mass-striking techniques allowed governments to maintain uniform dimensions and weight across millions of coins."
+    },
+    {
+      "term_en": "Integrity",
+      "meaning_uz": "halollik, butunlik, ishonchlilik",
+      "synonyms": "probity, reliability, soundness, honesty, uprightness",
+      "example_en": "A state’s commercial standing relied heavily upon the fiscal integrity of its officially minted currency."
+    },
+    {
+      "term_en": "Reigning",
+      "meaning_uz": "hukmronlik qilayotgan",
+      "synonyms": "ruling, sovereign, dominant, incumbent, prevailing",
+      "example_en": "The reigning monarch’s effigy was prominently stamped upon the obverse face of every newly issued coin."
+    },
+    {
+      "term_en": "Distinguished",
+      "meaning_uz": "atoqli, mashhur, hurmatli",
+      "synonyms": "illustrious, prominent, renowned, esteemed, acclaimed",
+      "example_en": "Distinguished numismatists can identify the date and foundry of an ancient coin merely by examining minor edge variations."
+    },
+    {
+      "term_en": "Trustworthiness",
+      "meaning_uz": "ishonchlilik",
+      "synonyms": "reliability, dependability, credibility, fidelity, authenticity",
+      "example_en": "The widespread acceptance of money depends fundamentally on public trustworthiness in the issuing authority."
+    },
+    {
+      "term_en": "Plentiful",
+      "meaning_uz": "mo‘l-ko‘l, ko‘p",
+      "synonyms": "abundant, copious, bountiful, profuse, ample",
+      "example_en": "When silver became plentiful following the discovery of the Laurion mines, Athens expanded its maritime fleet."
+    },
+    {
+      "term_en": "Encounter",
+      "meaning_uz": "duch kelmoq",
+      "synonyms": "come across, stumble upon, meet, confront, face",
+      "example_en": "Archaeologists regularly encounter coins from distant trading partners within ancient Mediterranean shipwrecks."
+    }
+  ],
+  "ielts_reading_grapefruit_31": [
+    {
+      "term_en": "Compound",
+      "meaning_uz": "birikma, modda (kimyoviy)",
+      "synonyms": "chemical substance, molecule, composite, formulation, mixture",
+      "example_en": "Researchers identified naringin as the primary flavonoid compound responsible for the grapefruit's sharp bitterness."
+    },
+    {
+      "term_en": "Enhance",
+      "meaning_uz": "yaxshilamoq, kuchaytirmoq",
+      "synonyms": "boost, improve, augment, intensify, elevate",
+      "example_en": "Selective breeding programs strive to enhance the sweet flavor profile while mitigating harsh astringency."
+    },
+    {
+      "term_en": "Altogether",
+      "meaning_uz": "butunlay, umuman",
+      "synonyms": "completely, entirely, totally, utterly, thoroughly",
+      "example_en": "Some radical hybridization experiments eliminated the characteristic sourness altogether, creating a novel dessert fruit."
+    },
+    {
+      "term_en": "Contend",
+      "meaning_uz": "ta’kidlamoq, da’vo qilmoq",
+      "synonyms": "assert, maintain, argue, claim, affirm",
+      "example_en": "Agronomists contend that natural bitter compounds play an indispensable role in repelling agricultural pests."
+    },
+    {
+      "term_en": "Prevent",
+      "meaning_uz": "oldini olmoq",
+      "synonyms": "thwart, avert, forestall, inhibit, deter",
+      "example_en": "Covering young citrus trees with protective mesh can prevent insect vectors from transmitting destructive plant viruses."
+    },
+    {
+      "term_en": "Conduct",
+      "meaning_uz": "o‘tkazmoq (tajriba, tadqiqot)",
+      "synonyms": "carry out, administer, execute, undertake, perform",
+      "example_en": "Food scientists conduct double-blind sensory trials to assess consumer reactions to genetically altered cultivars."
+    },
+    {
+      "term_en": "Cleanse",
+      "meaning_uz": "tozalamoq",
+      "synonyms": "purify, detoxify, rinse, purge, sanitize",
+      "example_en": "Participants drank mineral water between test samples to cleanse their palates before tasting the next citrus hybrid."
+    },
+    {
+      "term_en": "Unmistakeable",
+      "meaning_uz": "aniq, adashtirib bo‘lmaydigan",
+      "synonyms": "distinctive, unmistakable, unambiguous, distinct, definite",
+      "example_en": "The ruby-red variety has an unmistakeable aroma that instantly distinguishes it from common oranges and lemons."
+    },
+    {
+      "term_en": "Nutritious",
+      "meaning_uz": "to‘yimli, foydali",
+      "synonyms": "wholesome, nourishing, nutrient-rich, healthful, beneficial",
+      "example_en": "Grapefruits are celebrated as exceptionally nutritious fruits packed with vitamin C, potassium, and beneficial antioxidants."
+    },
+    {
+      "term_en": "Booming",
+      "meaning_uz": "jadal rivojlanayotgan, gullab-yashnayotgan",
+      "synonyms": "thriving, flourishing, burgeoning, expanding, prosperous",
+      "example_en": "Consumer interest in wellness foods created a booming commercial market for sweeter citrus alternatives."
+    },
+    {
+      "term_en": "Delve into",
+      "meaning_uz": "chuqur o‘rganmoq, sho‘ng‘imoq",
+      "synonyms": "investigate, explore, probe, research deeply, examine",
+      "example_en": "Molecular biologists continue to delve into the genetic markers that regulate furanocoumarin synthesis."
+    },
+    {
+      "term_en": "Poisonous",
+      "meaning_uz": "zaharli",
+      "synonyms": "toxic, venomous, noxious, lethal, virulent",
+      "example_en": "In nature, bitter taste mechanisms evolved primarily to warn mammals away from ingesting poisonous plant leaves."
+    },
+    {
+      "term_en": "Foolproof",
+      "meaning_uz": "bexato ishlaydigan, ishonchli",
+      "synonyms": "infallible, reliable, flawless, unerring, certain",
+      "example_en": "Breeding sweeter strains through conventional grafting proved far from a foolproof method of controlling chemical flavor profiles."
+    },
+    {
+      "term_en": "Averse (to)",
+      "meaning_uz": "yoqtirmaydigan, qarshi",
+      "synonyms": "reluctant, disinclined, resistant, hostile, opposed",
+      "example_en": "Many younger consumers are averse to pungent bitter tastes, preferring naturally sugary snack alternatives."
+    },
+    {
+      "term_en": "Repellent",
+      "meaning_uz": "jirkanch, itaruvchi (yoqimsiz)",
+      "synonyms": "repugnant, distasteful, off-putting, obnoxious, repulsive",
+      "example_en": "To individuals with sensitive taste receptors, raw grapefruit rind exhibits an intensely repellent aftertaste."
+    },
+    {
+      "term_en": "Intense",
+      "meaning_uz": "kuchli, o‘tkir",
+      "synonyms": "acute, extreme, fierce, potent, severe",
+      "example_en": "Super-tasters experience an intense gustatory reaction even when tasting minute dilutions of citrus bittering agents."
+    },
+    {
+      "term_en": "Palatable",
+      "meaning_uz": "mazali, yeyishli, yoqimli",
+      "synonyms": "appetizing, tasty, flavorful, enjoyable, delectable",
+      "example_en": "Blending grapefruit juice with sweet tangerine extracts makes the beverage substantially more palatable for everyday breakfasts."
+    },
+    {
+      "term_en": "Capacity",
+      "meaning_uz": "qobiliyat, imkoniyat",
+      "synonyms": "capability, aptitude, potential, ability, faculty",
+      "example_en": "The human capacity to perceive bitterness varies tremendously depending on inherited TAS2R38 taste receptor genes."
+    },
+    {
+      "term_en": "Sensitive",
+      "meaning_uz": "sezgir, ta’sirchan",
+      "synonyms": "receptive, responsive, perceptive, susceptible, vulnerable",
+      "example_en": "Individuals with dense concentrations of fungiform papillae are far more sensitive to chemical bitterness in citrus."
+    },
+    {
+      "term_en": "Shun",
+      "meaning_uz": "qochmoq, o‘zini tortmoq",
+      "synonyms": "avoid, steer clear of, spurn, evade, eschew",
+      "example_en": "Patients taking statins must shun grapefruit entirely because certain citrus compounds inhibit liver breakdown enzymes."
+    },
+    {
+      "term_en": "Elongated",
+      "meaning_uz": "cho‘zinchoq, uzaytirilgan",
+      "synonyms": "lengthened, extended, oblong, stretched out, slender",
+      "example_en": "The specialized taste bud cells feature elongated microvilli that project into the oral cavity to capture sapid molecules."
+    },
+    {
+      "term_en": "Capture",
+      "meaning_uz": "tutib olmoq, ushlamoq",
+      "synonyms": "trap, catch, bind, seize, snare",
+      "example_en": "Receptor proteins on cell membranes capture bitter compounds and initiate downstream biochemical signaling cascades."
+    },
+    {
+      "term_en": "Relay",
+      "meaning_uz": "uzatmoq (signalni)",
+      "synonyms": "transmit, convey, pass on, communicate, transfer",
+      "example_en": "Sensory nerve fibers relay gustatory messages from the tongue directly to the gustatory cortex in the brain."
+    },
+    {
+      "term_en": "Perception",
+      "meaning_uz": "idrok etish, sezish",
+      "synonyms": "apprehension, discernment, sensation, awareness, recognition",
+      "example_en": "Individual perception of flavor is shaped by an intricate interplay between olfactory cues and taste receptor sensitivity."
+    },
+    {
+      "term_en": "Trigger",
+      "meaning_uz": "ishga tushirmoq, sabab bo‘lmoq",
+      "synonyms": "stimulate, activate, provoke, prompt, initiate",
+      "example_en": "Even trace concentrations of limonin can trigger an immediate rejection reflex in children."
+    },
+    {
+      "term_en": "Ultimately",
+      "meaning_uz": "oxir-oqibat, nihoyat",
+      "synonyms": "eventually, in the end, fundamentally, finally, consequently",
+      "example_en": "Growers hope that targeted genetic editing will ultimately yield a grapefruit that combines exceptional health benefits with mild sweetness."
+    },
+    {
+      "term_en": "Interfere (with)",
+      "meaning_uz": "aralashmoq, xalaqit bermoq",
+      "synonyms": "disrupt, impede, hamper, obstruct, hinder",
+      "example_en": "Certain citrus chemicals interfere with cytochrome P450 enzymes responsible for metabolizing critical cardiovascular pharmaceuticals."
+    },
+    {
+      "term_en": "Dampen",
+      "meaning_uz": "pasaytirmoq, susaytirmoq",
+      "synonyms": "muffle, suppress, diminish, moderate, attenuate",
+      "example_en": "Adding a pinch of sodium salt to grapefruit slices helps dampen bitterness while exaggerating perceived sweetness."
+    },
+    {
+      "term_en": "Allowance",
+      "meaning_uz": "me’yor, ruxsat etilgan miqdor",
+      "synonyms": "quota, allocation, tolerance, permissible level, portion",
+      "example_en": "Nutritionists recommend incorporating half a grapefruit into one's daily fruit allowance to satisfy antioxidant guidelines."
+    },
+    {
+      "term_en": "Scarce",
+      "meaning_uz": "kamyob, tanqis",
+      "synonyms": "insufficient, sparse, rare, meager, deficient",
+      "example_en": "Naturally low-bitter mutations were once exceedingly scarce, requiring decades of patient cross-pollination to cultivate reliably."
+    },
+    {
+      "term_en": "Eliminate",
+      "meaning_uz": "yo‘qotmoq, bartaraf etmoq",
+      "synonyms": "eradicate, remove, dispense with, purge, expel",
+      "example_en": "Biotechnologists are testing gene-silencing techniques to eliminate the synthesis of undesirable bitter glycosides in fruit flesh."
+    }
   ]
 }
