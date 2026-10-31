@@ -17,6 +17,17 @@ async function main() {
   const baobabs37Words = data.ielts_reading_baobabs_37 || [];
   const coins38Words = data.ielts_reading_coins_38 || [];
   const grapefruit31Words = data.ielts_reading_grapefruit_31 || [];
+  const ieltsTop2000Words = data.ielts_top_2000 || [];
+
+  // 0. Delete "Common reading" if it exists
+  await prisma.deck.deleteMany({
+    where: {
+      OR: [
+        { title: { equals: "Common reading", mode: "insensitive" } },
+        { title: { contains: "Common reading", mode: "insensitive" } },
+      ],
+    },
+  });
 
   // 1. Deck 1: IELTS Reading Advanced — 47 Core Words
   let deck47 = await prisma.deck.findFirst({
@@ -345,6 +356,48 @@ async function main() {
       console.log(`Seeded Deck 6 (Grapefruit) with ${grapefruit31Words.length} cards.`);
     } else {
       console.log("Deck 6 (Grapefruit) already exists.");
+    }
+  }
+
+  // 7. Deck 7: Cambridge IELTS 10–14: Top 2000 Academic Vocabulary — 2000 Words
+  if (ieltsTop2000Words.length > 0) {
+    let deck2000 = await prisma.deck.findFirst({
+      where: {
+        OR: [
+          { title: "Cambridge IELTS 10–14: Top 2000 Academic Vocabulary" },
+          { title: { contains: "Top 2000 Academic Vocabulary" } },
+          { title: { contains: "Top 2000 Vocabulary" } },
+        ],
+      },
+    });
+
+    if (!deck2000) {
+      deck2000 = await prisma.deck.create({
+        data: {
+          title: "Cambridge IELTS 10–14: Top 2000 Academic Vocabulary",
+          description:
+            "Cambridge IELTS 10–14 kitoblaridagi 60 ta Academic Reading matnidan haqiqiy chastota bo'yicha saralangan barcha 2000 ta akademik so'z va iboralar to'plami. Har bir so'z o'zbekcha tarjima, sinonimlar va kontekstual misollar bilan to'liq jihozlangan.",
+          level: "B2–C2",
+          isPublic: true,
+        },
+      });
+
+      const chunkSize = 250;
+      for (let i = 0; i < ieltsTop2000Words.length; i += chunkSize) {
+        const chunk = ieltsTop2000Words.slice(i, i + chunkSize);
+        await prisma.card.createMany({
+          data: chunk.map((w: any) => ({
+            deckId: deck2000!.id,
+            termEn: w.term_en,
+            meaningUz: w.meaning_uz,
+            synonyms: w.synonyms || null,
+            exampleEn: w.example_en || null,
+          })),
+        });
+      }
+      console.log(`Seeded Deck 7 (Top 2000) with ${ieltsTop2000Words.length} cards.`);
+    } else {
+      console.log("Deck 7 (Top 2000) already exists.");
     }
   }
 

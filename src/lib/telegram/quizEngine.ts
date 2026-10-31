@@ -173,6 +173,7 @@ export async function createQuizSession(
       ...((seedWordsData as any).ielts_reading_baobabs_37 || []),
       ...((seedWordsData as any).ielts_reading_coins_38 || []),
       ...((seedWordsData as any).ielts_reading_grapefruit_31 || []),
+      ...((seedWordsData as any).ielts_top_2000 || []),
     ];
     let defaultDeck = await prisma.deck.findFirst({ where: { isPublic: true } });
     if (!defaultDeck) {

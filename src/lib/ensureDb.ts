@@ -91,6 +91,20 @@ export const ensureLexoraDb = ensureVydexDb;
 
 async function autoSeedDecks() {
   try {
+    // 0. "Common reading" to'plamini o'chirish (foydalanuvchi talabiga ko'ra)
+    try {
+      await prisma.deck.deleteMany({
+        where: {
+          OR: [
+            { title: { equals: "Common reading", mode: "insensitive" } },
+            { title: { contains: "Common reading", mode: "insensitive" } },
+          ],
+        },
+      });
+    } catch (delErr) {
+      console.warn("Notice deleting Common reading deck:", delErr);
+    }
+
     const {
       core_47,
       academic_55,
@@ -98,6 +112,7 @@ async function autoSeedDecks() {
       ielts_reading_baobabs_37,
       ielts_reading_coins_38,
       ielts_reading_grapefruit_31,
+      ielts_top_2000,
     } = seedWordsData as {
       core_47: Array<{
         term_en: string;
@@ -130,6 +145,13 @@ async function autoSeedDecks() {
         example_en?: string;
       }>;
       ielts_reading_grapefruit_31?: Array<{
+        term_en: string;
+        meaning_uz: string;
+        synonyms?: string;
+        example_en?: string;
+      }>;
+      ielts_top_2000?: Array<{
+        number?: number;
         term_en: string;
         meaning_uz: string;
         synonyms?: string;
@@ -403,6 +425,46 @@ async function autoSeedDecks() {
             },
           });
         }
+      }
+    }
+
+    // Deck 7: Cambridge IELTS 10–14: Top 2000 Academic Vocabulary — 2000 Words
+    if (ielts_top_2000 && ielts_top_2000.length > 0) {
+      let deck2000 = await prisma.deck.findFirst({
+        where: {
+          OR: [
+            { title: "Cambridge IELTS 10–14: Top 2000 Academic Vocabulary" },
+            { title: { contains: "Top 2000 Academic Vocabulary" } },
+            { title: { contains: "Top 2000 Vocabulary" } },
+          ],
+        },
+      });
+
+      if (!deck2000) {
+        deck2000 = await prisma.deck.create({
+          data: {
+            title: "Cambridge IELTS 10–14: Top 2000 Academic Vocabulary",
+            description:
+              "Cambridge IELTS 10–14 kitoblaridagi 60 ta Academic Reading matnidan haqiqiy chastota bo'yicha saralangan barcha 2000 ta akademik so'z va iboralar to'plami. Har bir so'z o'zbekcha tarjima, sinonimlar va kontekstual misollar bilan to'liq jihozlangan.",
+            level: "B2–C2",
+            isPublic: true,
+          },
+        });
+
+        const chunkSize = 250;
+        for (let i = 0; i < ielts_top_2000.length; i += chunkSize) {
+          const chunk = ielts_top_2000.slice(i, i + chunkSize);
+          await prisma.card.createMany({
+            data: chunk.map((w) => ({
+              deckId: deck2000!.id,
+              termEn: w.term_en,
+              meaningUz: w.meaning_uz,
+              synonyms: w.synonyms || null,
+              exampleEn: w.example_en || null,
+            })),
+          });
+        }
+        console.log(`Auto-seeded Deck 7 (Top 2000) with ${ielts_top_2000.length} cards.`);
       }
     }
 

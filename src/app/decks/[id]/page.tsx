@@ -29,6 +29,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBoxFilter, setSelectedBoxFilter] = useState<"all" | "box0" | "learning" | "mastered">("all");
+  const [visibleLimit, setVisibleLimit] = useState(50);
   const [preferredAccent, setPreferredAccent] = useState<"en-US" | "en-GB">("en-US");
   const [playingTerm, setPlayingTerm] = useState<string | null>(null);
   const [reviewingCardId, setReviewingCardId] = useState<number | null>(null);
@@ -52,6 +53,10 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
       fetchDeck();
     }
   }, [deckId]);
+
+  useEffect(() => {
+    setVisibleLimit(50);
+  }, [searchQuery, selectedBoxFilter]);
 
   // Handle pronunciation audio
   const handlePlayAudio = async (term: string) => {
@@ -322,7 +327,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
         </GlassCard>
       ) : (
         <div className="space-y-3">
-          {filteredCards.map((card, idx) => {
+          {filteredCards.slice(0, visibleLimit).map((card, idx) => {
             const isPlaying = playingTerm === card.term_en;
             const boxLevel = card.progress?.box_level ?? 0;
             const wrongCount = card.progress?.wrong_count ?? 0;
@@ -435,6 +440,25 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
               </GlassCard>
             );
           })}
+
+          {/* Load More Pagination Bar for large decks */}
+          {visibleLimit < filteredCards.length && (
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 pb-6">
+              <button
+                onClick={() => setVisibleLimit((prev) => prev + 50)}
+                className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-lg hover:border-[#ef233c]/40 flex items-center justify-center gap-2"
+              >
+                <span>Yana 50 ta ko&apos;rsatish</span>
+                <span className="text-zinc-500 font-mono">({filteredCards.length - visibleLimit} ta qoldi)</span>
+              </button>
+              <button
+                onClick={() => setVisibleLimit(filteredCards.length)}
+                className="w-full sm:w-auto px-5 py-3 rounded-full bg-[#ef233c]/15 hover:bg-[#ef233c]/25 border border-[#ef233c]/30 text-[#ef233c] font-bold text-xs sm:text-sm transition-all cursor-pointer"
+              >
+                Barcha {filteredCards.length} ta so&apos;zni birdan ochish
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
