@@ -39,7 +39,6 @@ import {
   processQuizAnswer,
   renderQuizSummary,
 } from "./quizEngine";
-import { checkSentenceWithAi, formatSentenceEvaluationHtml } from "./sentenceChecker";
 import { getUserStatsData, formatUserStatsHtml } from "./userStats";
 import { getHardWordsData, formatHardWordsHtml } from "./hardWords";
 import { getDailyReviewCount, formatDailyReviewPrompt } from "./dailyReview";
@@ -176,7 +175,6 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `• ⚡️ <b>Tezkor Quiz</b>: 5 ta so'zdan iborat tezkor SRS testi\n` +
           `• 🗓 <b>Kunlik takrorlash</b>: Unutilish arafasidagi so'zlarni vaqtida qaytarish\n` +
           `• 🔍 <b>Aqlli Lug'at</b>: Istalgan inglizcha so'z yuboring — tarjimasi, darajasi va IELTS misoli bilan to'plamingizga saqlaydi\n` +
-          `• ✍️ <b>Gap tekshirish</b>: O'z gapingizni yuboring — AI IELTS Writing mezonlari bo'yicha baholaydi\n` +
           `• 📊 <b>Profil & Statistika</b>: Leitner xotira tahlili va o'zlashtirish ko'rsatkichlari\n` +
           `• 📌 <b>Qiyin so'zlar</b>: Eng ko'p xato qilingan so'zlar ustida ishlash\n\n` +
           `Quyidagi menyu tugmalaridan kerakli bo'limni tanlang yoki to'g'ridan-to'g'ri biror inglizcha so'z yozib yuboring:`;
@@ -191,27 +189,6 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
       // Ensure user exists
       const user = await getOrCreateTelegramUser(from);
 
-      // Check for user pending action (e.g. awaiting sentence for AI check)
-      const pendingAction = getUserPendingAction(from.id);
-      if (pendingAction && pendingAction.action === "awaiting_sentence") {
-        clearUserPendingAction(from.id);
-        const targetWord =
-          typeof pendingAction.meta?.targetWord === "string"
-            ? pendingAction.meta.targetWord
-            : undefined;
-        const result = await checkSentenceWithAi(text, targetWord);
-        const html = formatSentenceEvaluationHtml(text, result, targetWord);
-        await sendTelegramMessage(chatId, html, {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "⚡️ Yangi Quiz topshirish", callback_data: "quiz:start" }],
-              [{ text: "🔙 Bosh menyu", callback_data: "main_menu" }],
-            ],
-          },
-        });
-        return NextResponse.json({ ok: true });
-      }
-
       // 2.2 Handle /help or Guide
       if (text === "/help" || text.includes("Qo'llanma") || text.includes("Yordam")) {
         const helpText =
@@ -221,8 +198,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `• <b>/quiz</b> yoki <b>⚡️ Tezkor Quiz (5 ta)</b> — 5 ta so'zdan iborat interaktiv SRS testi\n` +
           `• <b>/review</b> yoki <b>🗓 Kunlik takrorlash</b> — Bugun unutilish arafasidagi so'zlarni qaytarish\n` +
           `• <b>/stats</b> yoki <b>📊 Profil & Statistika</b> — Leitner xotira tahlili va seriyangiz\n` +
-          `• <b>/hard</b> yoki <b>📌 Qiyin so'zlar</b> — Eng ko'p xato qilingan so'zlar va ulardan test\n` +
-          `• <b>/check &lt;gap&gt;</b> yoki <b>✍️ Gap tekshirish</b> — IELTS Writing AI tekshiruvi\n\n` +
+          `• <b>/hard</b> yoki <b>📌 Qiyin so'zlar</b> — Eng ko'p xato qilingan so'zlar va ulardan test\n\n` +
           `💡 <b>Aqlli Lug'at:</b>\n` +
           `Botga istalgan inglizcha so'zni yozib yuboring (masalan: <code>scrutinize</code>, <code>thrive</code>, <code>resilient</code>). ` +
           `Bot uning o'zbekcha tarjimasi, CEFR darajasi va IELTS namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlab beradi!`;
@@ -317,42 +293,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
         return NextResponse.json({ ok: true });
       }
 
-      // 2.7 Handle /check or "✍️ Gap tekshirish"
-      if (text.startsWith("/check") || text.includes("Gap tekshirish") || text === "✍️") {
-        const gapText = text.replace(/^\/check\s*/i, "").trim();
-
-        if (gapText.length > 5) {
-          const result = await checkSentenceWithAi(gapText);
-          const html = formatSentenceEvaluationHtml(gapText, result);
-          await sendTelegramMessage(chatId, html, {
-            reply_markup: {
-              inline_keyboard: [
-                [{ text: "⚡️ Yangi Quiz topshirish", callback_data: "quiz:start" }],
-                [{ text: "🔙 Bosh menyu", callback_data: "main_menu" }],
-              ],
-            },
-          });
-          return NextResponse.json({ ok: true });
-        }
-
-        // Prompt user for sentence
-        setUserPendingAction(from.id, "awaiting_sentence");
-        const promptText =
-          `✍️ <b>IELTS Writing AI Gap Tekshiruvi</b>\n\n` +
-          `Istalgan inglizcha gap yozib yuboring (masalan: <i>"Although modern technologies thrive, environmental issues must be addressed."</i>).\n\n` +
-          `Sun'iy intellekt (AI) grammatikangizni, so'z tanlash mahoratingizni va IELTS Band darajasini tahlil qilib beradi:`;
-
-        await sendTelegramMessage(chatId, promptText, {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "❌ Bekor qilish", callback_data: "main_menu" }],
-            ],
-          },
-        });
-        return NextResponse.json({ ok: true });
-      }
-
-      // 2.8 Handle "🔍 Aqlli Lug'at" prompt
+      // 2.7 Handle "🔍 Aqlli Lug'at" prompt
       if (text.includes("Aqlli Lug'at") || text === "🔍") {
         const dictText =
           `🔍 <b>Aqlli Lug'at Qidiruvi</b>\n\n` +
@@ -560,8 +501,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `• ⚡️ <b>Tezkor Quiz</b> — 5 ta so'zdan iborat interaktiv SRS testi\n` +
           `• 🗓 <b>Kunlik takrorlash</b> — Bugun unutilish arafasidagi so'zlarni qaytarish\n` +
           `• 📊 <b>Profil & Statistika</b> — Leitner xotira tahlili va seriyangiz\n` +
-          `• 📌 <b>Qiyin so'zlar</b> — Eng ko'p xato qilingan so'zlar va ulardan test\n` +
-          `• ✍️ <b>Gap tekshirish</b> — IELTS Writing AI tahlili\n\n` +
+          `• 📌 <b>Qiyin so'zlar</b> — Eng ko'p xato qilingan so'zlar va ulardan test\n\n` +
           `💡 <b>Aqlli Lug'at:</b> Istalgan inglizcha so'z yuboring — tarjimasi, darajasi va misolini ko'rsatib, to'plamingizga saqlaydi!`;
 
         if (messageId) {
@@ -838,51 +778,6 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
 
           return NextResponse.json({ ok: true });
         }
-      }
-
-      // 3.13 Prompt for Sentence with Specific Word: check:word:<cardId>
-      if (data.startsWith("check:word:")) {
-        const cardId = parseInt(data.replace("check:word:", ""), 10);
-        const card = await prisma.card.findUnique({ where: { id: cardId } });
-        const term = card ? card.termEn : "";
-
-        setUserPendingAction(from.id, "awaiting_sentence", { targetWord: term });
-
-        const promptText =
-          `✍️ <b>"${escapeHtml(term)}"</b> so'zi bilan gap tuzish:\n\n` +
-          `Ushbu so'zni qatnashtirib biror inglizcha gap yozib yuboring.\n` +
-          `AI uning grammatikasini, so'zning to'g'ri kontekstda ishlatilganini va IELTS Band darajasini tahlil qiladi.`;
-
-        await sendTelegramMessage(chatId, promptText, {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "❌ Bekor qilish", callback_data: "main_menu" }],
-            ],
-          },
-        });
-
-        await answerTelegramCallbackQuery(cq.id);
-        return NextResponse.json({ ok: true });
-      }
-
-      // 3.14 Prompt for Sentence in General: check:prompt
-      if (data === "check:prompt") {
-        setUserPendingAction(from.id, "awaiting_sentence");
-        const promptText =
-          `✍️ <b>IELTS Writing AI Gap Tekshiruvi</b>\n\n` +
-          `Istalgan inglizcha gap yozib yuboring.\n` +
-          `Sun'iy intellekt uning grammatikasi, so'z boyligi va IELTS Band ko'rsatkichini baholab beradi.`;
-
-        await sendTelegramMessage(chatId, promptText, {
-          reply_markup: {
-            inline_keyboard: [
-              [{ text: "❌ Bekor qilish", callback_data: "main_menu" }],
-            ],
-          },
-        });
-
-        await answerTelegramCallbackQuery(cq.id);
-        return NextResponse.json({ ok: true });
       }
 
       if (data === "noop") {

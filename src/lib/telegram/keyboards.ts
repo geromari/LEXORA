@@ -13,14 +13,13 @@ export function getMainReplyKeyboard(): ReplyKeyboardMarkup {
       ],
       [
         { text: "🔍 Aqlli Lug'at" },
-        { text: "✍️ Gap tekshirish" },
-      ],
-      [
-        { text: "📊 Profil & Statistika" },
         { text: "📌 Qiyin so'zlar" },
       ],
       [
+        { text: "📊 Profil & Statistika" },
         { text: "📖 Qo'llanma" },
+      ],
+      [
         { text: "🌐 Web Platforma ↗️" },
       ],
     ],
@@ -46,7 +45,6 @@ export function getWelcomeInlineKeyboard(appUrl: string): InlineKeyboardMarkup {
         { text: "📌 Qiyin so'zlarim", callback_data: "hard_words" },
       ],
       [
-        { text: "✍️ IELTS Gap Tekshiruvi", callback_data: "check:prompt" },
         { text: "📖 Qo'llanma", callback_data: "help" },
       ],
       [
@@ -217,12 +215,6 @@ export function getWordLookupKeyboard(
   return {
     inline_keyboard: [
       [saveButton],
-      [
-        {
-          text: `✍️ "${term}" bilan gap tekshirish`,
-          callback_data: `check:word:${cardId}`,
-        },
-      ],
       [
         { text: "📚 To'plamlarim", callback_data: "decks:list" },
         { text: "⚡️ Quiz topshirish", callback_data: "quiz:start" },
