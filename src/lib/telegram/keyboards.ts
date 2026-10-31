@@ -20,11 +20,13 @@ export function getMainReplyKeyboard(): ReplyKeyboardMarkup {
         { text: "📌 Qiyin so'zlar" },
       ],
       [
+        { text: "📖 Qo'llanma" },
         { text: "🌐 Web Platforma ↗️" },
       ],
     ],
     resize_keyboard: true,
-    is_persistent: true,
+    is_persistent: false,
+    input_field_placeholder: "Menyudan tanlang yoki so'z yozing...",
   };
 }
 

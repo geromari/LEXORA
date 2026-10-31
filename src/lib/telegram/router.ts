@@ -11,7 +11,6 @@ import {
 } from "./api";
 import {
   getMainReplyKeyboard,
-  getWelcomeInlineKeyboard,
   getStatsInlineKeyboard,
   getHardWordsInlineKeyboard,
   getReviewPromptKeyboard,
@@ -157,7 +156,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
               )}</b>) Telegram akkauntingiz bilan sinxronlashtirildi!`;
 
             await sendTelegramMessage(chatId, replyText, {
-              reply_markup: getWelcomeInlineKeyboard(appUrl),
+              reply_markup: getMainReplyKeyboard(),
             });
             return NextResponse.json({ ok: true });
           }
@@ -180,16 +179,10 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `• ✍️ <b>Gap tekshirish</b>: O'z gapingizni yuboring — AI IELTS Writing mezonlari bo'yicha baholaydi\n` +
           `• 📊 <b>Profil & Statistika</b>: Leitner xotira tahlili va o'zlashtirish ko'rsatkichlari\n` +
           `• 📌 <b>Qiyin so'zlar</b>: Eng ko'p xato qilingan so'zlar ustida ishlash\n\n` +
-          `Quyidagi menyudan kerakli bo'limni tanlang yoki to'g'ridan-to'g'ri biror inglizcha so'z yozib yuboring:`;
-
-        await sendTelegramMessage(
-          chatId,
-          "⚡️ Boshqaruv tugmalari faollashtirildi:",
-          { reply_markup: getMainReplyKeyboard() }
-        );
+          `Quyidagi menyu tugmalaridan kerakli bo'limni tanlang yoki to'g'ridan-to'g'ri biror inglizcha so'z yozib yuboring:`;
 
         await sendTelegramMessage(chatId, welcomeText, {
-          reply_markup: getWelcomeInlineKeyboard(appUrl),
+          reply_markup: getMainReplyKeyboard(),
         });
 
         return NextResponse.json({ ok: true });
@@ -235,7 +228,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `Bot uning o'zbekcha tarjimasi, CEFR darajasi va IELTS namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlab beradi!`;
 
         await sendTelegramMessage(chatId, helpText, {
-          reply_markup: getWelcomeInlineKeyboard(appUrl),
+          reply_markup: getMainReplyKeyboard(),
         });
         return NextResponse.json({ ok: true });
       }
@@ -367,7 +360,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `Bot uning o'zbekcha akademik tarjimasi, CEFR darajasi, sinonimlari va IELTS kontekst namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlaydi!`;
 
         await sendTelegramMessage(chatId, dictText, {
-          reply_markup: getWelcomeInlineKeyboard(appUrl),
+          reply_markup: getMainReplyKeyboard(),
         });
         return NextResponse.json({ ok: true });
       }
@@ -384,7 +377,6 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           reply_markup: {
             inline_keyboard: [
               [{ text: "🌐 Veb-Platformaga o'tish ↗️", url: appUrl }],
-              [{ text: "🔙 Bosh menyu", callback_data: "main_menu" }],
             ],
           },
         });
@@ -418,8 +410,8 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
         await sendTelegramMessage(
           chatId,
           `🔍 <b>"${escapeHtml(text)}"</b> so'zi bo'yicha ma'lumot topilmadi.\n` +
-            `Iltimos, so'zning to'g'ri yozilganini tekshirib qayta yuboring yoki quyidagi bo'limlardan foydalaning:`,
-          { reply_markup: getWelcomeInlineKeyboard(appUrl) }
+            `Iltimos, so'zning to'g'ri yozilganini tekshirib qayta yuboring yoki quyidagi menyu tugmalaridan foydalaning:`,
+          { reply_markup: getMainReplyKeyboard() }
         );
         return NextResponse.json({ ok: true });
       }
@@ -449,15 +441,13 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `✨ <b>Asosiy Menyu</b>\n\n` +
           `Foydalanuvchi: <b>${name}</b>\n` +
           `🔥 Kunlik seriya: <b>${user.streakCount} kun</b>\n\n` +
-          `Kerakli bo'limni tanlang yoki to'g'ridan-to'g'ri inglizcha so'z yozib yuboring:`;
+          `Kerakli bo'limni quyidagi menyu tugmalaridan tanlang yoki to'g'ridan-to'g'ri biror inglizcha so'z yozib yuboring:`;
 
         if (messageId) {
-          await editTelegramMessage(chatId, messageId, welcomeText, {
-            reply_markup: getWelcomeInlineKeyboard(appUrl),
-          });
+          await editTelegramMessage(chatId, messageId, welcomeText);
         } else {
           await sendTelegramMessage(chatId, welcomeText, {
-            reply_markup: getWelcomeInlineKeyboard(appUrl),
+            reply_markup: getMainReplyKeyboard(),
           });
         }
         await answerTelegramCallbackQuery(cq.id);

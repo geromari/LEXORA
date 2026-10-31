@@ -69,6 +69,7 @@ export interface ReplyKeyboardMarkup {
   resize_keyboard?: boolean;
   one_time_keyboard?: boolean;
   is_persistent?: boolean;
+  input_field_placeholder?: string;
 }
 
 export interface QuizQuestion {
