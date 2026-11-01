@@ -113,6 +113,7 @@ async function autoSeedDecks() {
       ielts_reading_coins_38,
       ielts_reading_grapefruit_31,
       ielts_top_2000,
+      luck_vs_grit_69,
     } = seedWordsData as {
       core_47: Array<{
         term_en: string;
@@ -151,6 +152,13 @@ async function autoSeedDecks() {
         example_en?: string;
       }>;
       ielts_top_2000?: Array<{
+        number?: number;
+        term_en: string;
+        meaning_uz: string;
+        synonyms?: string;
+        example_en?: string;
+      }>;
+      luck_vs_grit_69?: Array<{
         number?: number;
         term_en: string;
         meaning_uz: string;
@@ -465,6 +473,55 @@ async function autoSeedDecks() {
           });
         }
         console.log(`Auto-seeded Deck 7 (Top 2000) with ${ielts_top_2000.length} cards.`);
+      }
+    }
+
+    // Deck 8: Luck vs Grit — 69 Words (B2–C2)
+    if (luck_vs_grit_69 && luck_vs_grit_69.length > 0) {
+      let deckLuckVsGrit = await prisma.deck.findFirst({
+        where: {
+          OR: [
+            { title: "Luck vs Grit" },
+            { title: "Luck vs Grit — 69 Words (B2–C2)" },
+            { title: { contains: "Luck vs Grit", mode: "insensitive" } },
+          ],
+        },
+      });
+
+      if (!deckLuckVsGrit) {
+        deckLuckVsGrit = await prisma.deck.create({
+          data: {
+            title: "Luck vs Grit",
+            description:
+              "Omad va matonat (Luck vs Grit) mavzusidagi 69 ta muhim B2, C1 va C2 darajadagi leksika, iboralar va metaforalar to'plami. Har bir so'z o'zbekcha tarjima, boy sinonimlar va kontekstual namunalar bilan to'liq jihozlangan.",
+            level: "B2–C2",
+            isPublic: true,
+          },
+        });
+
+        for (const w of luck_vs_grit_69) {
+          const card = await prisma.card.create({
+            data: {
+              deckId: deckLuckVsGrit.id,
+              termEn: w.term_en,
+              meaningUz: w.meaning_uz,
+              synonyms: w.synonyms || null,
+              exampleEn: w.example_en || null,
+            },
+          });
+
+          await prisma.studyProgress.create({
+            data: {
+              cardId: card.id,
+              userId: null,
+              boxLevel: 0,
+              nextReviewAt: new Date(),
+              correctStreak: 0,
+              wrongCount: 0,
+            },
+          });
+        }
+        console.log(`Auto-seeded Deck 8 (Luck vs Grit) with ${luck_vs_grit_69.length} cards.`);
       }
     }
 

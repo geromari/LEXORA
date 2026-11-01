@@ -1,0 +1,554 @@
+[
+  {
+    "number": 1,
+    "level": "B2",
+    "term_en": "Debate",
+    "meaning_uz": "munozara",
+    "synonyms": "discussion, dispute, argument, controversy",
+    "example_en": "The ongoing debate over luck versus grit questions whether success stems from chance or relentless effort."
+  },
+  {
+    "number": 2,
+    "level": "B2",
+    "term_en": "Outcome",
+    "meaning_uz": "natija",
+    "synonyms": "result, consequence, end product, conclusion",
+    "example_en": "While we cannot always dictate the final outcome, we have full command over our daily effort."
+  },
+  {
+    "number": 3,
+    "level": "B2",
+    "term_en": "Supportive",
+    "meaning_uz": "qo‘llab-quvvatlovchi",
+    "synonyms": "encouraging, helpful, caring, reinforcing",
+    "example_en": "Growing up in a supportive environment provides individuals with emotional safety to take bold risks."
+  },
+  {
+    "number": 4,
+    "level": "B2",
+    "term_en": "Access",
+    "meaning_uz": "kirish, imkoniyat",
+    "synonyms": "entry, admission, opportunity, availability",
+    "example_en": "Unequal access to elite educational institutions remains a significant barrier for underprivileged youths."
+  },
+  {
+    "number": 5,
+    "level": "B2",
+    "term_en": "Rejection",
+    "meaning_uz": "rad etish",
+    "synonyms": "refusal, dismissal, denial, rebuff",
+    "example_en": "She used early career rejection not as a sign of defeat, but as motivation to refine her craft."
+  },
+  {
+    "number": 6,
+    "level": "B2",
+    "term_en": "Editor",
+    "meaning_uz": "muharrir",
+    "synonyms": "proofreader, reviser, publisher, curator",
+    "example_en": "A visionary editor recognized the raw talent in the manuscript after twelve publishing houses had declined it."
+  },
+  {
+    "number": 7,
+    "level": "B2",
+    "term_en": "Fortune",
+    "meaning_uz": "omad",
+    "synonyms": "chance, luck, serendipity, providence",
+    "example_en": "Good fortune may place an opportunity in your path, but tenacity dictates whether you capitalize on it."
+  },
+  {
+    "number": 8,
+    "level": "B2",
+    "term_en": "Encounters",
+    "meaning_uz": "uchrashuvlar",
+    "synonyms": "meetings, interactions, rendezvous, brushes",
+    "example_en": "Casual encounters at professional summits can unexpectedly alter the entire trajectory of an entrepreneur's career."
+  },
+  {
+    "number": 9,
+    "level": "B2",
+    "term_en": "Landscape",
+    "meaning_uz": "manzara, muhit",
+    "synonyms": "environment, terrain, scenario, context",
+    "example_en": "Navigating today's volatile technological landscape requires rapid learning and strategic foresight."
+  },
+  {
+    "number": 10,
+    "level": "B2",
+    "term_en": "Agency",
+    "meaning_uz": "ixtiyor, faoliyat",
+    "synonyms": "autonomy, self-determination, initiative, proactive power",
+    "example_en": "Maintaining a sense of personal agency empowers people to change their destinies rather than waiting for miracles."
+  },
+  {
+    "number": 11,
+    "level": "B2",
+    "term_en": "Persistence",
+    "meaning_uz": "qat’iyat",
+    "synonyms": "tenacity, perseverance, determination, stamina",
+    "example_en": "His stubborn persistence during five unprofitable years eventually culminated in an international breakthrough."
+  },
+  {
+    "number": 12,
+    "level": "B2",
+    "term_en": "Adaptability",
+    "meaning_uz": "moslashuvchanlik",
+    "synonyms": "flexibility, versatility, resilience, adjustability",
+    "example_en": "When unforeseen market shifts threaten a business model, adaptability becomes the ultimate competitive advantage."
+  },
+  {
+    "number": 13,
+    "level": "B2",
+    "term_en": "Domination",
+    "meaning_uz": "hukmronlik",
+    "synonyms": "supremacy, mastery, preeminence, command",
+    "example_en": "The team achieved utter domination in the championship through tactical discipline and relentless preparation."
+  },
+  {
+    "number": 14,
+    "level": "B2",
+    "term_en": "Resilience",
+    "meaning_uz": "bardoshlilik",
+    "synonyms": "toughness, fortitude, buoyancy, endurance",
+    "example_en": "True resilience is demonstrated not when conditions are pleasant, but when consecutive crises test your resolve."
+  },
+  {
+    "number": 15,
+    "level": "B2",
+    "term_en": "Injury",
+    "meaning_uz": "jarohat",
+    "synonyms": "wound, trauma, damage, setback",
+    "example_en": "A devastating spinal injury forced the gymnast to retire from competing and transition into coaching."
+  },
+  {
+    "number": 16,
+    "level": "B2",
+    "term_en": "Opportunity",
+    "meaning_uz": "imkoniyat",
+    "synonyms": "chance, opening, occasion, prospect",
+    "example_en": "Opportunity seldom knocks loudly; it reveals itself to those who are already prepared to seize it."
+  },
+  {
+    "number": 17,
+    "level": "B2",
+    "term_en": "Complacency",
+    "meaning_uz": "o‘zidan qoniqish",
+    "synonyms": "smugness, self-satisfaction, apathy, laxity",
+    "example_en": "Resting on early laurels leads to complacency, which is the quickest precursor to sudden decline."
+  },
+  {
+    "number": 18,
+    "level": "B2",
+    "term_en": "Networking",
+    "meaning_uz": "aloqalar o‘rnatish",
+    "synonyms": "socializing, building alliances, connecting, collaborating",
+    "example_en": "Strategic networking increases your surface area for luck, sparking conversations that lead to collaborations."
+  },
+  {
+    "number": 19,
+    "level": "B2",
+    "term_en": "Energy",
+    "meaning_uz": "kuch-quvvat",
+    "synonyms": "vigor, vitality, drive, dynamism",
+    "example_en": "Channeling your creative energy into deliberate practice yields far greater results than passive daydreaming."
+  },
+  {
+    "number": 20,
+    "level": "B2",
+    "term_en": "Probability",
+    "meaning_uz": "ehtimollik",
+    "synonyms": "likelihood, odds, chances, feasibility",
+    "example_en": "By applying to dozens of relevant programs, she mathematically enhanced the probability of being selected."
+  },
+  {
+    "number": 21,
+    "level": "B2",
+    "term_en": "Breakthrough",
+    "meaning_uz": "yirik yutuq",
+    "synonyms": "milestone, discovery, quantum leap, triumph",
+    "example_en": "Years of meticulous experiments culminated in a medical breakthrough that saved millions of lives."
+  },
+  {
+    "number": 22,
+    "level": "B2",
+    "term_en": "Experiment",
+    "meaning_uz": "tajriba",
+    "synonyms": "trial, test, investigation, pilot",
+    "example_en": "Innovators view every market campaign as an experiment designed to generate actionable learning."
+  },
+  {
+    "number": 23,
+    "level": "B2",
+    "term_en": "Founder",
+    "meaning_uz": "asoschi",
+    "synonyms": "creator, initiator, pioneer, entrepreneur",
+    "example_en": "The founder invested her life savings and worked unceasingly to turn an abstract concept into a thriving reality."
+  },
+  {
+    "number": 24,
+    "level": "B2",
+    "term_en": "Timing",
+    "meaning_uz": "vaqtni to‘g‘ri belgilash",
+    "synonyms": "synchronization, opportuneness, scheduling, tempo",
+    "example_en": "Launching the product ahead of the holiday season was a masterclass in market timing."
+  },
+  {
+    "number": 25,
+    "level": "B2",
+    "term_en": "Genius",
+    "meaning_uz": "daholik",
+    "synonyms": "brilliance, intellect, prodigy, mastery",
+    "example_en": "Natural genius provides an initial spark, but without relentless grit, that spark quickly extinguishes."
+  },
+  {
+    "number": 26,
+    "level": "B2",
+    "term_en": "Poverty",
+    "meaning_uz": "qashshoqlik",
+    "synonyms": "destitution, deprivation, hardship, impoverishment",
+    "example_en": "Overcoming extreme poverty instilled in him an indomitable grit that defined his entire business journey."
+  },
+  {
+    "number": 27,
+    "level": "B2",
+    "term_en": "Barrier",
+    "meaning_uz": "to‘siq",
+    "synonyms": "obstacle, impediment, hurdle, obstruction",
+    "example_en": "Financial limitations posed a formidable barrier, yet she dismantled it with scholarships and tutoring jobs."
+  },
+  {
+    "number": 28,
+    "level": "B2",
+    "term_en": "Scholarship",
+    "meaning_uz": "stipendiya, grant",
+    "synonyms": "grant, bursary, fellowship, academic funding",
+    "example_en": "Awarded a merit-based scholarship, the young researcher was able to concentrate entirely on doctoral studies."
+  },
+  {
+    "number": 29,
+    "level": "B2",
+    "term_en": "Privilege",
+    "meaning_uz": "imtiyoz",
+    "synonyms": "advantage, entitlement, head start, prerogative",
+    "example_en": "Having access to early capital is a clear privilege that simplifies the arduous journey of entrepreneurship."
+  },
+  {
+    "number": 30,
+    "level": "B2",
+    "term_en": "Achievement",
+    "meaning_uz": "yutuq",
+    "synonyms": "accomplishment, triumph, attainment, feat",
+    "example_en": "Winning first place in the national debate championship was a monumental achievement for the school."
+  },
+  {
+    "number": 31,
+    "level": "C1",
+    "term_en": "Romanticize",
+    "meaning_uz": "orzudek ko‘rsatmoq",
+    "synonyms": "idealize, glamorize, exaggerate, sentimentalize",
+    "example_en": "It is dangerously naive to romanticize the startup struggle without highlighting the mental exhaustion involved."
+  },
+  {
+    "number": 32,
+    "level": "C1",
+    "term_en": "Receptiveness",
+    "meaning_uz": "ochiqlik, qabul qilish qobiliyati",
+    "synonyms": "open-mindedness, responsiveness, adaptability, amenability",
+    "example_en": "Her receptiveness to harsh critiques enabled her to polish her prose into award-winning literature."
+  },
+  {
+    "number": 33,
+    "level": "C1",
+    "term_en": "Stroke of fortune",
+    "meaning_uz": "omadli tasodif",
+    "synonyms": "lucky break, fluke, serendipitous event, windfall",
+    "example_en": "An unexpected stroke of fortune introduced him to a prominent angel investor during an airport delay."
+  },
+  {
+    "number": 34,
+    "level": "C1",
+    "term_en": "Sparked",
+    "meaning_uz": "qo‘zg‘atdi, boshladi",
+    "synonyms": "ignited, triggered, prompted, stimulated",
+    "example_en": "An offhand comment by her professor sparked a curiosity that defined the next decade of her scientific career."
+  },
+  {
+    "number": 35,
+    "level": "C1",
+    "term_en": "Derail",
+    "meaning_uz": "buzmoq, yo‘q qilmoq",
+    "synonyms": "disrupt, ruin, thwart, sidetrack",
+    "example_en": "One bad decision can instantly derail months of meticulous strategic planning and execution."
+  },
+  {
+    "number": 36,
+    "level": "C1",
+    "term_en": "Reinvent",
+    "meaning_uz": "qayta ixtiro qilmoq, yangicha yo‘l tutmoq",
+    "synonyms": "transform, revamp, reconstitute, modernize",
+    "example_en": "To thrive in the age of artificial intelligence, professionals must continually reinvent their core skills."
+  },
+  {
+    "number": 37,
+    "level": "C1",
+    "term_en": "Over-relying",
+    "meaning_uz": "haddan tashqari ishonmoq",
+    "synonyms": "depending excessively, leaning unduly, overcounting on",
+    "example_en": "Over-relying on good fortune without putting in consistent hours is a proven recipe for disappointment."
+  },
+  {
+    "number": 38,
+    "level": "C1",
+    "term_en": "Relentless",
+    "meaning_uz": "to‘xtovsiz, tinimsiz",
+    "synonyms": "unyielding, persistent, unremitting, tireless",
+    "example_en": "Her relentless work ethic transformed a modest local enterprise into a multinational powerhouse."
+  },
+  {
+    "number": 39,
+    "level": "C1",
+    "term_en": "Magnify",
+    "meaning_uz": "kuchaytirmoq",
+    "synonyms": "amplify, intensify, heighten, accentuate",
+    "example_en": "Public acclaim tends to magnify our virtues while obscuring the countless mistakes made behind closed doors."
+  },
+  {
+    "number": 40,
+    "level": "C1",
+    "term_en": "Stepping stone",
+    "meaning_uz": "poydevor, oraliq bosqich",
+    "synonyms": "springboard, bridge, intermediate stage, launching pad",
+    "example_en": "Treating each minor failure as a stepping stone rather than a dead end fosters sustainable progress."
+  },
+  {
+    "number": 41,
+    "level": "C1",
+    "term_en": "Invincibility",
+    "meaning_uz": "yengilmaslik",
+    "synonyms": "indomitability, invulnerability, impregnability",
+    "example_en": "An unearned illusion of invincibility can seduce even the sharpest leaders into catastrophic risks."
+  },
+  {
+    "number": 42,
+    "level": "C1",
+    "term_en": "Replicable",
+    "meaning_uz": "takrorlanadigan",
+    "synonyms": "reproducible, repeatable, duplicable, verifiable",
+    "example_en": "The true hallmark of exceptional business acumen is a replicable system rather than a one-time lucky trade."
+  },
+  {
+    "number": 43,
+    "level": "C1",
+    "term_en": "Dimension",
+    "meaning_uz": "o‘lcham, qirra",
+    "synonyms": "aspect, facet, perspective, component",
+    "example_en": "Socioeconomic background adds a crucial dimension to how we evaluate someone's career accomplishments."
+  },
+  {
+    "number": 44,
+    "level": "C1",
+    "term_en": "Extraordinary resilience",
+    "meaning_uz": "g‘ayrioddiy bardoshlilik",
+    "synonyms": "exceptional fortitude, heroic stamina, remarkable toughness",
+    "example_en": "Rebuilding after complete bankruptcy demanded extraordinary resilience and unflinching optimism."
+  },
+  {
+    "number": 45,
+    "level": "C1",
+    "term_en": "Systemic",
+    "meaning_uz": "tizimli",
+    "synonyms": "structural, institutional, pervasive, ingrained",
+    "example_en": "Dismantling systemic inequalities requires concerted legislative reform alongside individual agency."
+  },
+  {
+    "number": 46,
+    "level": "C1",
+    "term_en": "Milestone",
+    "meaning_uz": "muhim bosqich",
+    "synonyms": "landmark, benchmark, watershed moment, key achievement",
+    "example_en": "Completing her first marathon was a deeply emotional milestone after recovering from reconstructive surgery."
+  },
+  {
+    "number": 47,
+    "level": "C1",
+    "term_en": "Razor-thin",
+    "meaning_uz": "juda nozik farq",
+    "synonyms": "hairbreadth, minuscule, marginal, extremely narrow",
+    "example_en": "In elite competitive arenas, victory is frequently settled by a razor-thin margin between rivals."
+  },
+  {
+    "number": 48,
+    "level": "C1",
+    "term_en": "Level playing field",
+    "meaning_uz": "teng imkoniyatli maydon",
+    "synonyms": "fair competition, equitable conditions, equal opportunity",
+    "example_en": "Universal access to technology creates a more level playing field for gifted learners across rural districts."
+  },
+  {
+    "number": 49,
+    "level": "C1",
+    "term_en": "Unpredictable",
+    "meaning_uz": "oldindan aytib bo‘lmaydigan",
+    "synonyms": "erratic, volatile, capricious, unforeseeable",
+    "example_en": "Because geopolitical currents are inherently unpredictable, strategic diversification is indispensable."
+  },
+  {
+    "number": 50,
+    "level": "C1",
+    "term_en": "Seize",
+    "meaning_uz": "qo‘lga kiritmoq",
+    "synonyms": "grasp, capture, capitalize on, snatch",
+    "example_en": "He did not hesitate to seize the initiative when the executive position suddenly became vacant."
+  },
+  {
+    "number": 51,
+    "level": "C1",
+    "term_en": "Cultivate skills",
+    "meaning_uz": "ko‘nikmalarni rivojlantirmoq",
+    "synonyms": "hone abilities, develop competencies, foster talents",
+    "example_en": "Ambitious scholars continuously cultivate skills in data analysis, public speaking, and critical writing."
+  },
+  {
+    "number": 52,
+    "level": "C1",
+    "term_en": "Humility",
+    "meaning_uz": "kamtarlik",
+    "synonyms": "modesty, humbleness, unpretentiousness, deference",
+    "example_en": "True masters display genuine humility, openly acknowledging the external factors that aided their rise."
+  },
+  {
+    "number": 53,
+    "level": "C1",
+    "term_en": "Privilege",
+    "meaning_uz": "imtiyoz",
+    "synonyms": "unearned advantage, social prerogative, elite standing",
+    "example_en": "Recognizing one's unearned privilege is the first step toward building an inclusive and just society."
+  },
+  {
+    "number": 54,
+    "level": "C1",
+    "term_en": "Happenstance",
+    "meaning_uz": "tasodif",
+    "synonyms": "coincidence, accidental occurrence, fortuity, chance",
+    "example_en": "By pure happenstance, the software engineer sat next to the venture capitalist on a cross-country flight."
+  },
+  {
+    "number": 55,
+    "level": "C1",
+    "term_en": "Interplay",
+    "meaning_uz": "o‘zaro ta’sir",
+    "synonyms": "interaction, mutual dynamic, synergy, reciprocity",
+    "example_en": "Great achievements are the outcome of a subtle interplay between disciplined preparation and fortuitous timing."
+  },
+  {
+    "number": 56,
+    "level": "C2",
+    "term_en": "Peeling back the layers",
+    "meaning_uz": "ichki mohiyatni ochish (metafora)",
+    "synonyms": "uncovering the core, dissecting reality, revealing underlying truths",
+    "example_en": "Peeling back the layers of overnight viral success invariably reveals years of solitary, unglamorous dedication."
+  },
+  {
+    "number": 57,
+    "level": "C2",
+    "term_en": "Winds of fate",
+    "meaning_uz": "taqdir shamollari (metafora)",
+    "synonyms": "currents of destiny, capricious fortune, external vicissitudes",
+    "example_en": "Though battered by the capricious winds of fate, she refused to relinquish control over her life's purpose."
+  },
+  {
+    "number": 58,
+    "level": "C2",
+    "term_en": "Grit wrote the script",
+    "meaning_uz": "qat’iyat ssenariyni yozdi (metafora)",
+    "synonyms": "perseverance authored the triumph, tenacity forged destiny",
+    "example_en": "Commentators called it a miraculous comeback, but those in the training room knew that grit wrote the script."
+  },
+  {
+    "number": 59,
+    "level": "C2",
+    "term_en": "Ship to come in",
+    "meaning_uz": "omadli fursat kelishi (idioma)",
+    "synonyms": "awaiting a windfall, striking gold, waiting for destiny",
+    "example_en": "Rather than idling on the shore waiting for his ship to come in, he swam out to sea and built his own flotilla."
+  },
+  {
+    "number": 60,
+    "level": "C2",
+    "term_en": "Volume creates its own luck",
+    "meaning_uz": "ko‘p mehnat o‘z omadini yaratadi (ifoda)",
+    "synonyms": "high output breeds serendipity, prolific effort multiplies odds",
+    "example_en": "Prolific creators know that volume creates its own luck: the more shots you take, the more baskets you score."
+  },
+  {
+    "number": 61,
+    "level": "C2",
+    "term_en": "False sense of invincibility",
+    "meaning_uz": "soxta yengilmaslik tuyg‘usi",
+    "synonyms": "hubristic delusion, perilous overconfidence, illusion of invulnerability",
+    "example_en": "A string of easy market triumphs lulled the executives into a false sense of invincibility that proved their undoing."
+  },
+  {
+    "number": 62,
+    "level": "C2",
+    "term_en": "Razor-thin margin",
+    "meaning_uz": "juda kichik farq",
+    "synonyms": "microscopic gap, hairline division, narrowest boundary",
+    "example_en": "In elite Olympic sprinting, a razor-thin margin of two thousandths of a second determines world immortality."
+  },
+  {
+    "number": 63,
+    "level": "C2",
+    "term_en": "Life is not a level playing field",
+    "meaning_uz": "hayot hamma uchun teng emas (idioma)",
+    "synonyms": "existence is inherently unequal, structural disparity persists",
+    "example_en": "Acknowledging that life is not a level playing field inspires us to extend hands to those who began miles behind."
+  },
+  {
+    "number": 64,
+    "level": "C2",
+    "term_en": "Luck as an unpredictable ally",
+    "meaning_uz": "omadni oldindan bilib bo‘lmaydigan ittifoqchi sifatida ko‘rish",
+    "synonyms": "regarding chance as a fickle partner, fortune as an unscripted ally",
+    "example_en": "Prudent leaders treat luck as an unpredictable ally: gratefully embraced when present, but never relied upon for survival."
+  },
+  {
+    "number": 65,
+    "level": "C2",
+    "term_en": "Exist in whatever conditions arrive",
+    "meaning_uz": "qanday sharoitda bo‘lsa ham yashay olish",
+    "synonyms": "stoic endurance, radical adaptability, surviving every tempest",
+    "example_en": "The stoic philosopher conditions the mind to exist in whatever conditions arrive, undisturbed by feast or famine."
+  },
+  {
+    "number": 66,
+    "level": "C2",
+    "term_en": "Weather metaphor",
+    "meaning_uz": "hayotning yomg‘ir va quyoshga o‘xshatilishi (metafora)",
+    "synonyms": "seasonal storm analogy, cyclical nature of adversity",
+    "example_en": "Invoking the weather metaphor, the elder reminded the youth that winter always gives way to blossoming spring."
+  },
+  {
+    "number": 67,
+    "level": "C2",
+    "term_en": "Favorable gust of wind",
+    "meaning_uz": "qulay shamol (omadli vaziyat)",
+    "synonyms": "serendipitous tailwind, propitious breeze, fortuitous boost",
+    "example_en": "Viral praise on social media served as a favorable gust of wind, propelling the independent author onto bestseller lists."
+  },
+  {
+    "number": 68,
+    "level": "C2",
+    "term_en": "Reckless dependence",
+    "meaning_uz": "beparvo ishonch",
+    "synonyms": "blind reliance, foolhardy gamble, precarious trusting",
+    "example_en": "Betting the retirement fund on speculative cryptocurrency was an act of reckless dependence on sheer luck."
+  },
+  {
+    "number": 69,
+    "level": "C2",
+    "term_en": "Secret lies in balance",
+    "meaning_uz": "sir muvozanatda",
+    "synonyms": "golden mean is the key, harmony unlocks mastery",
+    "example_en": "In the ongoing duel of fate versus willpower, the true secret lies in balance: hustle relentlessly, yet remain humble."
+  }
+]
