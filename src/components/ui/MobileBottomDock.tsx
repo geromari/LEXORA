@@ -4,23 +4,25 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { 
-  Home, 
   Flame, 
   Sparkles, 
   LayoutDashboard,
   BookMarked,
-  Menu,
-  LogIn,
-  Zap,
-  HelpCircle
+  Shield,
+  Layers
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
 export function MobileBottomDock() {
   const pathname = usePathname();
   const router = useRouter();
-  const { user, openAuthModal } = useAuth();
+  const { user } = useAuth();
   const [hasDueCards, setHasDueCards] = useState(false);
+
+  // Hide dock on landing page and auth pages
+  if (pathname === "/" || pathname === "/login" || pathname === "/register") {
+    return null;
+  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -45,168 +47,61 @@ export function MobileBottomDock() {
     }
   };
 
-  const handleFilterMy = (e: React.MouseEvent) => {
-    if (pathname === "/dashboard") {
-      e.preventDefault();
-      window.dispatchEvent(new CustomEvent("filter-my-decks"));
-      router.replace("/dashboard?filter=my");
-    }
-  };
-
-  const handleToggleMenu = () => {
-    window.dispatchEvent(new CustomEvent("toggle-mobile-menu"));
-  };
-
-  const isUserPanel =
-    Boolean(user) ||
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/review") ||
-    pathname.startsWith("/decks");
-
   return (
-    <aside 
-      aria-label="Mobil boshqaruv paneli"
-      className="md:hidden fixed bottom-4 inset-x-3 max-w-md mx-auto z-40 pointer-events-auto"
-    >
-      <nav 
-        aria-label="Mobil navigatsiya menyusi"
-        className="rounded-full bg-white/90 dark:bg-black/85 border border-zinc-200/90 dark:border-white/10 p-1.5 backdrop-blur-2xl shadow-xl dark:shadow-2xl flex items-center justify-around relative transition-colors duration-300"
-      >
-        {isUserPanel ? (
-          /* ========================================================= */
-          /* A. AUTHENTICATED USER PANEL BOTTOM DOCK                   */
-          /* ========================================================= */
-          <>
-            {/* 1. Dashboard */}
-            <Link
-              href="/dashboard"
-              className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold font-manrope transition-all duration-200 ${
-                pathname === "/dashboard"
-                  ? "text-white bg-[#ef233c] shadow-sm"
-                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
-              }`}
-            >
-              <LayoutDashboard className="w-4 h-4 mb-0.5" />
-              <span>Dashboard</span>
-            </Link>
+    <div className="md:hidden fixed bottom-4 left-0 right-0 z-50 px-4 flex justify-center pointer-events-none">
+      <nav className="pointer-events-auto flex items-center justify-between gap-1 px-4 py-2.5 rounded-full bg-[#23262F]/90 backdrop-blur-2xl border border-white/10 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.6),0_0_20px_rgba(182,255,46,0.15)] max-w-sm w-full">
+        {/* 1. Dashboard Decks */}
+        <Link
+          href="/dashboard"
+          className={`flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${
+            pathname === "/dashboard"
+              ? "text-[#B6FF2E] font-bold"
+              : "text-zinc-400 hover:text-white"
+          }`}
+        >
+          <LayoutDashboard className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">To&apos;plamlar</span>
+        </Link>
 
-            {/* 2. Lug'atlarim */}
-            <Link
-              href="/dashboard?filter=my"
-              onClick={handleFilterMy}
-              className={`flex flex-col items-center justify-center py-1.5 px-2.5 rounded-full text-[10px] font-bold font-manrope transition-all duration-200 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white`}
-            >
-              <BookMarked className="w-4 h-4 mb-0.5" />
-              <span>Lug&apos;atlar</span>
-            </Link>
+        {/* 2. SRS Review Arena */}
+        <Link
+          href="/review"
+          className={`flex flex-col items-center justify-center p-2 rounded-2xl relative transition-all ${
+            pathname === "/review"
+              ? "text-[#B6FF2E] font-bold"
+              : "text-zinc-400 hover:text-white"
+          }`}
+        >
+          {hasDueCards && (
+            <span className="absolute top-1.5 right-2 w-2 h-2 rounded-full bg-[#B6FF2E] shadow-[0_0_8px_#B6FF2E] animate-ping" />
+          )}
+          <Flame className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">Takrorlash</span>
+        </Link>
 
-            {/* 3. AI Smart Import Floating Action */}
-            <button
-              onClick={handleOpenAiModal}
-              className="flex flex-col items-center justify-center -mt-5 group cursor-pointer"
-              aria-label="AI Import"
-            >
-              <div className="w-11 h-11 rounded-full bg-[#ef233c] text-white flex items-center justify-center shadow-[0_0_20px_rgba(239,35,60,0.6)] group-hover:scale-105 group-active:scale-95 transition-transform duration-200 border-2 border-white dark:border-zinc-900">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-[10px] font-bold text-zinc-700 dark:text-zinc-300 mt-1 tracking-tight">
-                AI Import
-              </span>
-            </button>
+        {/* 3. Center AI Spark Button */}
+        <button
+          type="button"
+          onClick={handleOpenAiModal}
+          className="flex items-center justify-center w-11 h-11 rounded-full bg-[#B6FF2E] text-[#15171C] shadow-[0_0_20px_rgba(182,255,46,0.4)] active:scale-95 transition-transform cursor-pointer -mt-4 border-2 border-[#15171C]"
+          aria-label="AI Import"
+        >
+          <Sparkles className="w-5 h-5" />
+        </button>
 
-            {/* 4. SRS Arena */}
-            <Link
-              href="/review"
-              className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold font-manrope transition-all duration-200 relative ${
-                pathname === "/review"
-                  ? "text-white bg-[#ef233c] shadow-sm"
-                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
-              }`}
-            >
-              <div className="relative">
-                <Flame
-                  className={`w-4 h-4 mb-0.5 ${
-                    pathname === "/review"
-                      ? "text-white fill-white"
-                      : "text-[#ef233c]"
-                  }`}
-                />
-                {hasDueCards && (
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#ef233c] animate-ping" />
-                )}
-              </div>
-              <span>Takrorlash</span>
-            </Link>
-
-            {/* 5. Mobile Menu Trigger */}
-            <button
-              onClick={handleToggleMenu}
-              className="flex flex-col items-center justify-center py-1.5 px-2.5 rounded-full text-[10px] font-bold font-manrope text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all cursor-pointer"
-            >
-              <Menu className="w-4 h-4 mb-0.5" />
-              <span>Menyu</span>
-            </button>
-          </>
-        ) : (
-          /* ========================================================= */
-          /* B. GUEST LANDING BOTTOM DOCK                              */
-          /* ========================================================= */
-          <>
-            {/* 1. Asosiy (Landing) */}
-            <Link
-              href="/"
-              className={`flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold font-manrope transition-all duration-200 ${
-                pathname === "/"
-                  ? "text-white bg-[#ef233c] shadow-sm"
-                  : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
-              }`}
-            >
-              <Home className="w-4 h-4 mb-0.5" />
-              <span>Bosh</span>
-            </Link>
-
-            {/* 2. Loyiha haqida */}
-            <Link
-              href="/#about"
-              className="flex flex-col items-center justify-center py-1.5 px-2.5 rounded-full text-[10px] font-bold font-manrope text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all duration-200"
-            >
-              <HelpCircle className="w-4 h-4 mb-0.5" />
-              <span>Loyiha</span>
-            </Link>
-
-            {/* 3. AI Text-to-Deck Center Action */}
-            <button
-              onClick={handleOpenAiModal}
-              className="flex flex-col items-center justify-center -mt-5 group cursor-pointer"
-            >
-              <div className="w-11 h-11 rounded-full bg-[#ef233c] text-white flex items-center justify-center shadow-[0_0_20px_rgba(239,35,60,0.6)] group-hover:scale-105 group-active:scale-95 transition-transform duration-200 border-2 border-white dark:border-zinc-900">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-[10px] font-bold text-zinc-700 dark:text-zinc-300 mt-1 tracking-tight">
-                AI Import
-              </span>
-            </button>
-
-            {/* 4. Imkoniyatlar */}
-            <Link
-              href="/#features"
-              className="flex flex-col items-center justify-center py-1.5 px-2.5 rounded-full text-[10px] font-bold font-manrope text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-all duration-200"
-            >
-              <Zap className="w-4 h-4 mb-0.5" />
-              <span>Funksiyalar</span>
-            </Link>
-
-            {/* 5. Kirish */}
-            <button
-              onClick={() => openAuthModal("login")}
-              className="flex flex-col items-center justify-center py-1.5 px-3 rounded-full text-[10px] font-bold font-manrope text-zinc-600 dark:text-zinc-400 hover:text-[#ef233c] transition-all cursor-pointer"
-            >
-              <LogIn className="w-4 h-4 mb-0.5 text-[#ef233c]" />
-              <span>Kirish</span>
-            </button>
-          </>
-        )}
+        {/* 4. Admin Link */}
+        <Link
+          href="/admin"
+          className={`flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${
+            pathname.startsWith("/admin")
+              ? "text-[#B6FF2E] font-bold"
+              : "text-zinc-400 hover:text-white"
+          }`}
+        >
+          <Shield className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">Admin</span>
+        </Link>
       </nav>
-    </aside>
+    </div>
   );
 }

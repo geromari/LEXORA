@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 export interface GlassCardProps extends HTMLAttributes<HTMLDivElement> {
   interactive?: boolean;
-  glow?: "none" | "red" | "indigo" | "violet" | "emerald" | "rose";
+  glow?: "none" | "lime" | "graphite" | "emerald";
   padding?: "none" | "sm" | "md" | "lg" | "xl";
 }
 
@@ -33,10 +33,11 @@ export const GlassCard = forwardRef<HTMLDivElement, GlassCardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-2xl border border-zinc-200 dark:border-white/10 bg-white/90 dark:bg-zinc-950/70 backdrop-blur-xl text-zinc-900 dark:text-white shadow-sm dark:shadow-xl transition-all duration-200 relative overflow-hidden",
+          "rounded-[26px] border border-white/10 dark:border-white/10 bg-white/90 dark:bg-[#23262F]/70 backdrop-blur-2xl text-zinc-900 dark:text-white shadow-xl transition-all duration-300 relative overflow-hidden",
           interactive &&
-            "cursor-pointer hover:border-[#ef233c]/60 dark:hover:border-[#ef233c]/50 hover:shadow-lg dark:hover:shadow-[0_0_30px_rgba(239,35,60,0.15)] hover:-translate-y-0.5",
-          glow === "red" && "border-[#ef233c] shadow-md dark:shadow-[0_0_30px_rgba(239,35,60,0.2)]",
+            "cursor-pointer hover:border-[#B6FF2E]/50 hover:bg-white dark:hover:bg-[#23262F]/90 hover:shadow-[0_10px_35px_-10px_rgba(0,0,0,0.5),0_0_30px_rgba(182,255,46,0.15)] hover:-translate-y-1",
+          glow === "lime" && "border-[#B6FF2E]/60 shadow-[0_0_35px_rgba(182,255,46,0.25)]",
+          glow === "graphite" && "border-white/15 shadow-2xl",
           paddingStyles[padding],
           className
         )}

@@ -99,7 +99,7 @@ export function AISentenceChecker({
 
     return (
       <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
-        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(239,35,60,0.3)] flex items-center justify-center mx-auto text-[#ef233c]">
+        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(182,255,46,0.3)] flex items-center justify-center mx-auto text-[#B6FF2E]">
           <Trophy className="w-10 h-10" />
         </div>
 
@@ -113,7 +113,7 @@ export function AISentenceChecker({
         </div>
 
         <div className="p-4 rounded-xl bg-white/5 border border-white/10 max-w-xs mx-auto">
-          <div className="text-3xl font-bold font-manrope text-[#ef233c]">{avgScore} / 10</div>
+          <div className="text-3xl font-bold font-manrope text-[#B6FF2E]">{avgScore} / 10</div>
           <div className="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider">
             O&apos;rtacha IELTS Band Bahosi
           </div>
@@ -131,7 +131,7 @@ export function AISentenceChecker({
             className="shiny-cta py-3 px-6"
           >
             <span className="relative z-10 flex items-center gap-2 text-white font-bold text-xs">
-              <RotateCcw className="w-4 h-4 text-[#ef233c]" />
+              <RotateCcw className="w-4 h-4 text-[#B6FF2E]" />
               <span>Qaytadan Mashq Qilish</span>
             </span>
           </button>
@@ -151,13 +151,13 @@ export function AISentenceChecker({
             Ibora {currentIndex + 1} / {cards.length}
           </span>
           <span className="px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-zinc-300 flex items-center gap-1.5">
-            <Wand2 className="w-3.5 h-3.5 text-[#ef233c]" />
+            <Wand2 className="w-3.5 h-3.5 text-[#B6FF2E]" />
             AI Writing Tahlili
           </span>
         </div>
         <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_10px_rgba(239,35,60,0.6)] transition-all duration-300"
+            className="h-full bg-gradient-to-r from-[#B6FF2E] to-rose-400 rounded-full shadow-[0_0_10px_rgba(182,255,46,0.6)] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -166,12 +166,12 @@ export function AISentenceChecker({
       {/* Target Phrase Prompt Card */}
       <GlassCard padding="xl" className="text-center space-y-5 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
         <div className="flex items-center justify-between">
-          <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase tracking-wider">
+          <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase tracking-wider">
             {deck.level || "C1"} Target Collocation
           </span>
           <button
             onClick={handlePronounce}
-            className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
+            className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#B6FF2E] transition-all cursor-pointer"
             title="Talaffuzni tinglash"
           >
             <Volume2 className="w-4 h-4" />
@@ -197,7 +197,7 @@ export function AISentenceChecker({
 
         {/* Instruction */}
         <p className="text-xs text-zinc-300 flex items-center justify-center gap-2 bg-white/5 p-2.5 rounded-xl border border-white/10 font-inter">
-          <PenLine className="w-4 h-4 text-[#ef233c] shrink-0" />
+          <PenLine className="w-4 h-4 text-[#B6FF2E] shrink-0" />
           <span>Ushbu so&apos;z yoki iborani qatnashtirib IELTS darajasidagi akademik gap tuzing:</span>
         </p>
 
@@ -209,7 +209,7 @@ export function AISentenceChecker({
             disabled={evalResult !== null || isEvaluating}
             rows={3}
             placeholder={`Masalan: In modern society, multinational corporations wield outsized influence over...`}
-            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-zinc-950/80 outline-none text-xs sm:text-sm font-medium text-white placeholder:text-zinc-500 focus:border-[#ef233c] transition-all leading-relaxed resize-none font-inter"
+            className="w-full px-4 py-3 rounded-xl border border-white/10 bg-zinc-950/80 outline-none text-xs sm:text-sm font-medium text-white placeholder:text-zinc-500 focus:border-[#B6FF2E] transition-all leading-relaxed resize-none font-inter"
           />
 
           {!evalResult && (
@@ -218,7 +218,7 @@ export function AISentenceChecker({
                 type="button"
                 onClick={handleEvaluate}
                 disabled={!userSentence.trim() || isEvaluating}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-[0_0_20px_rgba(239,35,60,0.4)] flex items-center justify-center gap-2 disabled:opacity-40 transition cursor-pointer"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs sm:text-sm shadow-[0_0_20px_rgba(182,255,46,0.4)] flex items-center justify-center gap-2 disabled:opacity-40 transition cursor-pointer"
               >
                 <span>{isEvaluating ? "Tahlil qilinmoqda..." : "AI Bilan Tekshirish"}</span>
                 <Send className="w-4 h-4" />
@@ -245,7 +245,7 @@ export function AISentenceChecker({
                     ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40"
                     : evalResult.score >= 6
                     ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                    : "bg-red-500/20 text-red-300 border-red-500/40"
+                    : "bg-[#B6FF2E]/20 text-[#B6FF2E] border-[#B6FF2E]/40"
                 }`}
               >
                 Baholash: {evalResult.score} / 10
@@ -269,7 +269,7 @@ export function AISentenceChecker({
 
             <button
               onClick={handleNext}
-              className="px-5 py-2 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(239,35,60,0.4)] transition cursor-pointer"
+              className="px-5 py-2 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-[0_0_15px_rgba(182,255,46,0.4)] transition cursor-pointer"
             >
               <span>Keyingi Ibora</span>
               <ArrowRight className="w-4 h-4" />
@@ -291,7 +291,7 @@ export function AISentenceChecker({
             <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-zinc-300 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-[#ef233c]" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#B6FF2E]" />
                   Tavsiya etilgan Band 8.5+ C1 namunasi:
                 </span>
                 <button

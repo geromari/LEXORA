@@ -143,7 +143,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <div className="w-12 h-12 rounded-full border-2 border-[#ef233c] border-t-transparent animate-spin shadow-[0_0_20px_rgba(239,35,60,0.5)]" />
+        <div className="w-12 h-12 rounded-full border-2 border-[#B6FF2E] border-t-transparent animate-spin shadow-[0_0_20px_rgba(182,255,46,0.5)]" />
         <p className="text-sm font-bold font-manrope uppercase tracking-wider text-zinc-400">
           Lug&apos;at to&apos;plami yuklanmoqda...
         </p>
@@ -154,7 +154,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
   if (error || !deck) {
     return (
       <GlassCard padding="xl" className="text-center py-16 space-y-4 max-w-lg mx-auto mt-12">
-        <AlertCircle className="w-12 h-12 text-[#ef233c] mx-auto" />
+        <AlertCircle className="w-12 h-12 text-[#B6FF2E] mx-auto" />
         <h3 className="text-xl font-bold font-manrope text-white">To&apos;plam topilmadi</h3>
         <p className="text-sm font-inter text-zinc-400">{error || "Bunday to'plam mavjud emas yoki o'chirilgan."}</p>
         <Link href="/">
@@ -185,7 +185,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
             onClick={() => setPreferredAccent("en-US")}
             className={`px-3 py-1 rounded-full font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
               preferredAccent === "en-US"
-                ? "bg-[#ef233c] text-white shadow-[0_0_10px_rgba(239,35,60,0.5)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_10px_rgba(182,255,46,0.5)]"
                 : "text-zinc-400 hover:text-white"
             }`}
           >
@@ -196,7 +196,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
             onClick={() => setPreferredAccent("en-GB")}
             className={`px-3 py-1 rounded-full font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
               preferredAccent === "en-GB"
-                ? "bg-[#ef233c] text-white shadow-[0_0_10px_rgba(239,35,60,0.5)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_10px_rgba(182,255,46,0.5)]"
                 : "text-zinc-400 hover:text-white"
             }`}
           >
@@ -211,7 +211,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-3">
-              <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase shadow-[0_0_10px_rgba(239,35,60,0.2)]">
+              <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase shadow-[0_0_10px_rgba(182,255,46,0.2)]">
                 {deck.level || "C1 / IELTS"}
               </span>
               <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-xs">
@@ -239,7 +239,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
               </div>
               <div className="w-full h-2 bg-zinc-800 rounded-full mt-2.5 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_8px_rgba(239,35,60,0.6)]"
+                  className="h-full bg-gradient-to-r from-[#B6FF2E] to-rose-400 rounded-full shadow-[0_0_8px_rgba(182,255,46,0.6)]"
                   style={{ width: `${Math.max(5, deck.mastery_percentage)}%` }}
                 />
               </div>
@@ -248,7 +248,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
             <Link href={`/decks/${deck.id}/study`} className="w-full sm:w-auto">
               <button className="shiny-cta group w-full py-3.5 px-6">
                 <span className="relative z-10 flex items-center justify-center gap-2 text-white font-bold text-sm tracking-wide">
-                  <BrainCircuit className="w-4 h-4 text-[#ef233c]" />
+                  <BrainCircuit className="w-4 h-4 text-[#B6FF2E]" />
                   <span>Mashg&apos;ulotni Boshlash</span>
                 </span>
               </button>
@@ -259,7 +259,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
         {/* Ambient Red Hover Gradient in Card */}
         <div
           className="absolute inset-0 opacity-10 pointer-events-none"
-          style={{ background: "radial-gradient(circle at top right, #ef233c, transparent 65%)" }}
+          style={{ background: "radial-gradient(circle at top right, #B6FF2E, transparent 65%)" }}
         />
       </GlassCard>
 
@@ -273,7 +273,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Inglizcha yoki o'zbekcha so'z qidirish..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-white/10 bg-zinc-950/80 text-xs sm:text-sm font-medium text-white placeholder:text-zinc-500 focus:border-[#ef233c] outline-none transition"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-white/10 bg-zinc-950/80 text-xs sm:text-sm font-medium text-white placeholder:text-zinc-500 focus:border-[#B6FF2E] outline-none transition"
           />
         </div>
 
@@ -292,7 +292,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                 onClick={() => setSelectedBoxFilter(tab.id as any)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                   isActive
-                    ? "bg-[#ef233c] text-white shadow-[0_0_12px_rgba(239,35,60,0.4)]"
+                    ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_12px_rgba(182,255,46,0.4)]"
                     : "bg-white/5 text-zinc-400 hover:text-white border border-white/10 hover:bg-white/10"
                 }`}
               >
@@ -306,8 +306,8 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
       {/* Word Cards Table / Grid */}
       {filteredCards.length === 0 ? (
         <GlassCard padding="xl" className="text-center py-16 space-y-4 max-w-lg mx-auto">
-          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-[#ef233c]">
-            <Search className="w-8 h-8 text-[#ef233c]" />
+          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-[#B6FF2E]">
+            <Search className="w-8 h-8 text-[#B6FF2E]" />
           </div>
           <div className="space-y-1">
             <h4 className="text-lg font-bold font-manrope text-white">Mos keluvchi so&apos;z topilmadi</h4>
@@ -320,7 +320,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
               setSearchQuery("");
               setSelectedBoxFilter("all");
             }}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#ef233c] text-white text-xs font-bold transition-all cursor-pointer shadow-[0_0_15px_rgba(239,35,60,0.35)]"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#B6FF2E] text-[#15171C] font-extrabold text-xs font-bold transition-all cursor-pointer shadow-[0_0_15px_rgba(182,255,46,0.35)]"
           >
             Filtrlarni tozalash
           </button>
@@ -337,7 +337,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                 key={card.id}
                 padding="md"
                 interactive
-                className="group transition-all duration-200 border-white/10 bg-zinc-950/70 hover:border-[#ef233c]/40"
+                className="group transition-all duration-200 border-white/10 bg-zinc-950/70 hover:border-[#B6FF2E]/40"
               >
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                   {/* Left Column: Term, Audio, Meaning, Synonyms */}
@@ -348,7 +348,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                       </span>
 
                       {/* Term En */}
-                      <span className="text-lg sm:text-xl font-bold font-manrope text-white group-hover:text-[#ef233c] transition-colors">
+                      <span className="text-lg sm:text-xl font-bold font-manrope text-white group-hover:text-[#B6FF2E] transition-colors">
                         {card.term_en}
                       </span>
 
@@ -358,8 +358,8 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                         disabled={isPlaying}
                         className={`p-1.5 rounded-lg border border-white/10 transition-all cursor-pointer ${
                           isPlaying
-                            ? "bg-[#ef233c] text-white animate-pulse"
-                            : "bg-white/5 hover:bg-white/10 text-[#ef233c]"
+                            ? "bg-[#B6FF2E] text-[#15171C] font-extrabold animate-pulse"
+                            : "bg-white/5 hover:bg-white/10 text-[#B6FF2E]"
                         }`}
                         title={`Tinglash (${preferredAccent === "en-US" ? "American" : "British"})`}
                         aria-label={`Talaffuz: ${card.term_en}`}
@@ -376,7 +376,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                               key={lvl}
                               className={`w-2 h-2 rounded-full ${
                                 lvl <= boxLevel
-                                  ? "bg-[#ef233c] shadow-[0_0_6px_rgba(239,35,60,0.8)]"
+                                  ? "bg-[#B6FF2E] shadow-[0_0_6px_rgba(182,255,46,0.8)]"
                                   : "bg-zinc-800"
                               }`}
                             />
@@ -385,7 +385,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                       </div>
 
                       {wrongCount > 0 && (
-                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-red-950/60 border border-red-500/40 text-red-300">
+                        <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-red-950/60 border border-[#B6FF2E]/40 text-[#B6FF2E]">
                           {wrongCount} marta xato
                         </span>
                       )}
@@ -408,7 +408,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
 
                     {/* Example Sentence in IELTS Context */}
                     {card.example_en && (
-                      <div className="pl-8 pt-1 text-xs text-zinc-400 italic leading-relaxed border-l-2 border-[#ef233c] bg-white/[0.02] p-2 rounded-r-lg ml-8 my-1 font-inter">
+                      <div className="pl-8 pt-1 text-xs text-zinc-400 italic leading-relaxed border-l-2 border-[#B6FF2E] bg-white/[0.02] p-2 rounded-r-lg ml-8 my-1 font-inter">
                         &ldquo;{card.example_en}&rdquo;
                       </div>
                     )}
@@ -429,7 +429,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                     <button
                       onClick={() => handleInlineReview(card.id, false)}
                       disabled={reviewingCardId === card.id}
-                      className="flex-1 sm:w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-[#ef233c]/20 text-zinc-400 hover:text-[#ef233c] border border-white/10 hover:border-[#ef233c]/40 text-xs font-medium transition-all cursor-pointer active:scale-95"
+                      className="flex-1 sm:w-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/5 hover:bg-[#B6FF2E]/20 text-zinc-400 hover:text-[#B6FF2E] border border-white/10 hover:border-[#B6FF2E]/40 text-xs font-medium transition-all cursor-pointer active:scale-95"
                       title="Qiyin yoki xato (0-qutiga qaytarish)"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
@@ -446,14 +446,14 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6 pb-6">
               <button
                 onClick={() => setVisibleLimit((prev) => prev + 50)}
-                className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-lg hover:border-[#ef233c]/40 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs sm:text-sm transition-all cursor-pointer shadow-lg hover:border-[#B6FF2E]/40 flex items-center justify-center gap-2"
               >
                 <span>Yana 50 ta ko&apos;rsatish</span>
                 <span className="text-zinc-500 font-mono">({filteredCards.length - visibleLimit} ta qoldi)</span>
               </button>
               <button
                 onClick={() => setVisibleLimit(filteredCards.length)}
-                className="w-full sm:w-auto px-5 py-3 rounded-full bg-[#ef233c]/15 hover:bg-[#ef233c]/25 border border-[#ef233c]/30 text-[#ef233c] font-bold text-xs sm:text-sm transition-all cursor-pointer"
+                className="w-full sm:w-auto px-5 py-3 rounded-full bg-[#B6FF2E]/15 hover:bg-[#B6FF2E]/25 border border-[#B6FF2E]/30 text-[#B6FF2E] font-bold text-xs sm:text-sm transition-all cursor-pointer"
               >
                 Barcha {filteredCards.length} ta so&apos;zni birdan ochish
               </button>
@@ -474,7 +474,7 @@ export default function DeckDictionaryPage({
     <Suspense
       fallback={
         <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-          <div className="w-12 h-12 rounded-full border-2 border-[#ef233c] border-t-transparent animate-spin shadow-[0_0_20px_rgba(239,35,60,0.5)]" />
+          <div className="w-12 h-12 rounded-full border-2 border-[#B6FF2E] border-t-transparent animate-spin shadow-[0_0_20px_rgba(182,255,46,0.5)]" />
           <p className="text-sm font-bold font-manrope uppercase text-zinc-400">To&apos;plam yuklanmoqda...</p>
         </div>
       }

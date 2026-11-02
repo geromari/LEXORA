@@ -1,0 +1,119 @@
+"use client";
+
+import React from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import { TelegramIcon } from "@/components/icons/BrandIcons";
+
+export function LandingFooter() {
+  const pathname = usePathname();
+
+  // ONLY show footer on the landing page ("/")
+  if (pathname !== "/") {
+    return null;
+  }
+
+  return (
+    <footer className="bg-[#15171C] border-t border-white/10 pt-16 sm:pt-20 pb-12 relative overflow-hidden z-10 mt-24">
+      {/* Subtle top lime glow line */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-[#B6FF2E]/40 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 relative z-10">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-2.5 mb-6">
+            <div className="w-8 h-8 rounded-xl bg-[#B6FF2E] flex items-center justify-center text-[#15171C] font-black text-lg shadow-[0_0_20px_rgba(182,255,46,0.35)]">
+              V
+            </div>
+            <span className="text-2xl font-black font-manrope tracking-tight text-white">
+              vydex<span className="text-[#B6FF2E]">.ai</span>
+            </span>
+          </div>
+
+          <p className="text-zinc-400 text-sm max-w-sm leading-relaxed">
+            O&apos;zbekiston yoshlari uchun sun&apos;iy intellekt va Spaced Repetition (SRS)
+            Leitner algoritmlari asosida yaratilgan zamonaviy akademik ingliz tili lug&apos;at platformasi.
+          </p>
+
+          <div className="mt-6 flex items-center gap-3 text-xs font-mono">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#23262F] border border-white/10 text-[#B6FF2E] shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#B6FF2E] animate-pulse" />
+              Gemini 2.5 Flash + Leitner SRS Engine
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="text-xs font-bold text-[#B6FF2E] uppercase tracking-widest mb-6 font-manrope">
+            Bo&apos;limlar
+          </h4>
+          <ul className="space-y-3.5 text-zinc-400 text-sm">
+            <li>
+              <Link href="/dashboard" className="hover:text-white transition-colors">
+                Foydalanuvchi Kabineti (Dashboard)
+              </Link>
+            </li>
+            <li>
+              <a href="/#about" className="hover:text-white transition-colors">
+                Loyiha Haqida
+              </a>
+            </li>
+            <li>
+              <a href="/#features" className="hover:text-white transition-colors">
+                Imkoniyatlar
+              </a>
+            </li>
+            <li>
+              <Link href="/review" className="hover:text-white transition-colors">
+                SRS Takrorlash Arenasi
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="text-xs font-bold text-[#B6FF2E] uppercase tracking-widest mb-6 font-manrope">
+            Aloqa &amp; Telegram
+          </h4>
+          <ul className="space-y-3.5 text-zinc-400 text-sm">
+            <li>
+              <a
+                href="https://t.me/vydex_uzbot"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#B6FF2E] transition-colors flex items-center gap-2"
+              >
+                <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
+                <span>Telegram Bot</span>
+                <span className="text-[11px] text-[#B6FF2E] font-mono">@vydex_uzbot</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#faq" className="hover:text-white transition-colors">
+                Ko&apos;p Beriladigan Savollar (FAQ)
+              </a>
+            </li>
+            <li>
+              <Link href="/login" className="hover:text-white transition-colors">
+                Tizimga Kirish
+              </Link>
+            </li>
+            <li>
+              <Link href="/register" className="hover:text-white transition-colors">
+                Ro&apos;yxatdan O&apos;tish
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
+        <p>&copy; {new Date().getFullYear()} Vydex AI. Barcha huquqlar himoyalangan.</p>
+        <p className="flex items-center gap-2">
+          <span>Glassmorphic Edition</span>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#B6FF2E]" />
+          <span>Graphite &amp; Lime Spark</span>
+        </p>
+      </div>
+    </footer>
+  );
+}

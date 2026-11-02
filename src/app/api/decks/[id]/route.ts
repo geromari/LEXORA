@@ -171,3 +171,67 @@ export async function DELETE(
     );
   }
 }
+
+export async function POST(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const deckId = parseInt(id, 10);
+    const body = await req.json();
+    const { termEn, meaningUz, synonyms, exampleEn } = body;
+
+    if (!termEn || !meaningUz) {
+      return NextResponse.json(
+        { detail: "So'z (termEn) va tarjima (meaningUz) kiritilishi shart." },
+        { status: 400 }
+      );
+    }
+
+    const deck = await prisma.deck.findUnique({
+      where: { id: deckId },
+    });
+
+    if (!deck) {
+      return NextResponse.json(
+        { detail: "To'plam topilmadi." },
+        { status: 404 }
+      );
+    }
+
+    const card = await prisma.card.create({
+      data: {
+        deckId,
+        termEn: termEn.trim(),
+        meaningUz: meaningUz.trim(),
+        synonyms: synonyms ? synonyms.trim() : null,
+        exampleEn: exampleEn ? exampleEn.trim() : null,
+      },
+    });
+
+    // Default system progress
+    await prisma.studyProgress.create({
+      data: {
+        cardId: card.id,
+        userId: null,
+        boxLevel: 0,
+        nextReviewAt: new Date(),
+        correctStreak: 0,
+        wrongCount: 0,
+      },
+    });
+
+    return NextResponse.json({
+      success: true,
+      card,
+      message: "Yangi karta muvaffaqiyatli qo'shildi.",
+    });
+  } catch (error: any) {
+    console.error("Add card error:", error);
+    return NextResponse.json(
+      { detail: error.message || "Karta qo'shishda xatolik yuz berdi." },
+      { status: 500 }
+    );
+  }
+}

@@ -151,13 +151,13 @@ export function CreateDeckModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-white/10 shadow-2xl dark:shadow-[0_0_60px_rgba(239,35,60,0.18)] p-6 sm:p-8 text-zinc-900 dark:text-white transition-colors"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-white/10 shadow-2xl dark:shadow-[0_0_60px_rgba(182,255,46,0.18)] p-6 sm:p-8 text-zinc-900 dark:text-white transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#ef233c] shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#B6FF2E] shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -177,7 +177,7 @@ export function CreateDeckModal({
 
         {/* Error message */}
         {errorMessage && (
-          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-500/40 flex items-center gap-2.5 text-xs font-medium text-red-600 dark:text-red-300">
+          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-[#B6FF2E]/40 flex items-center gap-2.5 text-xs font-medium text-red-600 dark:text-[#B6FF2E]">
             <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
             <span>{errorMessage}</span>
           </div>
@@ -196,7 +196,7 @@ export function CreateDeckModal({
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Masalan: IELTS Writing Task 2 Collocations"
                 required
-                className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] outline-none text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 transition-all font-inter"
+                className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#B6FF2E] outline-none text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 transition-all font-inter"
               />
             </div>
 
@@ -207,7 +207,7 @@ export function CreateDeckModal({
               <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
-                className="w-full px-3 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 font-medium text-sm text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                className="w-full px-3 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 font-medium text-sm text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
               >
                 <option value="IELTS">IELTS Academic</option>
                 <option value="C1">C1 (Advanced)</option>
@@ -227,7 +227,7 @@ export function CreateDeckModal({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="To'plam haqida qisqacha ma'lumot..."
-              className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:border-[#ef233c]"
+              className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 outline-none focus:border-[#B6FF2E]"
             />
           </div>
 
@@ -238,7 +238,7 @@ export function CreateDeckModal({
               onClick={() => setActiveTab("bulk")}
               className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-bold font-manrope border-b-2 transition-all cursor-pointer ${
                 activeTab === "bulk"
-                  ? "border-[#ef233c] text-[#ef233c]"
+                  ? "border-[#B6FF2E] text-[#B6FF2E]"
                   : "border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
               }`}
             >
@@ -250,7 +250,7 @@ export function CreateDeckModal({
               onClick={() => setActiveTab("manual")}
               className={`flex items-center gap-2 pb-2.5 px-3 text-xs font-bold font-manrope border-b-2 transition-all cursor-pointer ${
                 activeTab === "manual"
-                  ? "border-[#ef233c] text-[#ef233c]"
+                  ? "border-[#B6FF2E] text-[#B6FF2E]"
                   : "border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
               }`}
             >
@@ -270,7 +270,7 @@ export function CreateDeckModal({
                 onChange={(e) => setBulkText(e.target.value)}
                 rows={6}
                 placeholder={`ubiquitous - hamma joyda uchraydigan\nscrutinize - sinchiklab o'rganmoq\nmitigate - yumshatmoq, kamaytirmoq`}
-                className="w-full px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 font-mono text-xs sm:text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:border-[#ef233c] outline-none transition-all leading-relaxed"
+                className="w-full px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 font-mono text-xs sm:text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:border-[#B6FF2E] outline-none transition-all leading-relaxed"
               />
             </div>
           ) : (
@@ -303,7 +303,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "term_en", e.target.value)
                       }
                       placeholder="Inglizcha so'z *"
-                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                     />
                     <input
                       type="text"
@@ -312,7 +312,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "meaning_uz", e.target.value)
                       }
                       placeholder="O'zbekcha tarjima *"
-                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                     />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -323,7 +323,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "synonyms", e.target.value)
                       }
                       placeholder="Sinonimlar (ixtiyoriy)"
-                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs text-zinc-700 dark:text-zinc-300 outline-none focus:border-[#ef233c]"
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs text-zinc-700 dark:text-zinc-300 outline-none focus:border-[#B6FF2E]"
                     />
                     <input
                       type="text"
@@ -332,7 +332,7 @@ export function CreateDeckModal({
                         handleManualChange(idx, "example_en", e.target.value)
                       }
                       placeholder="IELTS namunaviy gap (ixtiyoriy)"
-                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs text-zinc-700 dark:text-zinc-300 outline-none focus:border-[#ef233c] italic"
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs text-zinc-700 dark:text-zinc-300 outline-none focus:border-[#B6FF2E] italic"
                     />
                   </div>
                 </div>
@@ -343,7 +343,7 @@ export function CreateDeckModal({
                 onClick={handleAddManualRow}
                 className="w-full py-2 rounded-xl border border-dashed border-zinc-300 dark:border-white/20 bg-zinc-50 dark:bg-white/5 font-semibold text-xs text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/10 flex items-center justify-center gap-1.5 cursor-pointer transition"
               >
-                <Plus className="w-3.5 h-3.5 text-[#ef233c]" />
+                <Plus className="w-3.5 h-3.5 text-[#B6FF2E]" />
                 <span>Yana so&apos;z qo&apos;shish</span>
               </button>
             </div>
@@ -362,7 +362,7 @@ export function CreateDeckModal({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
+              className="px-6 py-2.5 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
             >
               <Sparkles className="w-4 h-4" />
               <span>{isSubmitting ? "Saqlanmoqda..." : "To'plamni Saqlash"}</span>

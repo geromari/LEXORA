@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { 
   Plus, 
@@ -13,7 +13,9 @@ import {
   Layers,
   Flame,
   ShieldCheck,
-  UserCheck
+  UserCheck,
+  BrainCircuit,
+  Filter
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { HeroStatsBar } from "@/components/dashboard/HeroStatsBar";
@@ -21,6 +23,9 @@ import { DeckGrid } from "@/components/dashboard/DeckGrid";
 import { CreateDeckModal } from "@/components/dashboard/CreateDeckModal";
 import { AISmartImportModal } from "@/components/dashboard/AISmartImportModal";
 import { api, DeckListItem, DueCardsResponse } from "@/lib/api";
+import { GlassCard } from "@/components/ui/GlassCard";
+import { GlassButton } from "@/components/ui/GlassButton";
+import { animeAnimations } from "@/lib/animeAnimations";
 
 export default function DashboardPage() {
   const { user, openAuthModal } = useAuth();
@@ -32,6 +37,8 @@ export default function DashboardPage() {
   const [importInitialText, setImportInitialText] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<"all" | "ielts" | "c1" | "my">("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const pageRef = useRef<HTMLDivElement>(null);
 
   const loadDashboardData = async () => {
     try {
@@ -91,7 +98,6 @@ export default function DashboardPage() {
     ? Math.max(0, dueData!.total_due)
     : decks.reduce((acc, d) => acc + (Number(d.due_count) || 0), 0);
   
-  // Calculate weighted overall accuracy safely
   const overallAccuracy =
     decks.length > 0
       ? Math.round(
@@ -127,64 +133,47 @@ export default function DashboardPage() {
   });
 
   return (
-    <div className="w-full">
-      {/* Top Breadcrumb & User Welcome Bar */}
+    <div ref={pageRef} className="w-full">
+      {/* 1. Top Breadcrumb & User Welcome Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-4 pb-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-2xl bg-white dark:bg-zinc-950/70 border border-zinc-200 dark:border-white/10 shadow-sm">
+        <GlassCard className="p-6 sm:p-7 rounded-[30px] bg-[#23262F]/85 border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#ef233c] font-semibold tracking-wider uppercase mb-1">
-              <span className="w-2 h-2 rounded-full bg-[#ef233c] animate-pulse" />
-              <span>Foydalanuvchi Kabineti</span>
+            <div className="flex items-center gap-2 text-xs font-mono text-[#B6FF2E] font-bold tracking-wider uppercase mb-1">
+              <span className="w-2 h-2 rounded-full bg-[#B6FF2E] animate-pulse" />
+              <span>O&apos;quvchi Kabineti</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold font-manrope text-zinc-900 dark:text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black font-manrope text-white tracking-tight">
               {user ? `Xush kelibsiz, ${user.username}!` : "Shaxsiy O'quv Maydoni"}
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-inter mt-1">
-              Spaced Repetition xotira algoritmi va AI orqali so&apos;zlarni uzoq muddatga yodlang.
+            <p className="text-xs sm:text-sm text-zinc-400 font-inter mt-1">
+              Leitner Spaced Repetition (SRS) xotira algoritmi va AI orqali so&apos;zlarni uzoq muddatga yodlang.
             </p>
           </div>
 
-          {!user ? (
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                onClick={() => openAuthModal("register")}
-                className="px-5 py-2.5 rounded-full bg-[#ef233c] hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider shadow-md transition cursor-pointer"
-              >
-                Google / Telegram orqali Saqlash
-              </button>
+          <div className="flex items-center gap-3">
+            <div className="px-4 py-2 rounded-full bg-[#15171C] border border-white/10 flex items-center gap-2 text-xs font-mono font-bold text-white">
+              <Flame className="w-4 h-4 text-[#B6FF2E]" />
+              <span className="text-[#B6FF2E]">{user?.streak_count || 0}</span>
+              <span className="text-zinc-400">kunlik seriya</span>
             </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <div className="px-4 py-2 rounded-xl bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 flex items-center gap-2 text-xs font-semibold text-zinc-800 dark:text-zinc-200">
-                <Flame className="w-4 h-4 text-[#ef233c] fill-[#ef233c]" />
-                <span>{user.streak_count} kunlik uzluksiz seriya</span>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
 
-      {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-16 space-y-12">
-        
-        {/* 1. STATS BAR (Bento Metric Overview) */}
-        <section id="stats">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#ef233c] shadow-[0_0_8px_rgba(239,35,60,0.8)]" />
-              <h2 className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
-                SRS Xotira &amp; Progress Statistikasi
-              </h2>
-            </div>
-            <button
+            <GlassButton
+              variant="graphite"
+              size="sm"
               onClick={loadDashboardData}
-              className="p-2 rounded-xl border border-zinc-200 dark:border-white/10 bg-white dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition cursor-pointer"
               title="Yangilash"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? "animate-spin" : ""}`} />
-            </button>
+            </GlassButton>
           </div>
+        </GlassCard>
+      </div>
 
+      {/* 2. Main Content Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-20 space-y-10">
+        
+        {/* STATS BAR (Bento Metric Overview) */}
+        <section id="stats">
           <HeroStatsBar
             totalLearned={Number.isFinite(totalLearned) ? totalLearned : 0}
             totalDue={Number.isFinite(totalDue) ? totalDue : 0}
@@ -195,108 +184,114 @@ export default function DashboardPage() {
           />
         </section>
 
-        {/* 2. DUE REVIEW CALLOUT BANNER (if cards are due) */}
+        {/* DUE REVIEW CALLOUT BANNER (if cards are due) */}
         {totalDue > 0 && decks.length > 0 && (
           <section>
-            <div className="p-6 sm:p-8 rounded-2xl border border-[#ef233c] bg-white dark:bg-zinc-950/80 shadow-md dark:shadow-[0_0_40px_rgba(239,35,60,0.2)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all relative overflow-hidden group">
+            <div className="p-6 sm:p-8 rounded-[30px] border border-[#B6FF2E]/40 bg-[#23262F]/90 shadow-[0_0_35px_rgba(182,255,46,0.15)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all relative overflow-hidden">
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center shrink-0 shadow-sm dark:shadow-[0_0_15px_rgba(239,35,60,0.3)]">
-                  <Clock className="w-6 h-6 animate-pulse text-[#ef233c]" />
+                <div className="w-12 h-12 rounded-2xl bg-[#B6FF2E]/10 border border-[#B6FF2E]/30 flex items-center justify-center shrink-0">
+                  <Clock className="w-6 h-6 animate-pulse text-[#B6FF2E]" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-manrope text-zinc-900 dark:text-white tracking-tight">
-                    Bugun takrorlash uchun <span className="text-[#ef233c]">{totalDue} ta so&apos;z</span> kutmoqda!
+                  <h3 className="text-xl sm:text-2xl font-bold font-manrope text-white tracking-tight">
+                    Bugun takrorlash uchun <span className="text-[#B6FF2E] font-black">{totalDue} ta so&apos;z</span> kutmoqda!
                   </h3>
-                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1 font-inter">
-                    Spaced Repetition xotira algoritmi bo&apos;yicha so&apos;zlarni unutilmas xotiraga muhrlang.
+                  <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-inter">
+                    Spaced Repetition xotira algoritmi bo&apos;yicha so&apos;zlarni unutilmas uzoq muddatli xotiraga muhrlang.
                   </p>
                 </div>
               </div>
 
               <Link href="/review" className="w-full sm:w-auto shrink-0 relative z-10">
-                <button className="w-full sm:w-auto px-6 py-3 rounded-full bg-[#ef233c] hover:bg-red-700 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(239,35,60,0.35)] transition cursor-pointer">
-                  <span>Hozir Takrorlash</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
+                <GlassButton
+                  variant="primary"
+                  size="md"
+                  className="w-full sm:w-auto"
+                  rightIcon={<ArrowRight className="w-4 h-4" />}
+                >
+                  Hozir Takrorlash
+                </GlassButton>
               </Link>
             </div>
           </section>
         )}
 
-        {/* 3. DECK EXPLORER GRID SECTION */}
+        {/* DECK EXPLORER GRID SECTION */}
         <section className="space-y-6" id="decks">
           <div className="flex flex-col gap-5">
-            {/* Header Row: Title on Left, Action buttons on Right */}
+            {/* Header Row */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#ef233c]">
+                <div className="w-8 h-8 rounded-xl bg-[#B6FF2E] flex items-center justify-center text-[#15171C]">
                   <BookOpen className="w-4 h-4" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-manrope text-zinc-900 dark:text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-black font-manrope text-white tracking-tight">
                   Mavjud To&apos;plamlar
                 </h2>
-                <span className="text-xs font-mono font-bold px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-zinc-300">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#15171C] border border-white/10 text-[#B6FF2E]">
                   {filteredDecks.length}
                 </span>
               </div>
 
-              {/* Quick Actions in Section Header */}
-              <div className="flex items-center gap-2.5 flex-wrap">
-                <button
+              {/* Action buttons */}
+              <div className="flex items-center gap-3 flex-wrap">
+                <GlassButton
+                  variant="ai"
+                  size="sm"
                   onClick={() => {
                     setImportInitialText("");
                     setIsAIImportModalOpen(true);
                   }}
-                  className="px-4 py-2 rounded-full bg-[#ef233c] hover:bg-red-700 text-white text-xs sm:text-sm font-semibold flex items-center gap-2 shadow-[0_0_20px_rgba(239,35,60,0.35)] transition cursor-pointer"
+                  leftIcon={<Sparkles className="w-4 h-4" />}
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span>AI Matndan lug&apos;at</span>
-                </button>
+                  AI Smart Import
+                </GlassButton>
 
-                <button
+                <GlassButton
+                  variant="primary"
+                  size="sm"
                   onClick={() => setIsCreateModalOpen(true)}
-                  className="px-4 py-2 rounded-full bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-white/10 text-zinc-800 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white text-xs sm:text-sm font-semibold flex items-center gap-1.5 transition cursor-pointer"
+                  leftIcon={<Plus className="w-4 h-4" />}
                 >
-                  <Plus className="w-4 h-4 text-[#ef233c]" />
-                  <span>Yangi to&apos;plam</span>
-                </button>
+                  To&apos;plam Yaratish
+                </GlassButton>
               </div>
             </div>
 
-            {/* Search bar & Filter Pills Row */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-              {/* Search Input */}
-              <div className="relative flex-1 max-w-md">
-                <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            {/* Filter Tabs and Search Bar */}
+            <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pt-2">
+              <div className="flex items-center gap-1.5 p-1 rounded-full bg-[#23262F]/80 border border-white/10 backdrop-blur-xl overflow-x-auto">
+                {[
+                  { id: "all", label: "Barchasi" },
+                  { id: "ielts", label: "IELTS" },
+                  { id: "c1", label: "C1 / C2 Akademik" },
+                  { id: "my", label: "Mening To'plamlarim" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() => setSelectedFilter(tab.id as any)}
+                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                      selectedFilter === tab.id
+                        ? "bg-[#B6FF2E] text-[#15171C] shadow-[0_0_15px_rgba(182,255,46,0.3)]"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Search Bar */}
+              <div className="relative max-w-xs w-full">
+                <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="To'plamlarni qidirish..."
-                  className="w-full bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-xs sm:text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 focus:border-[#ef233c] outline-none transition"
+                  placeholder="To'plam nomi bo'yicha qidirish..."
+                  className="w-full pl-11 pr-4 py-2.5 rounded-full bg-[#23262F]/80 border border-white/10 focus:border-[#B6FF2E] focus:ring-1 focus:ring-[#B6FF2E]/30 text-white placeholder-zinc-500 text-xs outline-none transition-all"
                 />
-              </div>
-
-              {/* Level Filter Pills: Barchasi, IELTS, C1, Shaxsiy */}
-              <div className="flex items-center gap-2 text-xs shrink-0 self-start sm:self-auto overflow-x-auto pb-1 sm:pb-0">
-                {[
-                  { id: "all", label: "Barchasi" },
-                  { id: "ielts", label: "IELTS" },
-                  { id: "c1", label: "C1 Academic" },
-                  { id: "my", label: "Mening to'plamlarim" },
-                ].map((pill) => (
-                  <button
-                    key={pill.id}
-                    onClick={() => setSelectedFilter(pill.id as any)}
-                    className={`px-3.5 py-1.5 rounded-full font-medium text-xs border transition-all cursor-pointer ${
-                      selectedFilter === pill.id
-                        ? "bg-[#ef233c] text-white border-[#ef233c] shadow-sm"
-                        : "bg-zinc-100 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white border-zinc-200 dark:border-white/10 hover:bg-zinc-200 dark:hover:bg-white/10"
-                    }`}
-                  >
-                    {pill.label}
-                  </button>
-                ))}
               </div>
             </div>
           </div>
@@ -311,42 +306,18 @@ export default function DashboardPage() {
 
       </div>
 
-      {/* MODALS */}
+      {/* Modals */}
       <CreateDeckModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        onDeckCreated={(newDeck) => {
-          const formattedDeck: DeckListItem = {
-            ...newDeck,
-            learned_count: Number(newDeck.learned_count) || 0,
-            due_count:
-              newDeck.due_count !== undefined
-                ? Number(newDeck.due_count) || 0
-                : Number(newDeck.card_count) || newDeck.cards?.length || 0,
-            card_count: Number(newDeck.card_count) || newDeck.cards?.length || 0,
-            mastery_percentage: Number(newDeck.mastery_percentage) || 0,
-          };
-          setDecks((prev) => [formattedDeck, ...prev]);
-        }}
+        onDeckCreated={() => loadDashboardData()}
       />
 
       <AISmartImportModal
         isOpen={isAIImportModalOpen}
-        initialText={importInitialText}
         onClose={() => setIsAIImportModalOpen(false)}
-        onDeckCreated={(newDeck) => {
-          const formattedDeck: DeckListItem = {
-            ...newDeck,
-            learned_count: Number(newDeck.learned_count) || 0,
-            due_count:
-              newDeck.due_count !== undefined
-                ? Number(newDeck.due_count) || 0
-                : Number(newDeck.card_count) || newDeck.cards?.length || 0,
-            card_count: Number(newDeck.card_count) || newDeck.cards?.length || 0,
-            mastery_percentage: Number(newDeck.mastery_percentage) || 0,
-          };
-          setDecks((prev) => [formattedDeck, ...prev]);
-        }}
+        onDeckCreated={() => loadDashboardData()}
+        initialText={importInitialText}
       />
     </div>
   );

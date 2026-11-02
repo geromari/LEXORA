@@ -150,7 +150,7 @@ export function TypingEngine({
 
     return (
       <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
-        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(239,35,60,0.3)] flex items-center justify-center mx-auto text-[#ef233c]">
+        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(182,255,46,0.3)] flex items-center justify-center mx-auto text-[#B6FF2E]">
           <Trophy className="w-10 h-10" />
         </div>
 
@@ -168,8 +168,8 @@ export function TypingEngine({
             <div className="text-2xl font-bold font-manrope text-emerald-300">{stats.correct}</div>
             <div className="text-xs text-zinc-400 mt-1">To&apos;g&apos;ri</div>
           </div>
-          <div className="p-3.5 rounded-xl bg-red-950/40 border border-red-500/40">
-            <div className="text-2xl font-bold font-manrope text-red-300">{stats.wrong}</div>
+          <div className="p-3.5 rounded-xl bg-[#23262F] border border-[#B6FF2E]/40">
+            <div className="text-2xl font-bold font-manrope text-[#B6FF2E]">{stats.wrong}</div>
             <div className="text-xs text-zinc-400 mt-1">Xato</div>
           </div>
           <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -193,7 +193,7 @@ export function TypingEngine({
             className="shiny-cta py-3 px-6"
           >
             <span className="relative z-10 flex items-center gap-2 text-white font-bold text-xs">
-              <RotateCcw className="w-4 h-4 text-[#ef233c]" />
+              <RotateCcw className="w-4 h-4 text-[#B6FF2E]" />
               <span>Qaytadan Boshlash</span>
             </span>
           </button>
@@ -218,7 +218,7 @@ export function TypingEngine({
         </div>
         <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_10px_rgba(239,35,60,0.6)] transition-all duration-300"
+            className="h-full bg-gradient-to-r from-[#B6FF2E] to-rose-400 rounded-full shadow-[0_0_10px_rgba(182,255,46,0.6)] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -227,7 +227,7 @@ export function TypingEngine({
       {/* Question Card: Target Uzbek Definition and Example */}
       <GlassCard padding="xl" className="text-center space-y-6 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
         <div className="flex items-center justify-between">
-          <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase tracking-wider">
+          <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase tracking-wider">
             {deck.level || "C1"} • O&apos;zbekcha Ma&apos;no
           </span>
           <div className="text-xs text-zinc-400 font-mono flex items-center gap-1.5">
@@ -242,7 +242,7 @@ export function TypingEngine({
           </h2>
 
           {currentCard.example_en && (
-            <p className="text-xs sm:text-sm text-zinc-400 italic max-w-lg mx-auto bg-white/[0.02] p-3 rounded-xl border-l-2 border-[#ef233c] font-inter">
+            <p className="text-xs sm:text-sm text-zinc-400 italic max-w-lg mx-auto bg-white/[0.02] p-3 rounded-xl border-l-2 border-[#B6FF2E] font-inter">
               &ldquo;
               {currentCard.example_en.replace(
                 new RegExp(`\\b${currentCard.term_en}\\b`, "gi"),
@@ -267,8 +267,8 @@ export function TypingEngine({
                 isAnswered
                   ? isCorrect
                     ? "border-emerald-500 bg-emerald-950/40 text-emerald-300"
-                    : "border-[#ef233c] bg-red-950/40 text-red-300"
-                  : "border-white/10 bg-zinc-950/80 text-white focus:border-[#ef233c] placeholder:text-zinc-500"
+                    : "border-[#B6FF2E] bg-[#23262F] text-[#B6FF2E]"
+                  : "border-white/10 bg-zinc-950/80 text-white focus:border-[#B6FF2E] placeholder:text-zinc-500"
               }`}
             />
           </div>
@@ -282,7 +282,7 @@ export function TypingEngine({
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-white font-medium text-xs transition-all cursor-pointer"
                 title="2 ta harfni ochish"
               >
-                <Lightbulb className="w-3.5 h-3.5 text-[#ef233c]" />
+                <Lightbulb className="w-3.5 h-3.5 text-[#B6FF2E]" />
                 <span>+Harf (Hint)</span>
               </button>
 
@@ -300,7 +300,7 @@ export function TypingEngine({
                 type="button"
                 onClick={handleSubmit}
                 disabled={!typedInput.trim()}
-                className="px-5 py-2 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(239,35,60,0.4)] disabled:opacity-40 transition cursor-pointer"
+                className="px-5 py-2 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(182,255,46,0.4)] disabled:opacity-40 transition cursor-pointer"
               >
                 <span>Tekshirish [Enter]</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -315,7 +315,7 @@ export function TypingEngine({
         <GlassCard
           padding="lg"
           className={`border transition-all animate-in fade-in duration-300 ${
-            isCorrect ? "bg-emerald-950/40 border-emerald-500/40" : "bg-red-950/40 border-red-500/40"
+            isCorrect ? "bg-emerald-950/40 border-emerald-500/40" : "bg-[#23262F] border-[#B6FF2E]/40"
           }`}
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -327,7 +327,7 @@ export function TypingEngine({
                     To&apos;g&apos;ri yozildi! (+1 SRS)
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-red-500/20 text-red-300 border border-red-500/40 text-xs font-bold font-manrope">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#B6FF2E]/20 text-[#B6FF2E] border border-[#B6FF2E]/40 text-xs font-bold font-manrope">
                     <XCircle className="w-4 h-4 text-red-400" />
                     {usedFullReveal ? "Javob ko'rildi (0-qutiga qaytdi)" : "Xato yozildi (0-qutiga qaytdi)"}
                   </span>
@@ -340,7 +340,7 @@ export function TypingEngine({
                 </span>
                 <button
                   onClick={handlePronounce}
-                  className="p-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
+                  className="p-1.5 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 text-[#B6FF2E] transition-all cursor-pointer"
                   title="Talaffuzni tinglash"
                 >
                   <Volume2 className="w-4 h-4" />
@@ -358,7 +358,7 @@ export function TypingEngine({
 
             <button
               onClick={handleNext}
-              className="shrink-0 px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(239,35,60,0.4)] transition cursor-pointer"
+              className="shrink-0 px-6 py-2.5 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs sm:text-sm flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(182,255,46,0.4)] transition cursor-pointer"
             >
               <span>Keyingi So&apos;z [Enter]</span>
               <ArrowRight className="w-4 h-4" />

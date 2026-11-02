@@ -158,7 +158,7 @@ export default function ReviewArenaPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <div className="w-12 h-12 rounded-full border-2 border-[#ef233c] border-t-transparent animate-spin shadow-[0_0_20px_rgba(239,35,60,0.5)]" />
+        <div className="w-12 h-12 rounded-full border-2 border-[#B6FF2E] border-t-transparent animate-spin shadow-[0_0_20px_rgba(182,255,46,0.5)]" />
         <p className="text-sm font-bold font-manrope uppercase text-zinc-400">
           Takrorlash navbati tahlil qilinmoqda...
         </p>
@@ -171,12 +171,12 @@ export default function ReviewArenaPage() {
     return (
       <div className="max-w-xl mx-auto py-12 px-4 space-y-6">
         <GlassCard padding="xl" className="text-center py-14 space-y-6 relative overflow-hidden border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
-          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(239,35,60,0.3)] flex items-center justify-center mx-auto text-[#ef233c]">
-            <Flame className="w-10 h-10 fill-[#ef233c]" />
+          <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(182,255,46,0.3)] flex items-center justify-center mx-auto text-[#B6FF2E]">
+            <Flame className="w-10 h-10 fill-[#B6FF2E]" />
           </div>
 
           <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ef233c]/20 text-[#ef233c] border border-[#ef233c]/30 text-xs font-bold font-manrope">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B6FF2E]/20 text-[#B6FF2E] border border-[#B6FF2E]/30 text-xs font-bold font-manrope">
               <CalendarCheck className="w-3.5 h-3.5" />
               {reviewedCount > 0
                 ? "Bugungi vazifa to'liq bajarildi!"
@@ -199,7 +199,7 @@ export default function ReviewArenaPage() {
             </div>
             <div className="w-px h-8 bg-white/10" />
             <div>
-              <div className="text-2xl font-bold font-manrope text-[#ef233c]">100%</div>
+              <div className="text-2xl font-bold font-manrope text-[#B6FF2E]">100%</div>
               <div className="text-zinc-400 font-inter mt-0.5">Navbat tozaligi</div>
             </div>
           </div>
@@ -219,7 +219,7 @@ export default function ReviewArenaPage() {
               <button className="shiny-cta py-2.5 px-6">
                 <span className="relative z-10 flex items-center gap-2 text-white font-bold text-xs">
                   <span>Bosh Sahifaga Qaytish</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#ef233c]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#B6FF2E]" />
                 </span>
               </button>
             </Link>
@@ -245,7 +245,7 @@ export default function ReviewArenaPage() {
 
         {/* Daily Streak Badge */}
         <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-white">
-          <Flame className="w-4 h-4 text-[#ef233c] fill-[#ef233c]" />
+          <Flame className="w-4 h-4 text-[#B6FF2E] fill-[#B6FF2E]" />
           <span>{streakCount} kunlik seriya</span>
         </div>
       </div>
@@ -257,7 +257,7 @@ export default function ReviewArenaPage() {
             onClick={() => setActiveQueueType("due")}
             className={`flex-1 py-2 px-3 rounded-full text-xs font-bold font-manrope transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeQueueType === "due"
-                ? "bg-[#ef233c] text-white shadow-[0_0_15px_rgba(239,35,60,0.5)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.5)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -269,7 +269,7 @@ export default function ReviewArenaPage() {
             onClick={() => setActiveQueueType("hardest")}
             className={`flex-1 py-2 px-3 rounded-full text-xs font-bold font-manrope transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeQueueType === "hardest"
-                ? "bg-[#ef233c] text-white shadow-[0_0_15px_rgba(239,35,60,0.5)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.5)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -291,7 +291,7 @@ export default function ReviewArenaPage() {
         </div>
         <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_10px_rgba(239,35,60,0.6)] transition-all duration-300"
+            className="h-full bg-gradient-to-r from-[#B6FF2E] to-rose-400 rounded-full shadow-[0_0_10px_rgba(182,255,46,0.6)] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -309,19 +309,19 @@ export default function ReviewArenaPage() {
         >
           {/* FRONT */}
           <div
-            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-900/80 to-black border border-white/15 p-8 flex flex-col justify-between shadow-[0_0_40px_rgba(239,35,60,0.15)] [backface-visibility:hidden] absolute inset-0 ${
+            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-900/80 to-black border border-white/15 p-8 flex flex-col justify-between shadow-[0_0_40px_rgba(182,255,46,0.15)] [backface-visibility:hidden] absolute inset-0 ${
               isFlipped ? "pointer-events-none" : ""
             }`}
           >
             <div className="flex items-center justify-between">
-              <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase flex items-center gap-1.5 shadow-[0_0_10px_rgba(239,35,60,0.2)]">
-                <Clock className="w-3.5 h-3.5 text-[#ef233c]" />
+              <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase flex items-center gap-1.5 shadow-[0_0_10px_rgba(182,255,46,0.2)]">
+                <Clock className="w-3.5 h-3.5 text-[#B6FF2E]" />
                 Takrorlash Navbati
               </span>
               <button
                 type="button"
                 onClick={handleAudio}
-                className="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
+                className="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#B6FF2E] transition-all cursor-pointer"
                 title="Talaffuzni tinglash (A)"
               >
                 <Volume2 className="w-5 h-5" />
@@ -334,7 +334,7 @@ export default function ReviewArenaPage() {
               </h2>
               {currentCard.progress && currentCard.progress.wrong_count > 0 && (
                 <div className="flex items-center justify-center">
-                  <span className="px-3 py-1 rounded-md bg-red-950/60 border border-red-500/40 text-red-300 text-xs font-mono inline-flex items-center gap-1.5">
+                  <span className="px-3 py-1 rounded-md bg-red-950/60 border border-[#B6FF2E]/40 text-[#B6FF2E] text-xs font-mono inline-flex items-center gap-1.5">
                     <AlertTriangle className="w-3.5 h-3.5" />
                     <span>Oldin {currentCard.progress.wrong_count} marta xato qilingan</span>
                   </span>
@@ -343,14 +343,14 @@ export default function ReviewArenaPage() {
             </div>
 
             <div className="text-center pt-4 border-t border-white/10 text-xs font-medium text-zinc-400 flex items-center justify-center gap-1.5 font-inter">
-              <RotateCcw className="w-3.5 h-3.5 text-[#ef233c]" />
+              <RotateCcw className="w-3.5 h-3.5 text-[#B6FF2E]" />
               <span>Javobni ko&apos;rish uchun bosing yoki [Space]</span>
             </div>
           </div>
 
           {/* BACK */}
           <div
-            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-[#ef233c]/50 p-8 flex flex-col justify-between shadow-[0_0_45px_rgba(239,35,60,0.2)] [transform:rotateY(180deg)] [backface-visibility:hidden] absolute inset-0 ${
+            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-[#B6FF2E]/50 p-8 flex flex-col justify-between shadow-[0_0_45px_rgba(182,255,46,0.2)] [transform:rotateY(180deg)] [backface-visibility:hidden] absolute inset-0 ${
               !isFlipped ? "pointer-events-none" : ""
             }`}
           >
@@ -361,7 +361,7 @@ export default function ReviewArenaPage() {
               <button
                 type="button"
                 onClick={handleAudio}
-                className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
+                className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#B6FF2E] transition-all cursor-pointer"
               >
                 <Volume2 className="w-4 h-4" />
               </button>
@@ -381,7 +381,7 @@ export default function ReviewArenaPage() {
               )}
 
               {currentCard.example_en && (
-                <div className="p-3.5 rounded-xl border-l-2 border-[#ef233c] bg-white/[0.02] text-xs sm:text-sm text-zinc-300 italic leading-relaxed text-left max-w-lg mx-auto font-inter">
+                <div className="p-3.5 rounded-xl border-l-2 border-[#B6FF2E] bg-white/[0.02] text-xs sm:text-sm text-zinc-300 italic leading-relaxed text-left max-w-lg mx-auto font-inter">
                   &ldquo;{currentCard.example_en}&rdquo;
                 </div>
               )}
@@ -402,7 +402,7 @@ export default function ReviewArenaPage() {
             handleReviewAnswer(false);
           }}
           disabled={!isFlipped || isSubmitting}
-          className="w-full py-3.5 px-4 rounded-2xl bg-red-950/40 hover:bg-[#ef233c] text-red-300 hover:text-white border border-red-500/40 font-bold font-manrope text-sm flex items-center justify-center gap-2 transition-all disabled:opacity-40 cursor-pointer shadow-lg active:scale-95"
+          className="w-full py-3.5 px-4 rounded-2xl bg-[#23262F] hover:bg-[#B6FF2E] text-[#B6FF2E] hover:text-white border border-[#B6FF2E]/40 font-bold font-manrope text-sm flex items-center justify-center gap-2 transition-all disabled:opacity-40 cursor-pointer shadow-lg active:scale-95"
         >
           <XCircle className="w-5 h-5" />
           <span>Eslay Olmadim [1]</span>

@@ -61,7 +61,7 @@ function StudyPageContent({ params }: { params: Promise<{ id: string }> }) {
   if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-        <div className="w-12 h-12 rounded-full border-2 border-[#ef233c] border-t-transparent animate-spin shadow-[0_0_20px_rgba(239,35,60,0.5)]" />
+        <div className="w-12 h-12 rounded-full border-2 border-[#B6FF2E] border-t-transparent animate-spin shadow-[0_0_20px_rgba(182,255,46,0.5)]" />
         <p className="text-sm font-bold font-manrope uppercase tracking-wider text-zinc-400">
           Mashg&apos;ulot xonasi tayyorlanmoqda...
         </p>
@@ -99,7 +99,7 @@ function StudyPageContent({ params }: { params: Promise<{ id: string }> }) {
 
         {/* Deck Level & Card Count Tag */}
         <div className="flex items-center gap-2">
-          <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase shadow-[0_0_10px_rgba(239,35,60,0.2)]">
+          <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase shadow-[0_0_10px_rgba(182,255,46,0.2)]">
             {deck.level || "C1"}
           </span>
           <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-xs">
@@ -115,7 +115,7 @@ function StudyPageContent({ params }: { params: Promise<{ id: string }> }) {
             onClick={() => setActiveTab("quiz")}
             className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 px-2 rounded-full text-xs sm:text-sm font-bold font-manrope transition-all cursor-pointer ${
               activeTab === "quiz"
-                ? "bg-[#ef233c] text-white shadow-[0_0_15px_rgba(239,35,60,0.4)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.4)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -127,7 +127,7 @@ function StudyPageContent({ params }: { params: Promise<{ id: string }> }) {
             onClick={() => setActiveTab("flashcards")}
             className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 px-2 rounded-full text-xs sm:text-sm font-bold font-manrope transition-all cursor-pointer ${
               activeTab === "flashcards"
-                ? "bg-[#ef233c] text-white shadow-[0_0_15px_rgba(239,35,60,0.4)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.4)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -139,7 +139,7 @@ function StudyPageContent({ params }: { params: Promise<{ id: string }> }) {
             onClick={() => setActiveTab("typing")}
             className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 px-2 rounded-full text-xs sm:text-sm font-bold font-manrope transition-all cursor-pointer ${
               activeTab === "typing"
-                ? "bg-[#ef233c] text-white shadow-[0_0_15px_rgba(239,35,60,0.4)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.4)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -151,7 +151,7 @@ function StudyPageContent({ params }: { params: Promise<{ id: string }> }) {
             onClick={() => setActiveTab("ai_writing")}
             className={`flex-1 flex items-center justify-center gap-1.5 sm:gap-2 py-2.5 px-2 rounded-full text-xs sm:text-sm font-bold font-manrope transition-all cursor-pointer ${
               activeTab === "ai_writing"
-                ? "bg-[#ef233c] text-white shadow-[0_0_15px_rgba(239,35,60,0.4)]"
+                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.4)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
@@ -209,7 +209,7 @@ export default function StudyFlashcardsPage({
     <Suspense
       fallback={
         <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4">
-          <div className="w-12 h-12 rounded-full border-2 border-[#ef233c] border-t-transparent animate-spin shadow-[0_0_20px_rgba(239,35,60,0.5)]" />
+          <div className="w-12 h-12 rounded-full border-2 border-[#B6FF2E] border-t-transparent animate-spin shadow-[0_0_20px_rgba(182,255,46,0.5)]" />
           <p className="text-sm font-bold font-manrope uppercase text-zinc-400">Mashg&apos;ulot yuklanmoqda...</p>
         </div>
       }

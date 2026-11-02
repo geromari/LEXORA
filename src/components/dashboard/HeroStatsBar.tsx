@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { BookOpen, Flame, Clock, Target, ArrowRight } from "lucide-react";
+import { GlassCard } from "@/components/ui/GlassCard";
 
 interface HeroStatsBarProps {
   totalLearned: number;
@@ -30,94 +31,89 @@ export function HeroStatsBar({
   const stats = [
     {
       id: "learned",
-      label: "O'rganilgan so'zlar",
+      label: "O'zlashtirilgan so'zlar",
       value: safeTotalLearned,
-      subValue: `${safeTotalCards} ta jami so'zdan`,
+      subValue: `${safeTotalCards.toLocaleString()} ta jami so'zdan`,
       icon: BookOpen,
-      iconColor: "text-zinc-600 dark:text-zinc-300",
-      href: "/dashboard#decks",
+      iconColor: "text-[#B6FF2E]",
+      href: "/dashboard",
     },
     {
       id: "streak",
-      label: "Kunlik faol seriya",
+      label: "Kunlik seriya (Streak)",
       value: `${safeStreakDays} kun`,
-      subValue: "uzluksiz mashg'ulot",
+      subValue: "uzluksiz faollik",
       icon: Flame,
-      iconColor: "text-[#ef233c]",
+      iconColor: "text-[#B6FF2E]",
       href: "/review",
+      highlight: safeStreakDays > 0,
     },
     {
       id: "due",
-      label: "Bugungi takrorlash",
+      label: "Bugungi SRS takrorlash",
       value: safeTotalDue,
-      subValue: safeTotalDue > 0 ? "so'z navbatda kutmoqda" : "Hammasi takrorlangan",
+      subValue: safeTotalDue > 0 ? "so'z navbatda kutmoqda" : "Barcha kartalar o'zlashtirilgan",
       icon: Clock,
-      iconColor: "text-[#ef233c]",
+      iconColor: "text-[#B6FF2E]",
       href: "/review",
       highlight: safeTotalDue > 0,
     },
     {
       id: "accuracy",
-      label: "SRS Aniqlik darajasi",
+      label: "O'rtacha aniqlik",
       value: `${safeAccuracy}%`,
-      subValue: "xotira ko'rsatkichi",
+      subValue: "Leitner SRS testi",
       icon: Target,
-      iconColor: "text-emerald-500",
+      iconColor: "text-[#B6FF2E]",
       href: "/review",
     },
   ];
 
+  if (isLoading) {
+    return (
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={i}
+            className="h-28 rounded-[24px] bg-[#23262F]/50 animate-pulse border border-white/5"
+          />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
-          <Link
-            key={stat.id}
-            href={stat.href}
-            className={`group rounded-2xl border transition-all duration-300 p-6 flex flex-col justify-between relative overflow-hidden bg-white dark:bg-zinc-950/80 shadow-sm dark:shadow-none ${
-              stat.highlight
-                ? "border-[#ef233c] shadow-[0_0_25px_rgba(239,35,60,0.15)] ring-1 ring-[#ef233c]/20"
-                : "border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/20 hover:shadow-md"
-            }`}
-          >
-            {/* Top row */}
-            <div className="flex items-center justify-between mb-4 relative z-10">
-              <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                {stat.label}
-              </span>
-              <div className="p-2.5 rounded-xl bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10 group-hover:scale-105 transition-transform">
-                <Icon className={`w-4 h-4 ${stat.iconColor}`} />
+          <Link key={stat.id} href={stat.href} className="group">
+            <GlassCard
+              interactive
+              className={`p-5 sm:p-6 rounded-[26px] bg-[#23262F]/80 border-white/10 flex flex-col justify-between h-full transition-all ${
+                stat.highlight
+                  ? "border-[#B6FF2E]/40 hover:border-[#B6FF2E] shadow-[0_0_20px_rgba(182,255,46,0.15)]"
+                  : "hover:border-white/20"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[11px] font-semibold text-zinc-400 font-manrope">
+                  {stat.label}
+                </span>
+                <div className="p-2 rounded-xl bg-[#15171C] border border-white/5 group-hover:border-[#B6FF2E]/40 transition-colors">
+                  <Icon className={`w-4 h-4 ${stat.iconColor}`} />
+                </div>
               </div>
-            </div>
 
-            {/* Value display */}
-            <div className="space-y-1 relative z-10">
-              <div className="text-3xl sm:text-4xl font-bold font-manrope text-zinc-900 dark:text-white tracking-tight">
-                {isLoading ? (
-                  <span className="inline-block w-20 h-9 bg-zinc-200 dark:bg-zinc-800 animate-pulse rounded-lg" />
-                ) : (
-                  stat.value
-                )}
+              <div>
+                <p className="text-2xl sm:text-3xl font-black font-manrope text-white tracking-tight">
+                  {stat.value}
+                </p>
+                <p className="text-[11px] text-zinc-400 mt-1 truncate font-inter">
+                  {stat.subValue}
+                </p>
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-inter">
-                {stat.subValue}
-              </p>
-            </div>
-
-            {/* Footer arrow hint */}
-            <div className="mt-4 pt-3 border-t border-zinc-100 dark:border-white/5 flex items-center justify-between text-[11px] font-medium text-zinc-400 group-hover:text-zinc-700 dark:group-hover:text-zinc-200 transition-colors relative z-10">
-              <span>Batafsil ko&apos;rish</span>
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform text-[#ef233c]" />
-            </div>
-
-            {/* Ambient hover glow */}
-            <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-10 dark:group-hover:opacity-10 transition-opacity pointer-events-none"
-              style={{
-                background: "radial-gradient(circle at top right, #ef233c, transparent 70%)",
-              }}
-            />
+            </GlassCard>
           </Link>
         );
       })}

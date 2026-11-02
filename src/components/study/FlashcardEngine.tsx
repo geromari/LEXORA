@@ -133,7 +133,7 @@ export function FlashcardEngine({
     const total = stats.hard + stats.good + stats.easy;
     return (
       <GlassCard padding="xl" className="text-center py-12 max-w-xl mx-auto space-y-6 border-white/10 bg-gradient-to-b from-zinc-900/60 to-black">
-        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(239,35,60,0.3)] flex items-center justify-center mx-auto text-[#ef233c]">
+        <div className="w-20 h-20 rounded-2xl bg-white/5 border border-white/10 shadow-[0_0_30px_rgba(182,255,46,0.3)] flex items-center justify-center mx-auto text-[#B6FF2E]">
           <Trophy className="w-10 h-10" />
         </div>
 
@@ -147,8 +147,8 @@ export function FlashcardEngine({
         </div>
 
         <div className="grid grid-cols-3 gap-3 pt-2">
-          <div className="p-3.5 rounded-xl bg-red-950/40 border border-red-500/40">
-            <div className="text-2xl font-bold font-manrope text-red-300">{stats.hard}</div>
+          <div className="p-3.5 rounded-xl bg-[#23262F] border border-[#B6FF2E]/40">
+            <div className="text-2xl font-bold font-manrope text-[#B6FF2E]">{stats.hard}</div>
             <div className="text-xs text-zinc-400 mt-1">Qiyin (0-quti)</div>
           </div>
           <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -172,7 +172,7 @@ export function FlashcardEngine({
             className="shiny-cta py-3 px-6"
           >
             <span className="relative z-10 flex items-center gap-2 text-white font-bold text-xs">
-              <RotateCcw className="w-4 h-4 text-[#ef233c]" />
+              <RotateCcw className="w-4 h-4 text-[#B6FF2E]" />
               <span>Qaytadan Takrorlash</span>
             </span>
           </button>
@@ -197,7 +197,7 @@ export function FlashcardEngine({
         </button>
 
         <div className="flex items-center gap-2 text-xs font-mono text-white bg-white/5 px-4 py-1.5 rounded-full border border-white/10">
-          <BrainCircuit className="w-3.5 h-3.5 text-[#ef233c]" />
+          <BrainCircuit className="w-3.5 h-3.5 text-[#B6FF2E]" />
           <span>
             {currentIndex + 1} / {cards.length}
           </span>
@@ -216,7 +216,7 @@ export function FlashcardEngine({
       {/* Progress Striped Ruler Bar */}
       <div className="w-full h-1.5 bg-zinc-800 rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[#ef233c] to-rose-400 rounded-full shadow-[0_0_10px_rgba(239,35,60,0.6)] transition-all duration-300"
+          className="h-full bg-gradient-to-r from-[#B6FF2E] to-rose-400 rounded-full shadow-[0_0_10px_rgba(182,255,46,0.6)] transition-all duration-300"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
@@ -233,19 +233,19 @@ export function FlashcardEngine({
         >
           {/* FRONT SIDE (English Term) */}
           <div
-            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-900/80 to-black border border-white/15 p-8 flex flex-col justify-between shadow-[0_0_40px_rgba(239,35,60,0.15)] [backface-visibility:hidden] absolute inset-0 text-white ${
+            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-900/80 to-black border border-white/15 p-8 flex flex-col justify-between shadow-[0_0_40px_rgba(182,255,46,0.15)] [backface-visibility:hidden] absolute inset-0 text-white ${
               isFlipped ? "pointer-events-none" : ""
             }`}
           >
             {/* Front Top */}
             <div className="flex items-center justify-between">
-              <span className="px-3 py-1 rounded-md bg-[#ef233c]/15 text-[#ef233c] border border-[#ef233c]/30 font-bold font-manrope text-xs uppercase tracking-wider">
+              <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase tracking-wider">
                 {deck.level || "C1"} • #{currentIndex + 1}
               </span>
               <button
                 type="button"
                 onClick={handleAudio}
-                className="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
+                className="p-2.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#B6FF2E] transition-all cursor-pointer"
                 title="Talaffuzni tinglash (A)"
               >
                 <Volume2 className="w-5 h-5" />
@@ -268,14 +268,14 @@ export function FlashcardEngine({
 
             {/* Front Bottom */}
             <div className="text-center pt-4 border-t border-white/10 text-xs font-medium text-zinc-400 flex items-center justify-center gap-1.5 font-inter">
-              <RotateCcw className="w-3.5 h-3.5 text-[#ef233c]" />
+              <RotateCcw className="w-3.5 h-3.5 text-[#B6FF2E]" />
               <span>Aylantirish uchun bosing yoki [Space] tugmasini uring</span>
             </div>
           </div>
 
           {/* BACK SIDE (Uzbek Meaning & Context Sentence) */}
           <div
-            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-[#ef233c]/50 p-8 flex flex-col justify-between shadow-[0_0_45px_rgba(239,35,60,0.2)] [transform:rotateY(180deg)] [backface-visibility:hidden] absolute inset-0 text-white ${
+            className={`w-full h-full min-h-[380px] sm:min-h-[420px] rounded-3xl bg-gradient-to-b from-zinc-950 to-black border border-[#B6FF2E]/50 p-8 flex flex-col justify-between shadow-[0_0_45px_rgba(182,255,46,0.2)] [transform:rotateY(180deg)] [backface-visibility:hidden] absolute inset-0 text-white ${
               !isFlipped ? "pointer-events-none" : ""
             }`}
           >
@@ -287,7 +287,7 @@ export function FlashcardEngine({
               <button
                 type="button"
                 onClick={handleAudio}
-                className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#ef233c] transition-all cursor-pointer"
+                className="p-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-[#B6FF2E] transition-all cursor-pointer"
                 title="Talaffuzni tinglash"
               >
                 <Volume2 className="w-4 h-4" />
@@ -301,7 +301,7 @@ export function FlashcardEngine({
               </div>
 
               {currentCard.example_en && (
-                <div className="p-4 rounded-xl border-l-2 border-[#ef233c] bg-white/[0.02] text-xs sm:text-sm text-zinc-300 italic leading-relaxed text-left max-w-lg mx-auto font-inter">
+                <div className="p-4 rounded-xl border-l-2 border-[#B6FF2E] bg-white/[0.02] text-xs sm:text-sm text-zinc-300 italic leading-relaxed text-left max-w-lg mx-auto font-inter">
                   &ldquo;{currentCard.example_en}&rdquo;
                 </div>
               )}
@@ -323,7 +323,7 @@ export function FlashcardEngine({
             handleGrade("hard");
           }}
           disabled={!isFlipped || isSubmitting}
-          className="w-full py-3.5 rounded-xl bg-red-950/40 hover:bg-[#ef233c] text-red-300 hover:text-white border border-red-500/40 font-bold font-manrope text-xs sm:text-sm transition-all disabled:opacity-40 cursor-pointer active:scale-95"
+          className="w-full py-3.5 rounded-xl bg-[#23262F] hover:bg-[#B6FF2E] text-[#B6FF2E] hover:text-white border border-[#B6FF2E]/40 font-bold font-manrope text-xs sm:text-sm transition-all disabled:opacity-40 cursor-pointer active:scale-95"
         >
           Qiyin [1]
         </button>

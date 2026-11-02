@@ -134,19 +134,19 @@ export function AISmartImportModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-white/10 shadow-2xl dark:shadow-[0_0_60px_rgba(239,35,60,0.18)] p-6 sm:p-8 text-zinc-900 dark:text-white transition-colors"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-3xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-white/10 shadow-2xl dark:shadow-[0_0_60px_rgba(182,255,46,0.18)] p-6 sm:p-8 text-zinc-900 dark:text-white transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#ef233c] shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#B6FF2E] shadow-sm">
               <Wand2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-xl font-bold font-manrope text-zinc-900 dark:text-white">Smart Text-to-Deck</h3>
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 dark:bg-[#ef233c]/20 text-[#ef233c] border border-red-200 dark:border-[#ef233c]/30 uppercase font-mono">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 dark:bg-[#B6FF2E]/20 text-[#B6FF2E] border border-red-200 dark:border-[#B6FF2E]/30 uppercase font-mono">
                   Gemini AI
                 </span>
               </div>
@@ -165,7 +165,7 @@ export function AISmartImportModal({
 
         {/* Error message */}
         {errorMessage && (
-          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-500/40 flex items-center gap-2.5 text-xs font-medium text-red-600 dark:text-red-300">
+          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-[#B6FF2E]/40 flex items-center gap-2.5 text-xs font-medium text-red-600 dark:text-[#B6FF2E]">
             <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
             <span>{errorMessage}</span>
           </div>
@@ -183,7 +183,7 @@ export function AISmartImportModal({
                 <button
                   type="button"
                   onClick={() => setPassageText(SAMPLE_IELTS_PASSAGE)}
-                  className="text-xs text-[#ef233c] hover:underline font-semibold"
+                  className="text-xs text-[#B6FF2E] hover:underline font-semibold"
                 >
                   Namunaviy IELTS Matni
                 </button>
@@ -191,7 +191,7 @@ export function AISmartImportModal({
                 <select
                   value={level}
                   onChange={(e) => setLevel(e.target.value)}
-                  className="px-2.5 py-1 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 text-xs font-medium text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                  className="px-2.5 py-1 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 text-xs font-medium text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                 >
                   <option value="C1">C1 (Advanced)</option>
                   <option value="C2">C2 (Proficiency)</option>
@@ -206,7 +206,7 @@ export function AISmartImportModal({
               onChange={(e) => setPassageText(e.target.value)}
               rows={8}
               placeholder="Inglizcha matn yoki so'zlarni shu yerga yozing..."
-              className="w-full px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#ef233c] outline-none text-xs sm:text-sm font-inter text-zinc-900 dark:text-white placeholder:text-zinc-400 transition-all leading-relaxed resize-y"
+              className="w-full px-4 py-3 rounded-2xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#B6FF2E] outline-none text-xs sm:text-sm font-inter text-zinc-900 dark:text-white placeholder:text-zinc-400 transition-all leading-relaxed resize-y"
             />
 
             <div className="flex items-center justify-end gap-3 pt-2">
@@ -222,7 +222,7 @@ export function AISmartImportModal({
                 type="button"
                 onClick={handleExtract}
                 disabled={isExtracting || passageText.trim().length < 10}
-                className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{isExtracting ? "Tahlil qilinmoqda..." : "AI Bilan Tahlil Qilish"}</span>
@@ -243,7 +243,7 @@ export function AISmartImportModal({
                     type="text"
                     value={deckTitle}
                     onChange={(e) => setDeckTitle(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                   />
                 </div>
 
@@ -255,7 +255,7 @@ export function AISmartImportModal({
                     type="text"
                     value={level}
                     onChange={(e) => setLevel(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                    className="w-full px-3 py-2 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs sm:text-sm font-semibold text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                   />
                 </div>
               </div>
@@ -274,7 +274,7 @@ export function AISmartImportModal({
                 <button
                   type="button"
                   onClick={() => setSelectedIndices(extractedCards.map((_, i) => i))}
-                  className="text-[#ef233c] hover:underline font-semibold"
+                  className="text-[#B6FF2E] hover:underline font-semibold"
                 >
                   Barchasini tanlash
                 </button>
@@ -298,7 +298,7 @@ export function AISmartImportModal({
                     key={idx}
                     className={`p-3.5 rounded-2xl border transition-all ${
                       isSelected
-                        ? "bg-white dark:bg-zinc-900/60 border-[#ef233c]/40 dark:border-white/20 shadow-sm"
+                        ? "bg-white dark:bg-zinc-900/60 border-[#B6FF2E]/40 dark:border-white/20 shadow-sm"
                         : "bg-zinc-50 dark:bg-black/40 border-zinc-200 dark:border-white/5 opacity-60"
                     }`}
                   >
@@ -309,7 +309,7 @@ export function AISmartImportModal({
                           onClick={() => handleToggleSelect(idx)}
                           className={`w-5 h-5 rounded-md flex items-center justify-center border transition-all cursor-pointer ${
                             isSelected
-                              ? "bg-[#ef233c] border-[#ef233c] text-white"
+                              ? "bg-[#B6FF2E] border-[#B6FF2E] text-white"
                               : "bg-white dark:bg-white/5 border-zinc-300 dark:border-white/20"
                           }`}
                         >
@@ -335,14 +335,14 @@ export function AISmartImportModal({
                         value={card.term_en}
                         onChange={(e) => handleUpdateCard(idx, "term_en", e.target.value)}
                         placeholder="Inglizcha so'z"
-                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-bold text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-bold text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                       />
                       <input
                         type="text"
                         value={card.meaning_uz}
                         onChange={(e) => handleUpdateCard(idx, "meaning_uz", e.target.value)}
                         placeholder="O'zbekcha tarjima"
-                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-medium text-zinc-900 dark:text-white outline-none focus:border-[#ef233c]"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs font-medium text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
                       />
                     </div>
 
@@ -352,14 +352,14 @@ export function AISmartImportModal({
                         value={card.synonyms || ""}
                         onChange={(e) => handleUpdateCard(idx, "synonyms", e.target.value)}
                         placeholder="Sinonimlar"
-                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-[11px] text-zinc-600 dark:text-zinc-400 outline-none focus:border-[#ef233c]"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-[11px] text-zinc-600 dark:text-zinc-400 outline-none focus:border-[#B6FF2E]"
                       />
                       <input
                         type="text"
                         value={card.example_en || ""}
                         onChange={(e) => handleUpdateCard(idx, "example_en", e.target.value)}
                         placeholder="Namunaviy gap"
-                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-[11px] text-zinc-600 dark:text-zinc-400 outline-none focus:border-[#ef233c] italic"
+                        className="px-3 py-1.5 rounded-xl bg-zinc-50 dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-[11px] text-zinc-600 dark:text-zinc-400 outline-none focus:border-[#B6FF2E] italic"
                       />
                     </div>
                   </div>
@@ -381,7 +381,7 @@ export function AISmartImportModal({
                 type="button"
                 onClick={handleSaveDeck}
                 disabled={selectedIndices.length === 0 || isSaving}
-                className="px-6 py-2.5 rounded-xl bg-[#ef233c] hover:bg-red-700 text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-[#B6FF2E] hover:bg-[#a5ee24] hover:text-[#15171C] text-white font-bold font-manrope text-xs sm:text-sm shadow-md flex items-center gap-2 disabled:opacity-50 transition cursor-pointer"
               >
                 <BookOpen className="w-4 h-4" />
                 <span>To&apos;plam Sifatida Saqlash ({selectedIndices.length})</span>
