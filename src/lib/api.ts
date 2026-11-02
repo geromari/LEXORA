@@ -227,7 +227,15 @@ export const api = {
     request<DueCardsResponse>(`/api/review/due?limit=${limit}`),
 
   // AI Features
-  extractVocab: (payload: { text: string; level?: string; count?: number }) =>
+  extractVocab: (payload: {
+    text?: string;
+    file_base64?: string;
+    file_type?: string;
+    file_name?: string;
+    level?: string;
+    count?: number;
+    mode?: "extract" | "enrich";
+  }) =>
     request<ExtractVocabResponse>("/api/ai/extract-vocab", {
       method: "POST",
       body: JSON.stringify(payload),

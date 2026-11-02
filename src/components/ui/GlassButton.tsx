@@ -19,13 +19,13 @@ const variantStyles = {
   ai:
     "bg-[#15171C] hover:bg-[#23262F] text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold active:scale-95 shadow-[0_0_20px_rgba(182,255,46,0.15)]",
   secondary:
-    "bg-white/5 hover:bg-white/10 text-white font-medium border border-white/10 active:scale-95",
+    "bg-zinc-100 hover:bg-zinc-200 dark:bg-white/5 dark:hover:bg-white/10 text-zinc-900 dark:text-white font-semibold border border-zinc-300 dark:border-white/10 active:scale-95 shadow-sm",
   success:
     "bg-emerald-500 hover:bg-emerald-400 text-black font-bold active:scale-95 shadow-md",
   danger:
     "bg-rose-600 hover:bg-rose-500 text-white font-bold active:scale-95 border border-transparent",
   ghost:
-    "bg-transparent hover:bg-white/5 text-zinc-400 hover:text-white font-medium border border-transparent",
+    "bg-transparent hover:bg-black/5 dark:hover:bg-white/5 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white font-medium border border-transparent",
 };
 
 const sizeStyles = {

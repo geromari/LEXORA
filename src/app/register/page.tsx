@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { 
   User, 
@@ -11,17 +12,16 @@ import {
   EyeOff, 
   Sparkles, 
   ArrowRight, 
-  CheckCircle2, 
   AlertCircle 
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { TelegramIcon, GoogleIcon } from "@/components/icons/BrandIcons";
 import { GlassButton } from "@/components/ui/GlassButton";
-import { animeAnimations, animate } from "@/lib/animeAnimations";
+import { animate } from "@/lib/animeAnimations";
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { user, register, loginWithGoogle, setAuthSession } = useAuth();
+  const { user, register, loginWithGoogle } = useAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +55,7 @@ export default function RegisterPage() {
     setErrorMessage(null);
 
     if (!username.trim()) {
-      setErrorMessage("Iltimos, foydalanuvchi nomini kiriting.");
+      setErrorMessage("Foydalanuvchi nomini kiriting.");
       return;
     }
 
@@ -88,23 +88,27 @@ export default function RegisterPage() {
     <div className="min-h-[85vh] flex items-center justify-center px-4 py-12 relative z-10">
       <div
         ref={cardRef}
-        className="w-full max-w-md rounded-[32px] bg-[#23262F]/85 backdrop-blur-2xl border border-white/10 p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_35px_rgba(182,255,46,0.12)]"
+        className="w-full max-w-md rounded-[32px] bg-white/95 dark:bg-[#23262F]/85 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 p-7 sm:p-9 shadow-[0_20px_50px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.6),0_0_35px_rgba(182,255,46,0.12)] text-zinc-900 dark:text-white transition-colors"
       >
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
-            <div className="w-9 h-9 rounded-xl bg-[#B6FF2E] flex items-center justify-center text-[#15171C] font-black text-xl shadow-[0_0_20px_rgba(182,255,46,0.4)] group-hover:scale-105 transition-transform">
-              V
-            </div>
-            <span className="text-2xl font-black font-manrope text-white tracking-tight">
-              vydex<span className="text-[#B6FF2E]">.ai</span>
+            <Image
+              src="/logo.png"
+              alt="Lexora Logo"
+              width={38}
+              height={38}
+              className="w-9 h-9 rounded-xl object-contain shadow-[0_0_20px_rgba(182,255,46,0.4)] group-hover:scale-105 transition-transform"
+            />
+            <span className="text-2xl font-black font-manrope text-zinc-950 dark:text-white tracking-tight">
+              vydex<span className="text-emerald-600 dark:text-[#B6FF2E]">.ai</span>
             </span>
           </Link>
-          <h1 className="text-2xl sm:text-3xl font-bold font-manrope text-white">
-            Yangi Hisob Ochish
+          <h1 className="text-2xl sm:text-3xl font-bold font-manrope text-zinc-950 dark:text-white">
+            Ro&apos;yxatdan O&apos;tish
           </h1>
-          <p className="text-sm text-zinc-400 mt-2">
-            IELTS &amp; CEFR so&apos;zlarini AI va Leitner SRS orqali o&apos;rganing
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2 font-inter">
+            IELTS C1/C2 so&apos;zlarni 10x tezroq o&apos;rganishni bugun boshlang
           </p>
         </div>
 
@@ -114,7 +118,7 @@ export default function RegisterPage() {
             href="https://t.me/vydex_uzbot"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[#15171C] hover:bg-[#1E2128] border border-white/10 hover:border-[#229ED9]/50 text-white text-xs font-bold transition-all shadow-sm"
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-zinc-100 hover:bg-zinc-200 dark:bg-[#15171C] dark:hover:bg-[#1E2128] border border-zinc-200 dark:border-white/10 hover:border-[#229ED9]/50 text-zinc-800 dark:text-white text-xs font-bold transition-all shadow-sm"
           >
             <TelegramIcon className="w-4 h-4 text-[#229ED9]" />
             <span>Telegram Bot</span>
@@ -123,12 +127,12 @@ export default function RegisterPage() {
           <button
             type="button"
             onClick={() => {
-              const email = prompt("Google email manzilingizni kiriting:");
-              if (email && email.includes("@")) {
-                loginWithGoogle({ email, name: email.split("@")[0] });
+              const emailInput = prompt("Google email manzilingizni kiriting:");
+              if (emailInput && emailInput.includes("@")) {
+                loginWithGoogle({ email: emailInput, name: emailInput.split("@")[0] });
               }
             }}
-            className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[#15171C] hover:bg-[#1E2128] border border-white/10 hover:border-white/30 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+            className="flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-zinc-100 hover:bg-zinc-200 dark:bg-[#15171C] dark:hover:bg-[#1E2128] border border-zinc-200 dark:border-white/10 hover:border-zinc-300 dark:hover:border-white/30 text-zinc-800 dark:text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
           >
             <GoogleIcon className="w-4 h-4" />
             <span>Google</span>
@@ -137,77 +141,77 @@ export default function RegisterPage() {
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-5">
-          <div className="flex-1 h-[1px] bg-white/10" />
+          <div className="flex-1 h-[1px] bg-zinc-200 dark:bg-white/10" />
           <span className="text-[11px] font-mono text-zinc-500 uppercase tracking-wider">
-            Yoki Ma&apos;lumotlar bilan
+            Yoki Ma&apos;lumotlarni kiriting
           </span>
-          <div className="flex-1 h-[1px] bg-white/10" />
+          <div className="flex-1 h-[1px] bg-zinc-200 dark:bg-white/10" />
         </div>
 
         {/* Error Alert */}
         {errorMessage && (
-          <div className="mb-5 p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-2.5 text-xs text-rose-300">
-            <AlertCircle className="w-4 h-4 shrink-0 text-rose-400 mt-0.5" />
+          <div className="mb-5 p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-2.5 text-xs text-rose-600 dark:text-rose-300">
+            <AlertCircle className="w-4 h-4 shrink-0 text-rose-500 mt-0.5" />
             <span>{errorMessage}</span>
           </div>
         )}
 
-        {/* Registration Form */}
+        {/* Register Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Username */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5 font-manrope">
-              Foydalanuvchi Nomi (Username) *
+            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 font-manrope">
+              Foydalanuvchi nomi (Username) *
             </label>
             <div className="relative">
-              <User className="w-4 h-4 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <User className="w-4 h-4 text-zinc-500 dark:text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="masalan: alisher_ielts"
-                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-[#15171C] border border-white/10 focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-white placeholder-zinc-500 text-sm outline-none transition-all font-inter"
+                placeholder="masalan: dilnoza_ielts"
+                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 focus:border-emerald-500 dark:focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm outline-none transition-all font-inter"
               />
             </div>
           </div>
 
-          {/* Email (Optional) */}
+          {/* Email */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5 font-manrope">
-              Email Manzil <span className="text-zinc-500 font-normal">(Ixtiyoriy)</span>
+            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 font-manrope">
+              Email manzil (Ixtiyoriy)
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Mail className="w-4 h-4 text-zinc-500 dark:text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="masalan: student@gmail.com"
-                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-[#15171C] border border-white/10 focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-white placeholder-zinc-500 text-sm outline-none transition-all font-inter"
+                placeholder="masalan: user@gmail.com"
+                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 focus:border-emerald-500 dark:focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm outline-none transition-all font-inter"
               />
             </div>
           </div>
 
           {/* Password */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-1.5 font-manrope">
-              Parol (kamida 6 ta belgi) *
+            <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5 font-manrope">
+              Parol (Kamida 6 belgi) *
             </label>
             <div className="relative">
-              <Lock className="w-4 h-4 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
+              <Lock className="w-4 h-4 text-zinc-500 dark:text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
               <input
                 type={showPassword ? "text" : "password"}
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-11 pr-11 py-3 rounded-2xl bg-[#15171C] border border-white/10 focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-white placeholder-zinc-500 text-sm outline-none transition-all font-inter"
+                className="w-full pl-11 pr-11 py-3 rounded-2xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 focus:border-emerald-500 dark:focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm outline-none transition-all font-inter"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
                 aria-label="Toggle password visibility"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -231,13 +235,13 @@ export default function RegisterPage() {
         </form>
 
         {/* Footer switch to login */}
-        <div className="mt-7 text-center pt-5 border-t border-white/10 text-xs text-zinc-400">
+        <div className="mt-7 text-center pt-5 border-t border-zinc-200 dark:border-white/10 text-xs text-zinc-500 dark:text-zinc-400">
           Hisobingiz bormi?{" "}
           <Link
             href="/login"
-            className="text-[#B6FF2E] font-bold hover:underline ml-1"
+            className="text-emerald-700 dark:text-[#B6FF2E] font-bold hover:underline ml-1"
           >
-            Tizimga Kirish
+            Kirish
           </Link>
         </div>
       </div>

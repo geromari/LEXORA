@@ -157,7 +157,7 @@ export function CreateDeckModal({
         {/* Header */}
         <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-white/10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-white/5 border border-red-200 dark:border-white/10 flex items-center justify-center text-[#B6FF2E] shadow-sm">
+            <div className="w-10 h-10 rounded-xl bg-[#B6FF2E]/15 border border-[#B6FF2E]/30 flex items-center justify-center text-emerald-700 dark:text-[#B6FF2E] shadow-sm">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
@@ -177,8 +177,8 @@ export function CreateDeckModal({
 
         {/* Error message */}
         {errorMessage && (
-          <div className="mt-4 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-[#B6FF2E]/40 flex items-center gap-2.5 text-xs font-medium text-red-600 dark:text-[#B6FF2E]">
-            <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+          <div className="mt-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-300 dark:border-amber-500/40 flex items-center gap-2.5 text-xs font-medium text-amber-900 dark:text-amber-200">
+            <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 dark:text-amber-400" />
             <span>{errorMessage}</span>
           </div>
         )}

@@ -97,7 +97,7 @@ export default function DashboardPage() {
   const totalDue = Number.isFinite(dueData?.total_due)
     ? Math.max(0, dueData!.total_due)
     : decks.reduce((acc, d) => acc + (Number(d.due_count) || 0), 0);
-  
+
   const overallAccuracy =
     decks.length > 0
       ? Math.round(
@@ -136,25 +136,25 @@ export default function DashboardPage() {
     <div ref={pageRef} className="w-full">
       {/* 1. Top Breadcrumb & User Welcome Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 pt-4 pb-6">
-        <GlassCard className="p-6 sm:p-7 rounded-[30px] bg-[#23262F]/85 border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <GlassCard className="p-6 sm:p-7 rounded-[30px] bg-white/95 dark:bg-[#23262F]/85 border-zinc-200 dark:border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-sm dark:shadow-md">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#B6FF2E] font-bold tracking-wider uppercase mb-1">
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-[#B6FF2E] font-bold tracking-wider uppercase mb-1">
               <span className="w-2 h-2 rounded-full bg-[#B6FF2E] animate-pulse" />
               <span>O&apos;quvchi Kabineti</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-black font-manrope text-white tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-black font-manrope text-zinc-950 dark:text-white tracking-tight">
               {user ? `Xush kelibsiz, ${user.username}!` : "Shaxsiy O'quv Maydoni"}
             </h1>
-            <p className="text-xs sm:text-sm text-zinc-400 font-inter mt-1">
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-inter mt-1">
               Leitner Spaced Repetition (SRS) xotira algoritmi va AI orqali so&apos;zlarni uzoq muddatga yodlang.
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="px-4 py-2 rounded-full bg-[#15171C] border border-white/10 flex items-center gap-2 text-xs font-mono font-bold text-white">
-              <Flame className="w-4 h-4 text-[#B6FF2E]" />
-              <span className="text-[#B6FF2E]">{user?.streak_count || 0}</span>
-              <span className="text-zinc-400">kunlik seriya</span>
+            <div className="px-4 py-2 rounded-full bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 flex items-center gap-2 text-xs font-mono font-bold text-zinc-900 dark:text-white">
+              <Flame className="w-4 h-4 text-amber-500 dark:text-[#B6FF2E]" />
+              <span className="text-amber-600 dark:text-[#B6FF2E]">{user?.streak_count || 0}</span>
+              <span className="text-zinc-500">kunlik seriya</span>
             </div>
 
             <GlassButton
@@ -187,16 +187,16 @@ export default function DashboardPage() {
         {/* DUE REVIEW CALLOUT BANNER (if cards are due) */}
         {totalDue > 0 && decks.length > 0 && (
           <section>
-            <div className="p-6 sm:p-8 rounded-[30px] border border-[#B6FF2E]/40 bg-[#23262F]/90 shadow-[0_0_35px_rgba(182,255,46,0.15)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all relative overflow-hidden">
+            <div className="p-6 sm:p-8 rounded-[30px] border border-emerald-500/30 dark:border-[#B6FF2E]/40 bg-white/95 dark:bg-[#23262F]/90 shadow-md dark:shadow-[0_0_35px_rgba(182,255,46,0.15)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all relative overflow-hidden">
               <div className="flex items-center gap-4 relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-[#B6FF2E]/10 border border-[#B6FF2E]/30 flex items-center justify-center shrink-0">
-                  <Clock className="w-6 h-6 animate-pulse text-[#B6FF2E]" />
+                <div className="w-12 h-12 rounded-2xl bg-[#B6FF2E]/15 border border-[#B6FF2E]/40 flex items-center justify-center shrink-0">
+                  <Clock className="w-6 h-6 animate-pulse text-emerald-700 dark:text-[#B6FF2E]" />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-bold font-manrope text-white tracking-tight">
-                    Bugun takrorlash uchun <span className="text-[#B6FF2E] font-black">{totalDue} ta so&apos;z</span> kutmoqda!
+                  <h3 className="text-xl sm:text-2xl font-bold font-manrope text-zinc-950 dark:text-white tracking-tight">
+                    Bugun takrorlash uchun <span className="text-emerald-700 dark:text-[#B6FF2E] font-black">{totalDue} ta so&apos;z</span> kutmoqda!
                   </h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 mt-1 font-inter">
+                  <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1 font-inter">
                     Spaced Repetition xotira algoritmi bo&apos;yicha so&apos;zlarni unutilmas uzoq muddatli xotiraga muhrlang.
                   </p>
                 </div>
@@ -225,10 +225,10 @@ export default function DashboardPage() {
                 <div className="w-8 h-8 rounded-xl bg-[#B6FF2E] flex items-center justify-center text-[#15171C]">
                   <BookOpen className="w-4 h-4" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-black font-manrope text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl font-black font-manrope text-zinc-950 dark:text-white tracking-tight">
                   Mavjud To&apos;plamlar
                 </h2>
-                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-[#15171C] border border-white/10 text-[#B6FF2E]">
+                <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 text-emerald-800 dark:text-[#B6FF2E]">
                   {filteredDecks.length}
                 </span>
               </div>
@@ -260,7 +260,7 @@ export default function DashboardPage() {
 
             {/* Filter Tabs and Search Bar */}
             <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pt-2">
-              <div className="flex items-center gap-1.5 p-1 rounded-full bg-[#23262F]/80 border border-white/10 backdrop-blur-xl overflow-x-auto">
+              <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-[#23262F]/80 border border-zinc-200 dark:border-white/10 backdrop-blur-xl overflow-x-auto">
                 {[
                   { id: "all", label: "Barchasi" },
                   { id: "ielts", label: "IELTS" },
@@ -274,7 +274,7 @@ export default function DashboardPage() {
                     className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                       selectedFilter === tab.id
                         ? "bg-[#B6FF2E] text-[#15171C] shadow-[0_0_15px_rgba(182,255,46,0.3)]"
-                        : "text-zinc-400 hover:text-white"
+                        : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
                     }`}
                   >
                     {tab.label}
@@ -290,7 +290,7 @@ export default function DashboardPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="To'plam nomi bo'yicha qidirish..."
-                  className="w-full pl-11 pr-4 py-2.5 rounded-full bg-[#23262F]/80 border border-white/10 focus:border-[#B6FF2E] focus:ring-1 focus:ring-[#B6FF2E]/30 text-white placeholder-zinc-500 text-xs outline-none transition-all"
+                  className="w-full pl-11 pr-4 py-2.5 rounded-full bg-white dark:bg-[#23262F]/80 border border-zinc-200 dark:border-white/10 focus:border-emerald-500 dark:focus:border-[#B6FF2E] focus:ring-1 focus:ring-[#B6FF2E]/30 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-xs outline-none transition-all"
                 />
               </div>
             </div>

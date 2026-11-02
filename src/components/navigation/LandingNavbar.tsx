@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Sparkles, ArrowRight, Menu, X, ShieldCheck } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
@@ -13,35 +14,39 @@ export function LandingNavbar() {
 
   return (
     <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 max-w-7xl mx-auto">
-      <nav className="rounded-full bg-[#23262F]/80 backdrop-blur-2xl border border-white/10 px-5 sm:px-7 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] flex items-center justify-between transition-all duration-300">
+      <nav className="rounded-full bg-white/90 dark:bg-[#23262F]/85 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 px-5 sm:px-7 py-3 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] flex items-center justify-between transition-all duration-300">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded-xl bg-[#B6FF2E] flex items-center justify-center text-[#15171C] font-black text-lg shadow-[0_0_20px_rgba(182,255,46,0.4)] group-hover:scale-105 transition-transform">
-            V
-          </div>
+          <Image
+            src="/logo.png"
+            alt="Lexora Logo"
+            width={34}
+            height={34}
+            className="w-8 h-8 rounded-xl object-contain shadow-[0_0_20px_rgba(182,255,46,0.35)] group-hover:scale-105 transition-transform"
+          />
           <div className="flex items-center">
-            <span className="text-xl sm:text-2xl font-black font-manrope tracking-tight text-white">
+            <span className="text-xl sm:text-2xl font-black font-manrope tracking-tight text-zinc-950 dark:text-white">
               vydex
             </span>
-            <span className="text-[#B6FF2E] font-black text-xl sm:text-2xl">.ai</span>
+            <span className="text-emerald-600 dark:text-[#B6FF2E] font-black text-xl sm:text-2xl">.ai</span>
           </div>
         </Link>
 
         {/* Center Nav Links - Desktop */}
-        <div className="hidden md:flex items-center gap-7 text-sm font-medium text-zinc-300">
-          <a href="/#about" className="hover:text-[#B6FF2E] transition-colors">
+        <div className="hidden md:flex items-center gap-7 text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+          <a href="/#about" className="hover:text-emerald-600 dark:hover:text-[#B6FF2E] transition-colors">
             Loyiha Haqida
           </a>
-          <a href="/#features" className="hover:text-[#B6FF2E] transition-colors">
+          <a href="/#features" className="hover:text-emerald-600 dark:hover:text-[#B6FF2E] transition-colors">
             Imkoniyatlar
           </a>
-          <a href="/#methodology" className="hover:text-[#B6FF2E] transition-colors">
+          <a href="/#methodology" className="hover:text-emerald-600 dark:hover:text-[#B6FF2E] transition-colors">
             Metodika (SRS)
           </a>
-          <a href="/#decks" className="hover:text-[#B6FF2E] transition-colors">
+          <a href="/#decks" className="hover:text-emerald-600 dark:hover:text-[#B6FF2E] transition-colors">
             To&apos;plamlar
           </a>
-          <a href="/#faq" className="hover:text-[#B6FF2E] transition-colors">
+          <a href="/#faq" className="hover:text-emerald-600 dark:hover:text-[#B6FF2E] transition-colors">
             FAQ
           </a>
         </div>
@@ -65,7 +70,7 @@ export function LandingNavbar() {
               <Link href="/login">
                 <button
                   type="button"
-                  className="px-4 py-2 text-sm font-bold text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                  className="px-4 py-2 text-sm font-bold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-colors cursor-pointer"
                 >
                   Kirish
                 </button>
@@ -86,7 +91,7 @@ export function LandingNavbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-xl text-zinc-300 hover:text-white bg-white/5 border border-white/10"
+            className="md:hidden p-2 rounded-xl text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white bg-zinc-100 dark:bg-white/5 border border-zinc-200 dark:border-white/10"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -96,46 +101,46 @@ export function LandingNavbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden mt-2 p-5 rounded-3xl bg-[#23262F]/95 backdrop-blur-2xl border border-white/10 shadow-2xl space-y-4">
-          <div className="flex flex-col space-y-3 text-sm font-medium text-zinc-200">
+        <div className="md:hidden mt-2 p-5 rounded-3xl bg-white/95 dark:bg-[#23262F]/95 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 shadow-2xl space-y-4">
+          <div className="flex flex-col space-y-3 text-sm font-semibold text-zinc-800 dark:text-zinc-200">
             <a
               href="/#about"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-white/5"
+              className="px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-white/5"
             >
               Loyiha Haqida
             </a>
             <a
               href="/#features"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-white/5"
+              className="px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-white/5"
             >
               Imkoniyatlar
             </a>
             <a
               href="/#methodology"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-white/5"
+              className="px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-white/5"
             >
               Metodika (SRS)
             </a>
             <a
               href="/#decks"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-white/5"
+              className="px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-white/5"
             >
               To&apos;plamlar
             </a>
             <a
               href="/#faq"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-3 py-2 rounded-xl hover:bg-white/5"
+              className="px-3 py-2 rounded-xl hover:bg-zinc-100 dark:hover:bg-white/5"
             >
               FAQ
             </a>
           </div>
 
-          <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+          <div className="pt-3 border-t border-zinc-200 dark:border-white/10 flex flex-col gap-2">
             {user ? (
               <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
                 <GlassButton variant="primary" size="md" className="w-full">

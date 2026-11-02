@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { 
   X, 
   User, 
@@ -111,9 +112,13 @@ export function AuthModal() {
         {/* Brand */}
         <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 rounded-xl bg-[#B6FF2E] flex items-center justify-center text-[#15171C] font-black text-lg shadow-[0_0_20px_rgba(182,255,46,0.4)]">
-              V
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Lexora Logo"
+              width={34}
+              height={34}
+              className="w-8 h-8 rounded-xl object-contain shadow-[0_0_20px_rgba(182,255,46,0.4)]"
+            />
             <span className="text-2xl font-black font-manrope text-white tracking-tight">
               vydex<span className="text-[#B6FF2E]">.ai</span>
             </span>

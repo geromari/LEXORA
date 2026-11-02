@@ -35,7 +35,7 @@ export function HeroStatsBar({
       value: safeTotalLearned,
       subValue: `${safeTotalCards.toLocaleString()} ta jami so'zdan`,
       icon: BookOpen,
-      iconColor: "text-[#B6FF2E]",
+      iconColor: "text-emerald-700 dark:text-[#B6FF2E]",
       href: "/dashboard",
     },
     {
@@ -44,7 +44,7 @@ export function HeroStatsBar({
       value: `${safeStreakDays} kun`,
       subValue: "uzluksiz faollik",
       icon: Flame,
-      iconColor: "text-[#B6FF2E]",
+      iconColor: "text-amber-500 dark:text-[#B6FF2E]",
       href: "/review",
       highlight: safeStreakDays > 0,
     },
@@ -54,7 +54,7 @@ export function HeroStatsBar({
       value: safeTotalDue,
       subValue: safeTotalDue > 0 ? "so'z navbatda kutmoqda" : "Barcha kartalar o'zlashtirilgan",
       icon: Clock,
-      iconColor: "text-[#B6FF2E]",
+      iconColor: "text-emerald-700 dark:text-[#B6FF2E]",
       href: "/review",
       highlight: safeTotalDue > 0,
     },
@@ -64,7 +64,7 @@ export function HeroStatsBar({
       value: `${safeAccuracy}%`,
       subValue: "Leitner SRS testi",
       icon: Target,
-      iconColor: "text-[#B6FF2E]",
+      iconColor: "text-emerald-700 dark:text-[#B6FF2E]",
       href: "/review",
     },
   ];
@@ -75,7 +75,7 @@ export function HeroStatsBar({
         {[...Array(4)].map((_, i) => (
           <div
             key={i}
-            className="h-28 rounded-[24px] bg-[#23262F]/50 animate-pulse border border-white/5"
+            className="h-28 rounded-[24px] bg-zinc-100 dark:bg-[#23262F]/50 animate-pulse border border-zinc-200 dark:border-white/5"
           />
         ))}
       </div>
@@ -90,26 +90,26 @@ export function HeroStatsBar({
           <Link key={stat.id} href={stat.href} className="group">
             <GlassCard
               interactive
-              className={`p-5 sm:p-6 rounded-[26px] bg-[#23262F]/80 border-white/10 flex flex-col justify-between h-full transition-all ${
+              className={`p-5 sm:p-6 rounded-[26px] bg-white/95 dark:bg-[#23262F]/80 border-zinc-200 dark:border-white/10 flex flex-col justify-between h-full transition-all shadow-sm dark:shadow-md ${
                 stat.highlight
-                  ? "border-[#B6FF2E]/40 hover:border-[#B6FF2E] shadow-[0_0_20px_rgba(182,255,46,0.15)]"
-                  : "hover:border-white/20"
+                  ? "border-emerald-500/40 dark:border-[#B6FF2E]/40 hover:border-emerald-500 dark:hover:border-[#B6FF2E] shadow-[0_0_20px_rgba(182,255,46,0.15)]"
+                  : "hover:border-zinc-300 dark:hover:border-white/20"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-semibold text-zinc-400 font-manrope">
+                <span className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 font-manrope">
                   {stat.label}
                 </span>
-                <div className="p-2 rounded-xl bg-[#15171C] border border-white/5 group-hover:border-[#B6FF2E]/40 transition-colors">
+                <div className="p-2 rounded-xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/5 group-hover:border-emerald-500/40 dark:group-hover:border-[#B6FF2E]/40 transition-colors">
                   <Icon className={`w-4 h-4 ${stat.iconColor}`} />
                 </div>
               </div>
 
               <div>
-                <p className="text-2xl sm:text-3xl font-black font-manrope text-white tracking-tight">
+                <p className="text-2xl sm:text-3xl font-black font-manrope text-zinc-950 dark:text-white tracking-tight">
                   {stat.value}
                 </p>
-                <p className="text-[11px] text-zinc-400 mt-1 truncate font-inter">
+                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 truncate font-inter">
                   {stat.subValue}
                 </p>
               </div>

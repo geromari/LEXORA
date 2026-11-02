@@ -27,19 +27,19 @@ export function AmbientBackground() {
         ) : (
           <>
             {/* Clean Light Background with Subtle Lime & Graphite Ambience */}
-            <div className="absolute inset-0 bg-gradient-to-b from-lime-50/30 via-slate-50 to-white" />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-zinc-50 to-white" />
 
             {/* Ambient Lime Spark Glow */}
-            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[400px] bg-[#B6FF2E]/10 rounded-full blur-[130px] pointer-events-none" />
+            <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[600px] sm:w-[800px] h-[400px] bg-[#B6FF2E]/15 rounded-full blur-[130px] pointer-events-none" />
 
             {/* Subtle Light Grid Pattern */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(35,38,47,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(35,38,47,0.03)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(circle_at_center,black_50%,transparent_90%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(35,38,47,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(35,38,47,0.04)_1px,transparent_1px)] bg-[size:48px_48px] [mask-image:radial-gradient(circle_at_center,black_50%,transparent_90%)]" />
           </>
         )}
       </div>
 
       {/* Top Gradient Blur Header */}
-      <div className="fixed top-0 left-0 right-0 h-28 pointer-events-none z-30 bg-gradient-to-b from-[#15171C]/90 via-[#15171C]/40 to-transparent backdrop-blur-[2px]" />
+      <div className="fixed top-0 left-0 right-0 h-28 pointer-events-none z-30 bg-gradient-to-b from-white/90 dark:from-[#15171C]/90 via-white/40 dark:via-[#15171C]/40 to-transparent backdrop-blur-[2px] transition-colors" />
     </>
   );
 }

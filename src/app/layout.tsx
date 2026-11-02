@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     "AI ta'lim",
     "Spaced Repetition",
   ],
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
