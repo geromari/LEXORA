@@ -19,6 +19,7 @@ async function main() {
   const grapefruit31Words = data.ielts_reading_grapefruit_31 || [];
   const ieltsTop2000Words = data.ielts_top_2000 || [];
   const luckVsGrit69Words = data.luck_vs_grit_69 || [];
+  const englishGlobalLanguage72Words = data.english_global_language_72 || [];
 
   // 0. Delete "Common reading" if it exists
   await prisma.deck.deleteMany({
@@ -450,6 +451,57 @@ async function main() {
       console.log(`Seeded Deck 8 (Luck vs Grit) with ${luckVsGrit69Words.length} cards.`);
     } else {
       console.log("Deck 8 (Luck vs Grit) already exists.");
+    }
+  }
+
+  // 9. Deck 9: English as a Global Language — 72 Words (B2–C2)
+  if (englishGlobalLanguage72Words.length > 0) {
+    let deckEnglishGlobal = await prisma.deck.findFirst({
+      where: {
+        OR: [
+          { title: "English as a Global Language" },
+          { title: "English as a Global Language — 72 Words (B2–C2)" },
+          { title: { contains: "English as a Global Language", mode: "insensitive" } },
+        ],
+      },
+    });
+
+    if (!deckEnglishGlobal) {
+      deckEnglishGlobal = await prisma.deck.create({
+        data: {
+          title: "English as a Global Language — 72 Words (B2–C2)",
+          description:
+            "Ingliz tili global til sifatida mavzusidagi 72 ta muhim B2, C1 va C2 darajadagi leksika to'plami. Globallashuv, til siyosati, madaniy hukmronlik va xalqaro aloqa mavzularini qamrab oladi. Har bir so'z o'zbekcha tarjima, sinonimlar va kontekstual namunalar bilan jihozlangan.",
+          level: "B2–C2",
+          isPublic: true,
+        },
+      });
+
+      for (const w of englishGlobalLanguage72Words) {
+        const card = await prisma.card.create({
+          data: {
+            deckId: deckEnglishGlobal.id,
+            termEn: w.term_en,
+            meaningUz: w.meaning_uz,
+            synonyms: w.synonyms || null,
+            exampleEn: w.example_en || null,
+          },
+        });
+
+        await prisma.studyProgress.create({
+          data: {
+            cardId: card.id,
+            userId: null,
+            boxLevel: 0,
+            nextReviewAt: new Date(),
+            correctStreak: 0,
+            wrongCount: 0,
+          },
+        });
+      }
+      console.log(`Seeded Deck 9 (English as a Global Language) with ${englishGlobalLanguage72Words.length} cards.`);
+    } else {
+      console.log("Deck 9 (English as a Global Language) already exists.");
     }
   }
 

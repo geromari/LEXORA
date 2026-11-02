@@ -114,6 +114,7 @@ async function autoSeedDecks() {
       ielts_reading_grapefruit_31,
       ielts_top_2000,
       luck_vs_grit_69,
+      english_global_language_72,
     } = seedWordsData as {
       core_47: Array<{
         term_en: string;
@@ -159,6 +160,13 @@ async function autoSeedDecks() {
         example_en?: string;
       }>;
       luck_vs_grit_69?: Array<{
+        number?: number;
+        term_en: string;
+        meaning_uz: string;
+        synonyms?: string;
+        example_en?: string;
+      }>;
+      english_global_language_72?: Array<{
         number?: number;
         term_en: string;
         meaning_uz: string;
@@ -522,6 +530,55 @@ async function autoSeedDecks() {
           });
         }
         console.log(`Auto-seeded Deck 8 (Luck vs Grit) with ${luck_vs_grit_69.length} cards.`);
+      }
+    }
+
+    // Deck 9: English as a Global Language — 72 Words (B2–C2)
+    if (english_global_language_72 && english_global_language_72.length > 0) {
+      let deckEnglishGlobal = await prisma.deck.findFirst({
+        where: {
+          OR: [
+            { title: "English as a Global Language" },
+            { title: "English as a Global Language — 72 Words (B2–C2)" },
+            { title: { contains: "English as a Global Language", mode: "insensitive" } },
+          ],
+        },
+      });
+
+      if (!deckEnglishGlobal) {
+        deckEnglishGlobal = await prisma.deck.create({
+          data: {
+            title: "English as a Global Language — 72 Words (B2–C2)",
+            description:
+              "Ingliz tili global til sifatida mavzusidagi 72 ta muhim B2, C1 va C2 darajadagi leksika to'plami. Globallashuv, til siyosati, madaniy hukmronlik va xalqaro aloqa mavzularini qamrab oladi. Har bir so'z o'zbekcha tarjima, sinonimlar va kontekstual namunalar bilan jihozlangan.",
+            level: "B2–C2",
+            isPublic: true,
+          },
+        });
+
+        for (const w of english_global_language_72) {
+          const card = await prisma.card.create({
+            data: {
+              deckId: deckEnglishGlobal.id,
+              termEn: w.term_en,
+              meaningUz: w.meaning_uz,
+              synonyms: w.synonyms || null,
+              exampleEn: w.example_en || null,
+            },
+          });
+
+          await prisma.studyProgress.create({
+            data: {
+              cardId: card.id,
+              userId: null,
+              boxLevel: 0,
+              nextReviewAt: new Date(),
+              correctStreak: 0,
+              wrongCount: 0,
+            },
+          });
+        }
+        console.log(`Auto-seeded Deck 9 (English as a Global Language) with ${english_global_language_72.length} cards.`);
       }
     }
 
