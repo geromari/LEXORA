@@ -24,7 +24,7 @@ export function LandingFooter() {
           <div className="flex items-center gap-2.5 mb-6">
             <Image
               src="/logo.png"
-              alt="Lexora Logo"
+              alt="Vydex AI Logo"
               width={34}
               height={34}
               className="w-8 h-8 rounded-xl object-contain shadow-[0_0_20px_rgba(182,255,46,0.35)]"

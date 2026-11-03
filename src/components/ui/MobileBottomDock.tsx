@@ -48,15 +48,15 @@ export function MobileBottomDock() {
   };
 
   return (
-    <div className="md:hidden fixed bottom-4 left-0 right-0 z-50 px-4 flex justify-center pointer-events-none">
-      <nav className="pointer-events-auto flex items-center justify-between gap-1 px-4 py-2.5 rounded-full bg-[#23262F]/90 backdrop-blur-2xl border border-white/10 shadow-[0_15px_35px_-5px_rgba(0,0,0,0.6),0_0_20px_rgba(182,255,46,0.15)] max-w-sm w-full">
+    <div className="md:hidden fixed bottom-3 sm:bottom-4 left-0 right-0 z-50 px-4 flex justify-center pointer-events-none pb-[env(safe-area-inset-bottom,0px)]">
+      <nav className="pointer-events-auto flex items-center justify-between gap-1 px-4 py-2 rounded-full bg-white/95 dark:bg-[#23262F]/90 backdrop-blur-2xl border border-zinc-200 dark:border-white/10 shadow-[0_12px_30px_-5px_rgba(0,0,0,0.12)] dark:shadow-[0_15px_35px_-5px_rgba(0,0,0,0.6),0_0_20px_rgba(182,255,46,0.15)] max-w-sm w-full transition-colors">
         {/* 1. Dashboard Decks */}
         <Link
           href="/dashboard"
           className={`flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${
             pathname === "/dashboard"
-              ? "text-[#B6FF2E] font-bold"
-              : "text-zinc-400 hover:text-white"
+              ? "text-emerald-800 dark:text-[#B6FF2E] font-bold"
+              : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
           }`}
         >
           <LayoutDashboard className="w-5 h-5 mb-0.5" />
@@ -68,8 +68,8 @@ export function MobileBottomDock() {
           href="/review"
           className={`flex flex-col items-center justify-center p-2 rounded-2xl relative transition-all ${
             pathname === "/review"
-              ? "text-[#B6FF2E] font-bold"
-              : "text-zinc-400 hover:text-white"
+              ? "text-emerald-800 dark:text-[#B6FF2E] font-bold"
+              : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
           }`}
         >
           {hasDueCards && (
@@ -83,7 +83,7 @@ export function MobileBottomDock() {
         <button
           type="button"
           onClick={handleOpenAiModal}
-          className="flex items-center justify-center w-11 h-11 rounded-full bg-[#B6FF2E] text-[#15171C] shadow-[0_0_20px_rgba(182,255,46,0.4)] active:scale-95 transition-transform cursor-pointer -mt-4 border-2 border-[#15171C]"
+          className="flex items-center justify-center w-11 h-11 rounded-full bg-[#B6FF2E] text-[#15171C] shadow-[0_0_20px_rgba(182,255,46,0.4)] active:scale-95 transition-transform cursor-pointer -mt-4 border-2 border-white dark:border-[#15171C]"
           aria-label="AI Import"
         >
           <Sparkles className="w-5 h-5" />
@@ -94,8 +94,8 @@ export function MobileBottomDock() {
           href="/admin"
           className={`flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${
             pathname.startsWith("/admin")
-              ? "text-[#B6FF2E] font-bold"
-              : "text-zinc-400 hover:text-white"
+              ? "text-emerald-800 dark:text-[#B6FF2E] font-bold"
+              : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
           }`}
         >
           <Shield className="w-5 h-5 mb-0.5" />

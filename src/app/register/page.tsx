@@ -95,7 +95,7 @@ export default function RegisterPage() {
           <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
             <Image
               src="/logo.png"
-              alt="Lexora Logo"
+              alt="Vydex AI Logo"
               width={38}
               height={38}
               className="w-9 h-9 rounded-xl object-contain shadow-[0_0_20px_rgba(182,255,46,0.4)] group-hover:scale-105 transition-transform"

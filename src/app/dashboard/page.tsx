@@ -260,7 +260,7 @@ export default function DashboardPage() {
 
             {/* Filter Tabs and Search Bar */}
             <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 pt-2">
-              <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-[#23262F]/80 border border-zinc-200 dark:border-white/10 backdrop-blur-xl overflow-x-auto">
+              <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-[#23262F]/80 border border-zinc-200 dark:border-white/10 backdrop-blur-xl overflow-x-auto no-scrollbar">
                 {[
                   { id: "all", label: "Barchasi" },
                   { id: "ielts", label: "IELTS" },
@@ -271,7 +271,7 @@ export default function DashboardPage() {
                     key={tab.id}
                     type="button"
                     onClick={() => setSelectedFilter(tab.id as any)}
-                    className={`px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+                    className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap cursor-pointer shrink-0 ${
                       selectedFilter === tab.id
                         ? "bg-[#B6FF2E] text-[#15171C] shadow-[0_0_15px_rgba(182,255,46,0.3)]"
                         : "text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white"
@@ -283,7 +283,7 @@ export default function DashboardPage() {
               </div>
 
               {/* Search Bar */}
-              <div className="relative max-w-xs w-full">
+              <div className="relative w-full md:max-w-xs">
                 <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"

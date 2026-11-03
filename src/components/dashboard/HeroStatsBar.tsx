@@ -83,33 +83,33 @@ export function HeroStatsBar({
   }
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-10">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-8 sm:mb-10">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
           <Link key={stat.id} href={stat.href} className="group">
             <GlassCard
               interactive
-              className={`p-5 sm:p-6 rounded-[26px] bg-white/95 dark:bg-[#23262F]/80 border-zinc-200 dark:border-white/10 flex flex-col justify-between h-full transition-all shadow-sm dark:shadow-md ${
+              className={`p-4 sm:p-6 rounded-[22px] sm:rounded-[26px] bg-white/95 dark:bg-[#23262F]/80 border-zinc-200 dark:border-white/10 flex flex-col justify-between h-full transition-all shadow-sm dark:shadow-md ${
                 stat.highlight
                   ? "border-emerald-500/40 dark:border-[#B6FF2E]/40 hover:border-emerald-500 dark:hover:border-[#B6FF2E] shadow-[0_0_20px_rgba(182,255,46,0.15)]"
                   : "hover:border-zinc-300 dark:hover:border-white/20"
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-[11px] font-semibold text-zinc-600 dark:text-zinc-400 font-manrope">
+              <div className="flex items-center justify-between mb-3 gap-1">
+                <span className="text-[11px] sm:text-xs font-semibold text-zinc-600 dark:text-zinc-400 font-manrope line-clamp-1">
                   {stat.label}
                 </span>
-                <div className="p-2 rounded-xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/5 group-hover:border-emerald-500/40 dark:group-hover:border-[#B6FF2E]/40 transition-colors">
-                  <Icon className={`w-4 h-4 ${stat.iconColor}`} />
+                <div className="p-1.5 sm:p-2 rounded-xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/5 group-hover:border-emerald-500/40 dark:group-hover:border-[#B6FF2E]/40 transition-colors shrink-0">
+                  <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${stat.iconColor}`} />
                 </div>
               </div>
 
               <div>
-                <p className="text-2xl sm:text-3xl font-black font-manrope text-zinc-950 dark:text-white tracking-tight">
+                <p className="text-xl sm:text-3xl font-black font-manrope text-zinc-950 dark:text-white tracking-tight">
                   {stat.value}
                 </p>
-                <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 truncate font-inter">
+                <p className="text-[10px] sm:text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 truncate font-inter">
                   {stat.subValue}
                 </p>
               </div>

@@ -255,26 +255,26 @@ export default function ReviewArenaPage() {
         <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-950/80 border border-white/10 w-full backdrop-blur-xl">
           <button
             onClick={() => setActiveQueueType("due")}
-            className={`flex-1 py-2 px-3 rounded-full text-xs font-bold font-manrope transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2 px-2 sm:px-3 rounded-full text-xs font-bold font-manrope transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeQueueType === "due"
                 ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.5)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
-            <Clock className="w-3.5 h-3.5" />
-            <span>Bugungi Navbat ({dueData?.total_due || 0})</span>
+            <Clock className="w-3.5 h-3.5 shrink-0" />
+            <span><span className="hidden sm:inline">Bugungi </span>Navbat ({dueData?.total_due || 0})</span>
           </button>
 
           <button
             onClick={() => setActiveQueueType("hardest")}
-            className={`flex-1 py-2 px-3 rounded-full text-xs font-bold font-manrope transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+            className={`flex-1 py-2 px-2 sm:px-3 rounded-full text-xs font-bold font-manrope transition-all flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap ${
               activeQueueType === "hardest"
                 ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_15px_rgba(182,255,46,0.5)]"
                 : "text-zinc-400 hover:text-white hover:bg-white/5"
             }`}
           >
-            <AlertTriangle className="w-3.5 h-3.5" />
-            <span>Eng Qiyin So&apos;zlar ({dueData?.total_hardest || 0})</span>
+            <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+            <span><span className="hidden sm:inline">Eng </span>Qiyin So&apos;zlar ({dueData?.total_hardest || 0})</span>
           </button>
         </div>
       </div>

@@ -23,23 +23,28 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Vydex AI — O'zbekiston yoshlari uchun AI IELTS/CEFR Lug'at Platformasi",
+  title: "Vydex AI — Aqlli Lug'at Takrorlash va Xotira Trenajyori",
   description:
-    "Sun'iy intellekt (Gemini AI) va Spaced Repetition xotira algoritmi asosida IELTS va CEFR akademik lug'at boyligini 10x tezroq rivojlantirish platformasi.",
+    "Sun'iy intellekt va Spaced Repetition (SRS) xotira algoritmi asosida inglizcha so'zlarni muntazam takrorlash, xotirada mustahkamlash va so'z boyligini oshirish platformasi.",
   keywords: [
-    "IELTS",
-    "CEFR",
     "Lug'at",
+    "Lug'at takrorlash",
     "Vocabulary",
+    "So'z boyligi",
+    "Flashcards",
     "Ingliz tili",
     "Vydex",
     "AI ta'lim",
     "Spaced Repetition",
+    "SRS trenajyor",
   ],
   icons: {
-    icon: "/logo.png",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/logo.png", type: "image/png" },
+    ],
     shortcut: "/logo.png",
-    apple: "/logo.png",
+    apple: "/apple-icon.png",
   },
 };
 
@@ -77,7 +82,7 @@ export default function RootLayout({
             <GlassNavbar />
 
             {/* Main Content Area */}
-            <main className="flex-1 w-full mx-auto relative z-10 pt-20 sm:pt-24">
+            <main className="flex-1 w-full mx-auto relative z-10 pt-20 sm:pt-24 pb-24 md:pb-12">
               {children}
             </main>
 

@@ -59,3 +59,30 @@ export function GoogleIcon({ className = "w-4 h-4", ...props }: BrandIconProps) 
     </svg>
   );
 }
+
+export function VydexLogo({ className = "w-6 h-6", ...props }: BrandIconProps) {
+  return (
+    <svg
+      viewBox="0 0 1024 1024"
+      fill="none"
+      className={className}
+      aria-hidden="true"
+      {...props}
+    >
+      <rect width="1024" height="1024" rx="220" fill="#000000" />
+      {/* Left wing */}
+      <polygon
+        points="168.2,259.7 317.3,259.7 468.1,409.6 468.1,559.5 317.3,559.5 168.2,409.6"
+        fill="#FFFFFF"
+      />
+      {/* Right wing */}
+      <polygon
+        points="664.7,259.7 854.9,259.7 854.9,466.3 655.5,763.4 469.0,763.4 469.0,559.5 525.7,559.5"
+        fill="#FFFFFF"
+      />
+    </svg>
+  );
+}
+
+export const LexoraLogo = VydexLogo;
+
