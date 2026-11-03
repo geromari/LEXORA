@@ -167,14 +167,14 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
 
         const welcomeText =
           `✨ <b>Assalomu alaykum, ${name}!</b>\n\n` +
-          `<b>Vydex</b> — Spaced Repetition (SRS) va AI asosidagi akademik IELTS & CEFR so'z yodlash botiga xush kelibsiz!\n\n` +
+          `<b>Vydex</b> — Spaced Repetition (SRS) va AI asosidagi lug'at takrorlash va so'z yodlash botiga xush kelibsiz!\n\n` +
           `🔥 <b>Kunlik seriyangiz:</b> ${user.streakCount} kun uzluksiz\n\n` +
           `<b>Asosiy imkoniyatlar:</b>\n` +
           `• 📚 <b>Mening to'plamlarim</b>: Barcha to'plamlar va shaxsiy lug'atlar (har bir to'plamdagi barcha so'zlarni to'liq takrorlash)\n` +
           `• 🔥 <b>Barcha lug'atni takrorlash</b>: Barcha yuklangan so'zlarni birdaniga to'liq mashq qilish\n` +
           `• ⚡️ <b>Tezkor Quiz</b>: 5 ta so'zdan iborat tezkor SRS testi\n` +
           `• 🗓 <b>Kunlik takrorlash</b>: Unutilish arafasidagi so'zlarni vaqtida qaytarish\n` +
-          `• 🔍 <b>Aqlli Lug'at</b>: Istalgan inglizcha so'z yuboring — tarjimasi, darajasi va IELTS misoli bilan to'plamingizga saqlaydi\n` +
+          `• 🔍 <b>Aqlli Lug'at</b>: Istalgan inglizcha so'z yuboring — tarjimasi, sinonimlari va namunaviy gap bilan to'plamingizga saqlaydi\n` +
           `• 📊 <b>Profil & Statistika</b>: Leitner xotira tahlili va o'zlashtirish ko'rsatkichlari\n` +
           `• 📌 <b>Qiyin so'zlar</b>: Eng ko'p xato qilingan so'zlar ustida ishlash\n\n` +
           `Quyidagi menyu tugmalaridan kerakli bo'limni tanlang yoki to'g'ridan-to'g'ri biror inglizcha so'z yozib yuboring:`;
@@ -201,7 +201,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
           `• <b>/hard</b> yoki <b>📌 Qiyin so'zlar</b> — Eng ko'p xato qilingan so'zlar va ulardan test\n\n` +
           `💡 <b>Aqlli Lug'at:</b>\n` +
           `Botga istalgan inglizcha so'zni yozib yuboring (masalan: <code>scrutinize</code>, <code>thrive</code>, <code>resilient</code>). ` +
-          `Bot uning o'zbekcha tarjimasi, CEFR darajasi va IELTS namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlab beradi!`;
+          `Bot uning o'zbekcha tarjimasi, sinonimlari va namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlab beradi!`;
 
         await sendTelegramMessage(chatId, helpText, {
           reply_markup: getMainReplyKeyboard(),
@@ -298,7 +298,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
         const dictText =
           `🔍 <b>Aqlli Lug'at Qidiruvi</b>\n\n` +
           `Botga istalgan inglizcha so'z yoki iborani yozib yuboring (masalan: <code>scrutinize</code>, <code>resilient</code>, <code>foster</code>).\n\n` +
-          `Bot uning o'zbekcha akademik tarjimasi, CEFR darajasi, sinonimlari va IELTS kontekst namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlaydi!`;
+          `Bot uning o'zbekcha aniq tarjimasi, sinonimlari va kontekstual namunaviy gapini ko'rsatib, shaxsiy lug'atingizga saqlaydi!`;
 
         await sendTelegramMessage(chatId, dictText, {
           reply_markup: getMainReplyKeyboard(),
@@ -310,7 +310,7 @@ export async function handleTelegramUpdate(req: NextRequest): Promise<NextRespon
       if (text.includes("Web Platforma") || text === "🌐") {
         const webText =
           `🌐 <b>Vydex Web Platformasi</b>\n\n` +
-          `Kengaytirilgan interaktiv mashqlar, IELTS tahlillari va Spaced Repetition xotira arenasiga to'liq kirish:\n\n` +
+          `Kengaytirilgan interaktiv mashqlar, so'z takrorlash trenajyori va Spaced Repetition xotira arenasiga to'liq kirish:\n\n` +
           `🔗 Manzil: <b>${appUrl}</b>\n\n` +
           `<i>Saytga kirgach "Telegram orqali kirish" tugmasini bosing — profilingiz avtomatik sinxronlashadi.</i>`;
 

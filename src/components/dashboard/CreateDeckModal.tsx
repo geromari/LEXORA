@@ -163,7 +163,7 @@ export function CreateDeckModal({
             <div>
               <h3 className="text-xl font-bold font-manrope text-zinc-900 dark:text-white">Yangi To&apos;plam Yaratish</h3>
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-inter">
-                IELTS &amp; CEFR so&apos;zlari to&apos;plamini qo&apos;shing va SRS bilan o&apos;rganing
+                Yangi so&apos;zlar to&apos;plamini qo&apos;shing va aqlli SRS xotira tizimi bilan takrorlang
               </p>
             </div>
           </div>
@@ -194,7 +194,7 @@ export function CreateDeckModal({
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Masalan: IELTS Writing Task 2 Collocations"
+                placeholder="Masalan: High-Impact Daily Collocations"
                 required
                 className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-white/5 border border-zinc-200 dark:border-white/10 focus:border-[#B6FF2E] outline-none text-sm font-medium text-zinc-900 dark:text-white placeholder:text-zinc-400 transition-all font-inter"
               />
@@ -209,10 +209,10 @@ export function CreateDeckModal({
                 onChange={(e) => setLevel(e.target.value)}
                 className="w-full px-3 py-2.5 rounded-xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-white/10 font-medium text-sm text-zinc-900 dark:text-white outline-none focus:border-[#B6FF2E]"
               >
-                <option value="IELTS">IELTS Academic</option>
-                <option value="C1">C1 (Advanced)</option>
-                <option value="C2">C2 (Proficiency)</option>
-                <option value="B2">B2 (Upper-Intermediate)</option>
+                <option value="Mastery">Super Vocab Mastery</option>
+                <option value="Advanced">Yuqori Bosqich (Advanced)</option>
+                <option value="Intermediate">O&apos;rta Bosqich (Intermediate)</option>
+                <option value="Everyday">Kundalik Muloqot (Everyday)</option>
               </select>
             </div>
           </div>
@@ -331,7 +331,7 @@ export function CreateDeckModal({
                       onChange={(e) =>
                         handleManualChange(idx, "example_en", e.target.value)
                       }
-                      placeholder="IELTS namunaviy gap (ixtiyoriy)"
+                      placeholder="Namunaviy gap (ixtiyoriy)"
                       className="px-3 py-1.5 rounded-xl bg-white dark:bg-black/60 border border-zinc-200 dark:border-white/10 text-xs text-zinc-700 dark:text-zinc-300 outline-none focus:border-[#B6FF2E] italic"
                     />
                   </div>

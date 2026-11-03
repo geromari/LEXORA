@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { 
   BookOpen, 
@@ -11,9 +11,12 @@ import {
   Plus, 
   Layers, 
   User, 
-  ArrowRight 
+  ArrowRight,
+  Trash2,
+  AlertTriangle,
+  Loader2
 } from "lucide-react";
-import { DeckListItem } from "@/lib/api";
+import { DeckListItem, api } from "@/lib/api";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlassButton } from "@/components/ui/GlassButton";
 
@@ -21,13 +24,33 @@ interface DeckGridProps {
   decks: DeckListItem[];
   isLoading?: boolean;
   onOpenCreateModal: () => void;
+  onDeckDeleted?: () => void;
 }
 
 export function DeckGrid({
   decks,
   isLoading = false,
   onOpenCreateModal,
+  onDeckDeleted,
 }: DeckGridProps) {
+  const [deleteConfirmModal, setDeleteConfirmModal] = useState<{ id: number; title: string } | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const confirmDelete = async () => {
+    if (!deleteConfirmModal) return;
+    try {
+      setIsDeleting(true);
+      await api.deleteDeck(deleteConfirmModal.id);
+      setDeleteConfirmModal(null);
+      if (onDeckDeleted) {
+        onDeckDeleted();
+      }
+    } catch (err: any) {
+      alert(err.message || "To'plamni o'chirishda xatolik yuz berdi.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -85,8 +108,6 @@ export function DeckGrid({
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {decks.map((deck) => {
-        const isIelts = (deck.level && deck.level.toUpperCase().includes("IELTS")) || deck.title.toUpperCase().includes("IELTS");
-
         return (
           <GlassCard
             key={deck.id}
@@ -98,7 +119,7 @@ export function DeckGrid({
               <div className="flex items-center justify-between mb-4 relative z-10">
                 <div className="flex items-center gap-2 flex-wrap">
                   <span className="px-3 py-1 rounded-full text-xs font-mono font-extrabold uppercase bg-[#B6FF2E]/15 text-emerald-800 dark:text-[#B6FF2E] border border-emerald-500/30 dark:border-[#B6FF2E]/35 shadow-sm">
-                    {deck.level || (isIelts ? "IELTS" : "C1 Academic")}
+                    {deck.level || "Advanced Vocab"}
                   </span>
                   {deck.is_owner && (
                     <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 text-zinc-700 dark:text-zinc-300">
@@ -121,7 +142,7 @@ export function DeckGrid({
               </h3>
 
               <p className="text-xs text-zinc-600 dark:text-zinc-400 font-inter line-clamp-2 leading-relaxed mt-2 min-h-[2.5rem] relative z-10">
-                {deck.description || "IELTS va CEFR akademik lug'at boyligini oshirish uchun maxsus to'plam."}
+                {deck.description || "Lug'at boyligini oshirish va so'zlarni mustahkam takrorlash uchun maxsus to'plam."}
               </p>
 
               {/* Progress Bar Section */}
@@ -183,10 +204,79 @@ export function DeckGrid({
               >
                 <BookOpen className="w-4 h-4" />
               </Link>
+
+              {/* Delete Deck button */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setDeleteConfirmModal({ id: deck.id, title: deck.title });
+                }}
+                className="bg-zinc-100 hover:bg-rose-50 dark:bg-[#15171C] dark:hover:bg-rose-500/20 border border-zinc-200 dark:border-white/10 hover:border-rose-300 dark:hover:border-rose-500/40 text-zinc-500 hover:text-rose-600 dark:text-zinc-400 dark:hover:text-rose-400 p-2.5 rounded-full flex items-center justify-center transition cursor-pointer shrink-0"
+                title="To'plamni o'chirish"
+                aria-label="To'plamni o'chirish"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
             </div>
           </GlassCard>
         );
       })}
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirmModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-in fade-in duration-200">
+          <div className="relative w-full max-w-md p-6 sm:p-7 rounded-3xl bg-white dark:bg-[#23262F] border border-zinc-200 dark:border-white/10 shadow-2xl space-y-5">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-500 shrink-0">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold font-manrope text-zinc-950 dark:text-white">
+                  To&apos;plamni o&apos;chirish
+                </h3>
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 font-mono">
+                  ID: #{deleteConfirmModal.id}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-sm text-zinc-600 dark:text-zinc-300 font-inter leading-relaxed">
+              Haqiqatan ham <strong className="text-zinc-950 dark:text-white font-bold">&quot;{deleteConfirmModal.title}&quot;</strong> to&apos;plamini o&apos;chirib tashlamoqchimisiz? Undagi barcha so&apos;zlar va ularning o&apos;rganish statistikasi butunlay o&apos;chib ketadi.
+            </p>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirmModal(null)}
+                disabled={isDeleting}
+                className="px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-white/10 text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:bg-black/5 dark:hover:bg-white/5 transition cursor-pointer"
+              >
+                Bekor qilish
+              </button>
+              <button
+                type="button"
+                onClick={confirmDelete}
+                disabled={isDeleting}
+                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-lg shadow-rose-600/30 flex items-center gap-2 transition cursor-pointer disabled:opacity-50"
+              >
+                {isDeleting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>O&apos;chirilmoqda...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4" />
+                    <span>Ha, o&apos;chirilsin</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -216,6 +216,10 @@ export const api = {
       method: "POST",
       body: JSON.stringify(payload),
     }),
+  deleteDeck: (id: number) =>
+    request<{ success: boolean; message: string }>(`/api/decks/${id}`, {
+      method: "DELETE",
+    }),
 
   // SRS & Reviews
   submitReview: (cardId: number, correct: boolean) =>
@@ -234,6 +238,7 @@ export const api = {
     file_name?: string;
     level?: string;
     count?: number;
+    max_words?: number;
     mode?: "extract" | "enrich";
   }) =>
     request<ExtractVocabResponse>("/api/ai/extract-vocab", {

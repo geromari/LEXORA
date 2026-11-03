@@ -107,7 +107,7 @@ export default function LandingPage() {
                   Google Gemini 3.5 AI
                 </h3>
                 <p className="text-sm text-zinc-600 dark:text-zinc-400 font-inter leading-relaxed">
-                  Istalgan inglizcha maqola, rasm yoki IELTS Reading matnini tashlang. AI undagi eng muhim akademik so&apos;zlarni ajratib, o&apos;zbekcha aniq kontekstual tarjimasi va darajasi (B2, C1, C2) bilan to&apos;plam qiladi.
+                  Istalgan inglizcha maqola, rasm yoki matn parchasini tashlang. AI undagi eng boy va kuchli so&apos;zlarni ajratib, o&apos;zbekcha aniq kontekstual tarjimasi, sinonimlari va darajasi bilan takrorlash to&apos;plamiga aylantiradi.
                 </p>
               </div>
               <div className="mt-8 pt-4 border-t border-zinc-200 dark:border-white/10 flex items-center gap-2 text-xs font-mono text-emerald-700 dark:text-[#B6FF2E] font-bold">
@@ -156,7 +156,7 @@ export default function LandingPage() {
                 Lug&apos;at to&apos;plamini tanlang
               </h3>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 font-inter leading-relaxed">
-                Tayyor IELTS Academic 7.5+, C1 Collocations, English as a Global Language to&apos;plamlaridan foydalaning yoki matnni AI orqali to&apos;plamga aylantiring.
+                Tayyor Super Vocab Mastery, High-Impact Collocations, English as a Global Language to&apos;plamlaridan foydalaning yoki matningizni AI orqali takrorlash to&apos;plamiga aylantiring.
               </p>
             </GlassCard>
 
@@ -188,8 +188,8 @@ export default function LandingPage() {
         <section id="features" className="scroll-mt-32">
           <div className="mb-14 text-center max-w-3xl mx-auto">
             <h2 className="text-3xl sm:text-5xl font-black text-zinc-950 dark:text-white tracking-tight font-manrope mb-4">
-              IELTS va CEFR uchun <br />
-              <span className="text-emerald-600 dark:text-[#B6FF2E]">To&apos;liq Imkoniyatlar Tizimi</span>
+              Muntazam Lug&apos;at Takrorlash Uchun <br />
+              <span className="text-emerald-600 dark:text-[#B6FF2E]">Intensiv Xotira Tizimi</span>
             </h2>
             <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-inter">
               Har bir xususiyat til o&apos;rganuvchilarning amaliy ehtiyojlaridan kelib chiqib loyihalangan.
@@ -207,7 +207,7 @@ export default function LandingPage() {
                   Generative AI Text-to-Deck
                 </h3>
                 <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed font-inter">
-                  Istalgan inglizcha maqola yoki IELTS reading qismini yuklang. Google Gemini AI undagi eng muhim akademik so&apos;zlarni, o&apos;zbekcha aniq tarjimasi, CEFR darajasi va misol jumlalari bilan ajratib beradi.
+                  Istalgan inglizcha maqola yoki matn qismini yuklang. Google Gemini AI undagi eng sara va kuchli so&apos;zlarni, o&apos;zbekcha aniq tarjimasi, sinonimlari va jonli misol jumlalari bilan ajratib beradi.
                 </p>
               </div>
               <div className="mt-8 flex items-center justify-between">
@@ -350,20 +350,20 @@ export default function LandingPage() {
               </div>
             </GlassCard>
 
-            {/* Deck 3: Cambridge IELTS Top 2000 */}
+            {/* Deck 3: Cambridge Essential Top 2000 */}
             <GlassCard interactive className="p-7 rounded-[30px] bg-white/95 dark:bg-[#23262F]/85 border-zinc-200 dark:border-white/10 flex flex-col justify-between shadow-md dark:shadow-xl">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 rounded-full bg-[#B6FF2E]/15 text-emerald-800 dark:text-[#B6FF2E] border border-emerald-500/30 dark:border-[#B6FF2E]/40 text-xs font-mono font-extrabold">
-                    B2–C2
+                    Super Vocab
                   </span>
                   <span className="text-xs font-mono text-emerald-700 dark:text-[#B6FF2E] font-bold">ENG KATTA</span>
                 </div>
                 <h3 className="text-xl font-bold font-manrope text-zinc-950 dark:text-white mb-2">
-                  Cambridge IELTS 10–14: Top 2000
+                  Cambridge Top 2000: Oltin Leksika
                 </h3>
                 <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed mb-6 font-inter">
-                  60 ta haqiqiy Academic Reading matnidan saralangan 2,000 ta akademik so&apos;z va iboralar.
+                  60 ta nufuzli ilmiy va publitsistik matndan saralangan 2,000 ta oltin so&apos;z va iboralar.
                 </p>
               </div>
               <div className="pt-4 border-t border-zinc-200 dark:border-white/10 flex items-center justify-between text-xs font-mono">
@@ -399,7 +399,7 @@ export default function LandingPage() {
               },
               {
                 q: "AI Text-to-Deck nima va undan qanday foydalanaman?",
-                a: "Google Gemini 3.5 sun'iy intellekti matnlardan eng kerakli IELTS B2-C2 so'zlarini ajratib, o'zbekcha tarjima, sinonimlar va kontekst bilan to'plam yasab beradi.",
+                a: "Google Gemini 3.5 sun'iy intellekti matnlardan eng muhim va unutiluvchan so'zlarni ajratib, o'zbekcha tarjima, sinonimlar va kontekst bilan maxsus takrorlash to'plamini yasab beradi.",
               },
               {
                 q: "Telegram bot bilan qanday ulanadi?",
@@ -437,7 +437,7 @@ export default function LandingPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#B6FF2E]/10 rounded-full blur-[120px] pointer-events-none" />
           
           <h2 className="text-3xl sm:text-5xl font-black font-manrope text-white tracking-tight mb-4 relative z-10">
-            IELTS So&apos;z Boyligingizni Bugunoq Rivojlantiring
+            Lug&apos;at Boyligingizni Bugunoq Mustahkamlang
           </h2>
           <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto mb-8 font-inter relative z-10 leading-relaxed">
             Ro&apos;yxatdan o&apos;tish atigi 30 soniya vaqt oladi. 2400+ ta akademik so&apos;z va AI yordamchi sizni kutmoqda.

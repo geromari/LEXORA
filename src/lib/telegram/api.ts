@@ -139,7 +139,7 @@ export async function setMyBotCommands() {
     { command: "review", description: "🗓 Kunlik takrorlash navbati" },
     { command: "stats", description: "📊 Shaxsiy profil va xotira statistikasi" },
     { command: "hard", description: "📌 Qiyin va ko'p xato qilingan so'zlar" },
-    { command: "check", description: "✍️ IELTS gap tekshiruvi (AI Examiner)" },
+    { command: "check", description: "✍️ Gap tuzish tekshiruvi (AI Writing Tutor)" },
     { command: "help", description: "📖 Bot imkoniyatlari va qo'llanma" },
     { command: "start", description: "🚀 Asosiy menyu va xush kelibsiz" },
   ];

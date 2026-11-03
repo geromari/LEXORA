@@ -122,10 +122,17 @@ export async function POST(req: NextRequest) {
       file_base64,
       file_type,
       file_name,
-      target_level = "C1",
-      max_words = 15,
+      target_level: rawTargetLevel,
+      level: rawLevel,
+      max_words: rawMaxWords,
+      count: rawCount,
       mode = "extract", // "extract" | "enrich"
     } = body;
+
+    const target_level = rawTargetLevel || rawLevel || "C1";
+    const requestedCount = Number(rawCount || rawMaxWords || 0);
+    // Support large vocabulary sets up to 300 words without dropping words
+    const max_words = requestedCount > 0 ? Math.min(300, requestedCount) : 100;
 
     const trimmedText = typeof text === "string" ? text.trim() : "";
 
@@ -153,10 +160,43 @@ export async function POST(req: NextRequest) {
 
     if (apiKey && apiKey.trim() !== "" && !apiKey.includes("your-")) {
       try {
-        // Construct strict guardrailed prompt
-        const prompt = `You are Lexora AI, an elite IELTS/CEFR Academic Lexicographer.
+        // Construct prompt tailored for extraction vs enrichment
+        const isEnrichMode = mode === "enrich";
+        const prompt = isEnrichMode
+          ? `You are Vydex AI, an elite Lexicographer and Vocabulary Learning Architect.
 STRICT SCOPE CONSTRAINT:
-You ONLY extract and format English vocabulary, Uzbek definitions, advanced synonyms, and authentic IELTS-style academic example sentences for vocabulary learners.
+You ONLY process and format English vocabulary, Uzbek definitions, advanced synonyms, and authentic natural example sentences.
+
+TASK:
+The user has provided a vocabulary list containing approximately ${max_words} terms.
+YOU MUST PROCESS AND RETURN ALL OF THEM (all ${max_words} terms). DO NOT CUT OFF, OMIT, OR SHORTEN THE LIST.
+If an Uzbek translation is provided in the input, preserve and refine that Uzbek meaning.
+
+For EVERY term in the provided list, return:
+1. "term_en": lowercase English word or phrase.
+2. "meaning_uz": precise, natural Uzbek academic translation.
+3. "synonyms": 2 to 4 comma-separated synonyms.
+4. "example_en": an authentic, high-quality illustrative contextual example sentence.
+5. "level": difficulty level (e.g. "B2", "C1", or "C2").
+
+Input Vocabulary List:
+"""
+${trimmedText.slice(0, 50000)}
+"""
+
+Return ONLY a valid JSON array of objects for ALL terms without skipping any:
+[
+  {
+    "term_en": "word",
+    "meaning_uz": "ma'nosi",
+    "synonyms": "synonym1, synonym2",
+    "example_en": "Example sentence using the word.",
+    "level": "${target_level}"
+  }
+]`
+          : `You are Vydex AI, an elite Lexicographer and Vocabulary Learning Architect.
+STRICT SCOPE CONSTRAINT:
+You ONLY extract and format English vocabulary, Uzbek definitions, advanced synonyms, and authentic natural example sentences for vocabulary learners.
 
 STRICT REFUSAL POLICY:
 If the user's input asks general questions, programming/coding instructions, math problems, recipes, jokes, casual chit-chat, politics, personal advice, or ANY task unrelated to English vocabulary:
@@ -165,17 +205,17 @@ Return ONLY this JSON object:
 {"error": "${REFUSAL_MESSAGE}"}
 
 ALLOWED TASK:
-Extract up to ${max_words} most valuable ${target_level} level English academic vocabulary words, phrasal verbs, or idiomatic collocations from the provided text or document/image.
+Extract up to ${max_words} most valuable ${target_level} level English vocabulary words, phrasal verbs, or idiomatic collocations from the provided text or document/image. Extract as many distinct valuable terms as found in the text (up to ${max_words}).
 For each term, provide:
 1. "term_en": lowercase English word or phrase.
 2. "meaning_uz": precise, natural Uzbek academic translation.
 3. "synonyms": 2 to 4 comma-separated synonyms.
-4. "example_en": an authentic, high-scoring IELTS academic example sentence.
-5. "level": CEFR level (e.g. "B2", "C1", or "C2").
+4. "example_en": an authentic, high-quality illustrative contextual example sentence.
+5. "level": difficulty level (e.g. "B2", "C1", or "C2").
 
 Input Text (if any):
 """
-${trimmedText.slice(0, 5000)}
+${trimmedText.slice(0, 50000)}
 """
 
 Return ONLY a valid JSON array of objects:
@@ -203,7 +243,7 @@ Return ONLY a valid JSON array of objects:
           });
         }
 
-        const modelName = "gemini-3.5-flash-lite";
+        const modelName = "gemini-1.5-flash";
 
         const res = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`,
@@ -215,6 +255,7 @@ Return ONLY a valid JSON array of objects:
               generationConfig: {
                 responseMimeType: "application/json",
                 temperature: 0.2,
+                maxOutputTokens: 8192,
               },
             }),
           }
@@ -275,12 +316,43 @@ Return ONLY a valid JSON array of objects:
     }
 
     // Heuristic Fallback if AI key is absent or network fails
-    const lowerText = trimmedText.toLowerCase();
-    const matched = FALLBACK_WORDS.filter((item) =>
-      lowerText.includes(item.term_en)
-    );
+    // Parse actual words from user text so no user words are ever lost
+    const userLines = trimmedText.split("\n");
+    const parsedFromText: Array<{
+      term_en: string;
+      meaning_uz: string;
+      synonyms: string;
+      example_en: string;
+      level: string;
+    }> = [];
 
-    const resultWords = matched.length > 0 ? matched : FALLBACK_WORDS.slice(0, 6);
+    for (const line of userLines) {
+      const clean = line.replace(/^#?\d+[\.\)\-\:\s]+\s*/, "").trim();
+      if (!clean) continue;
+      const parts = clean.split(/\s*(?:[-–—:=]|\t|->|\/)\s*/);
+      if (parts.length >= 2) {
+        const term = parts[0].trim().toLowerCase();
+        const meaning = parts.slice(1).join(" - ").trim();
+        if (term && meaning) {
+          parsedFromText.push({
+            term_en: term,
+            meaning_uz: meaning,
+            synonyms: "",
+            example_en: `The term '${term}' is widely used in academic contexts.`,
+            level: target_level,
+          });
+        }
+      }
+    }
+
+    let resultWords = parsedFromText;
+    if (resultWords.length === 0) {
+      const lowerText = trimmedText.toLowerCase();
+      const matched = FALLBACK_WORDS.filter((item) =>
+        lowerText.includes(item.term_en)
+      );
+      resultWords = matched.length > 0 ? matched : FALLBACK_WORDS.slice(0, 6);
+    }
 
     return NextResponse.json({
       success: true,
@@ -289,7 +361,7 @@ Return ONLY a valid JSON array of objects:
       words: resultWords,
       cards: resultWords,
       source_info: trimmedText ? trimmedText.slice(0, 35) + "..." : "Lug'at to'plami",
-      source: "offline_heuristic",
+      source: parsedFromText.length > 0 ? "direct_text_parsed" : "offline_heuristic",
     });
   } catch (error: any) {
     console.error("Extract vocab route error:", error);

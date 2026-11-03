@@ -17,7 +17,8 @@ import {
   ArrowRight,
   TrendingUp,
   Activity,
-  Bot
+  Bot,
+  Trash2
 } from "lucide-react";
 import { api, DeckListItem } from "@/lib/api";
 import { GlassCard } from "@/components/ui/GlassCard";
@@ -70,6 +71,18 @@ export default function AdminPage() {
       animeAnimations.staggerCards(".admin-stat-card, .admin-deck-card");
     }
   }, [isLoading, activeTab]);
+
+  const handleDeleteDeck = async (id: number, title: string) => {
+    if (!window.confirm(`"${title}" to'plamini o'chirishni tasdiqlaysizmi? Undagi barcha so'zlar o'chib ketadi.`)) {
+      return;
+    }
+    try {
+      await api.deleteDeck(id);
+      loadData();
+    } catch (err: any) {
+      alert(err.message || "To'plamni o'chirishda xatolik yuz berdi.");
+    }
+  };
 
   const totalCards = decks.reduce((acc, d) => acc + (Number(d.card_count) || 0), 0);
 
@@ -331,6 +344,14 @@ export default function AdminPage() {
                         O&apos;rganish
                       </GlassButton>
                     </Link>
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteDeck(deck.id, deck.title)}
+                      className="p-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 hover:text-rose-300 transition cursor-pointer"
+                      title="To'plamni o'chirish"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               </GlassCard>
@@ -441,7 +462,7 @@ export default function AdminPage() {
               {/* Example English */}
               <div>
                 <label className="block text-xs font-semibold text-zinc-300 mb-1.5 font-manrope">
-                  IELTS / Akademik Namunaviy Gap (Example EN)
+                  Kontekstual Namunaviy Gap (Example EN)
                 </label>
                 <textarea
                   rows={3}

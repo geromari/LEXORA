@@ -142,16 +142,17 @@ export async function smartLookupWord(queryRaw: string): Promise<WordLookupResul
   }
 
   // 2. Check Seed words data
+  const seedObj = seedWordsData as any;
   const allSeedWords = [
-    ...(seedWordsData.core_47 || []),
-    ...(seedWordsData.academic_55 || []),
-    ...((seedWordsData as any).architecture_urban_60 || []),
-    ...((seedWordsData as any).ielts_reading_baobabs_37 || []),
-    ...((seedWordsData as any).ielts_reading_coins_38 || []),
-    ...((seedWordsData as any).ielts_reading_grapefruit_31 || []),
-    ...((seedWordsData as any).ielts_top_2000 || []),
-    ...((seedWordsData as any).luck_vs_grit_69 || []),
-    ...((seedWordsData as any).english_global_language_72 || []),
+    ...(seedObj.core_47 || []),
+    ...(seedObj.academic_55 || []),
+    ...(seedObj.architecture_urban_60 || []),
+    ...(seedObj.reading_baobabs_37 || seedObj.ielts_reading_baobabs_37 || []),
+    ...(seedObj.reading_coins_38 || seedObj.ielts_reading_coins_38 || []),
+    ...(seedObj.reading_grapefruit_31 || seedObj.ielts_reading_grapefruit_31 || []),
+    ...(seedObj.cambridge_top_2000 || seedObj.ielts_top_2000 || []),
+    ...(seedObj.luck_vs_grit_69 || []),
+    ...(seedObj.english_global_language_72 || []),
   ];
   const seedMatch = allSeedWords.find(
     (w) => w.term_en.toLowerCase() === cleanTerm
@@ -335,9 +336,9 @@ async function ensureDefaultDeckAndCard(
     if (!deck) {
       deck = await prisma.deck.create({
         data: {
-          title: "IELTS & Academic Core",
-          description: "Akademik so'zlar va iboralar to'plami",
-          level: "C1",
+          title: "Essential Core Vocabulary",
+          description: "Muntazam takrorlash uchun saralangan so'zlar to'plami",
+          level: "Advanced",
           isPublic: true,
         },
       });
@@ -377,7 +378,7 @@ export function formatWordCardHtml(item: WordLookupResult): string {
   }
 
   if (item.exampleEn) {
-    html += `📝 <b>IELTS Namunaviy gap:</b>\n<i>"${escapeHtml(item.exampleEn)}"</i>\n`;
+    html += `📝 <b>Namunaviy gap:</b>\n<i>"${escapeHtml(item.exampleEn)}"</i>\n`;
   }
 
   html += `\n<i>Ushbu so'zni xotirada uzoq saqlash uchun <b>"Lug'atimga saqlash"</b> tugmasini bosing:</i>`;

@@ -29,7 +29,7 @@ interface AISmartImportModalProps {
   initialText?: string;
 }
 
-const SAMPLE_IELTS_PASSAGE = `The emergence of modern mega-corporations has sparked widespread debates regarding whether aggressive profit maximization overlooks the symbiotic relationship between corporate prosperity and communal cohesion. While technology behemoths often establish sprawling campuses equipped with lavish amenities to foster recruitment, critics argue that such gestures are mere window dressing designed to obscure exploitative labor practices. When corporate philanthropy blurs with strategic public relations, regulators must rigorously scrutinize corporate overreach to mitigate societal polarization. Without active civic pushback, institutions risk exacerbating social fragmentation rather than nurturing inclusive prosperity.`;
+const SAMPLE_ACADEMIC_PASSAGE = `The emergence of modern mega-corporations has sparked widespread debates regarding whether aggressive profit maximization overlooks the symbiotic relationship between corporate prosperity and communal cohesion. While technology behemoths often establish sprawling campuses equipped with lavish amenities to foster recruitment, critics argue that such gestures are mere window dressing designed to obscure exploitative labor practices. When corporate philanthropy blurs with strategic public relations, regulators must rigorously scrutinize corporate overreach to mitigate societal polarization. Without active civic pushback, institutions risk exacerbating social fragmentation rather than nurturing inclusive prosperity.`;
 
 const SAMPLE_READY_VOCAB = `Interconnected - o'zaro bog'langan
 Stumbling block - to'siq, halaqit beruvchi narsa
@@ -62,7 +62,7 @@ export function AISmartImportModal({
   // Tab 1 States (Extract from text or file)
   const [passageText, setPassageText] = useState(initialText);
   const [level, setLevel] = useState("C1");
-  const [maxWords, setMaxWords] = useState(15);
+  const [maxWords, setMaxWords] = useState(50);
   const [uploadedFile, setUploadedFile] = useState<{
     name: string;
     type: string;
@@ -150,14 +150,12 @@ export function AISmartImportModal({
       const trimmed = line.trim();
       if (!trimmed) continue;
 
-      // Match patterns:
-      // "1. Interconnected - o'zaro bog'langan"
-      // "Interconnected : o'zaro bog'langan"
-      // "Interconnected - o'zaro bog'langan"
-      // "Interconnected, o'zaro bog'langan"
-      // "Interconnected \t o'zaro bog'langan"
-      const cleaned = trimmed.replace(/^\d+[\.\)\-]\s*/, ""); // strip leading numbering
-      const parts = cleaned.split(/\s*[-–—:]\s*|\t+/);
+      // Clean leading numbering: "1.", "1)", "1 -", "#1", "[1]"
+      const cleaned = trimmed.replace(/^(\[\d+\]|#?\d+[\.\)\-\:\s]+)/, "").trim();
+      if (!cleaned) continue;
+
+      // Match common separators: " - ", " – ", " — ", " : ", " = ", "\t", " -> ", " / "
+      const parts = cleaned.split(/\s*(?:[-–—:=]|\t|->|\/)\s*/);
 
       if (parts.length >= 2) {
         const term = parts[0].trim().toLowerCase();
@@ -170,6 +168,7 @@ export function AISmartImportModal({
             example_en: "",
             level: level || "C1",
           });
+          continue;
         }
       } else if (cleaned.includes(",")) {
         const commaIdx = cleaned.indexOf(",");
@@ -183,6 +182,7 @@ export function AISmartImportModal({
             example_en: "",
             level: level || "C1",
           });
+          continue;
         }
       }
     }
@@ -208,6 +208,7 @@ export function AISmartImportModal({
         file_name: uploadedFile?.name,
         level: level,
         count: maxWords,
+        max_words: maxWords,
         mode: "extract",
       });
 
@@ -251,34 +252,62 @@ export function AISmartImportModal({
       return;
     }
 
-    // If user wants AI enrichment (synonyms + authentic IELTS sentences)
+    setDeckTitle(`Maxsus Lug'at (${directParsed.length} ta so'z)`);
+    setDeckDescription(`Foydalanuvchi yuklagan barcha ${directParsed.length} ta so'z`);
+
+    // If user wants AI enrichment (synonyms + authentic contextual sentences)
     if (enrichWithAI) {
       try {
         setIsProcessing(true);
         setErrorMessage(null);
 
-        const promptText = `Enrich the following prepared vocabulary list with high-level synonyms and authentic IELTS example sentences:\n${readyVocabText.slice(
+        const promptText = `Enrich the following prepared vocabulary list with high-level synonyms and authentic contextual example sentences:\n${readyVocabText.slice(
           0,
-          4000
+          50000
         )}`;
 
         const res = await api.extractVocab({
           text: promptText,
           level: level,
           count: directParsed.length,
+          max_words: directParsed.length,
           mode: "enrich",
         });
 
-        const cards = res.cards || (res as any).words || [];
-        if (cards && cards.length > 0) {
-          setExtractedCards(cards);
-          setSelectedIndices(cards.map((_, idx) => idx));
+        const aiCards = res.cards || (res as any).words || [];
+        if (aiCards && aiCards.length > 0) {
+          // Map AI results by lowercase English term
+          const aiMap = new Map<string, ExtractedCardItem>();
+          for (const card of aiCards) {
+            if (card.term_en) {
+              aiMap.set(card.term_en.toLowerCase().trim(), card);
+            }
+          }
+
+          // Merge: Guarantee 100% of user's uploaded words are kept without omission!
+          const finalCards: ExtractedCardItem[] = directParsed.map((orig) => {
+            const enriched = aiMap.get(orig.term_en.toLowerCase().trim());
+            if (enriched) {
+              return {
+                term_en: orig.term_en,
+                meaning_uz: enriched.meaning_uz || orig.meaning_uz,
+                synonyms: enriched.synonyms || "",
+                example_en: enriched.example_en || "",
+                level: enriched.level || level || "C1",
+              };
+            }
+            return orig;
+          });
+
+          setExtractedCards(finalCards);
+          setSelectedIndices(finalCards.map((_, idx) => idx));
         } else {
           setExtractedCards(directParsed);
           setSelectedIndices(directParsed.map((_, idx) => idx));
         }
       } catch (err) {
-        // Fallback to directly parsed words
+        console.warn("AI enrichment failed, preserving all uploaded words:", err);
+        // Fallback: 100% of user words are preserved
         setExtractedCards(directParsed);
         setSelectedIndices(directParsed.map((_, idx) => idx));
       } finally {
@@ -289,9 +318,6 @@ export function AISmartImportModal({
       setExtractedCards(directParsed);
       setSelectedIndices(directParsed.map((_, idx) => idx));
     }
-
-    setDeckTitle(`Maxsus Lug'at: ${directParsed.length} ta so'z`);
-    setDeckDescription(`Tayyor ro'yxatdan import qilingan ${directParsed.length} ta so'z`);
   };
 
   const handleToggleSelect = (index: number) => {
@@ -520,12 +546,12 @@ export function AISmartImportModal({
                       <button
                         type="button"
                         onClick={() => {
-                          setPassageText(SAMPLE_IELTS_PASSAGE);
+                          setPassageText(SAMPLE_ACADEMIC_PASSAGE);
                           removeUploadedFile();
                         }}
                         className="text-emerald-700 dark:text-[#B6FF2E] hover:underline font-bold cursor-pointer"
                       >
-                        Namunaviy IELTS Matni
+                        Namunaviy Matn (Sample)
                       </button>
                       {passageText && (
                         <button
@@ -543,7 +569,7 @@ export function AISmartImportModal({
                     rows={5}
                     value={passageText}
                     onChange={(e) => setPassageText(e.target.value)}
-                    placeholder="IELTS Reading passage, ilmiy maqola, insho yoki inglizcha matnni bu yerga joylashtiring..."
+                    placeholder="Inglizcha maqola, kitob parchasi, insho yoki matnni bu yerga joylashtiring..."
                     className="w-full p-4 rounded-2xl bg-zinc-50 dark:bg-[#15171C] border border-zinc-300 dark:border-white/10 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-600 outline-none focus:border-emerald-500 dark:focus:border-[#B6FF2E] transition leading-relaxed resize-none font-inter"
                   />
                 </div>
@@ -552,16 +578,16 @@ export function AISmartImportModal({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-zinc-50 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10">
                   <div>
                     <label className="block text-xs font-mono font-bold uppercase text-zinc-600 dark:text-zinc-400 mb-1.5">
-                      CEFR Darajasi:
+                      Lug&apos;at Qiyinlik Darajasi:
                     </label>
                     <select
                       value={level}
                       onChange={(e) => setLevel(e.target.value)}
                       className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-[#23262F] border border-zinc-300 dark:border-white/15 text-xs font-bold text-zinc-900 dark:text-white outline-none focus:border-emerald-500 dark:focus:border-[#B6FF2E]"
                     >
-                      <option value="C1">C1 (IELTS 7.0–8.0 Academic)</option>
-                      <option value="C2">C2 (IELTS 8.5–9.0 Proficiency)</option>
-                      <option value="B2">B2 (IELTS 5.5–6.5 Vantage)</option>
+                      <option value="Advanced">Yuqori Bosqich (Advanced Mastery)</option>
+                      <option value="Proficient">Eng Murakkab (Proficient & Native)</option>
+                      <option value="Upper-Intermediate">O&apos;rta-Yuqori (Upper-Intermediate)</option>
                       <option value="All">Barchasi (Eng muhim so&apos;zlar)</option>
                     </select>
                   </div>
@@ -575,10 +601,11 @@ export function AISmartImportModal({
                       onChange={(e) => setMaxWords(Number(e.target.value))}
                       className="w-full px-3.5 py-2 rounded-xl bg-white dark:bg-[#23262F] border border-zinc-300 dark:border-white/15 text-xs font-bold text-zinc-900 dark:text-white outline-none focus:border-emerald-500 dark:focus:border-[#B6FF2E]"
                     >
-                      <option value={10}>10 ta asosiy so&apos;z</option>
-                      <option value={15}>15 ta akademik so&apos;z (Tavsiya)</option>
-                      <option value={20}>20 ta to&apos;liq tahlil</option>
-                      <option value={30}>30 ta kengaytirilgan to&apos;plam</option>
+                      <option value={15}>15 ta qisqa to&apos;plam</option>
+                      <option value={30}>30 ta akademik so&apos;z</option>
+                      <option value={50}>50 ta to&apos;liq to&apos;plam (Tavsiya)</option>
+                      <option value={100}>100 ta katta to&apos;plam</option>
+                      <option value={200}>Barcha topilgan so&apos;zlar (200 tagacha)</option>
                     </select>
                   </div>
                 </div>
@@ -652,7 +679,7 @@ export function AISmartImportModal({
                   <div className="pr-4">
                     <p className="text-sm font-bold text-zinc-900 dark:text-white flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-emerald-600 dark:text-[#B6FF2E]" />
-                      AI Orqali Boyitish (Sinonim va IELTS Namunaviy Gaplar)
+                      AI Orqali Boyitish (Sinonim va Namunaviy Gaplar)
                     </p>
                     <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                       Yoqilsa, Gemini AI har bir so&apos;z uchun yuqori balli akademik sinonimlar va kontekstual gaplar generatsiya qiladi.
@@ -730,7 +757,7 @@ export function AISmartImportModal({
                   type="text"
                   value={deckTitle}
                   onChange={(e) => setDeckTitle(e.target.value)}
-                  placeholder="Masalan: IELTS Reading 72 Words"
+                  placeholder="Masalan: Daily Reading 72 Words"
                   className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-[#15171C] border border-zinc-300 dark:border-white/10 text-sm font-bold text-zinc-900 dark:text-white outline-none focus:border-emerald-500 dark:focus:border-[#B6FF2E]"
                 />
               </div>
@@ -743,7 +770,7 @@ export function AISmartImportModal({
                   type="text"
                   value={deckDescription}
                   onChange={(e) => setDeckDescription(e.target.value)}
-                  placeholder="Masalan: CEFR C1/C2 darajadagi akademik so'zlar"
+                  placeholder="Masalan: Kundalik takrorlash uchun saralangan so'zlar"
                   className="w-full px-4 py-2.5 rounded-xl bg-zinc-50 dark:bg-[#15171C] border border-zinc-300 dark:border-white/10 text-sm text-zinc-900 dark:text-white outline-none focus:border-emerald-500 dark:focus:border-[#B6FF2E]"
                 />
               </div>
@@ -811,7 +838,7 @@ export function AISmartImportModal({
                             value={card.example_en || ""}
                             onChange={(e) => handleUpdateCard(idx, "example_en", e.target.value)}
                             className="w-full px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 text-xs text-zinc-700 dark:text-zinc-300 outline-none focus:border-[#B6FF2E] resize-none"
-                            placeholder="IELTS namunaviy gap..."
+                            placeholder="Namunaviy gap..."
                           />
                         </div>
                       </div>

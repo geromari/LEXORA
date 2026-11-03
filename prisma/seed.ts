@@ -31,18 +31,23 @@ async function main() {
     },
   });
 
-  // 1. Deck 1: IELTS Reading Advanced — 47 Core Words
+  // 1. Deck 1: Advanced Reading Mastery — 47 Core Words
   let deck47 = await prisma.deck.findFirst({
-    where: { title: "IELTS Reading Advanced — 47 Core Words" },
+    where: {
+      OR: [
+        { title: "Advanced Reading Mastery — 47 Core Words" },
+        { title: "IELTS Reading Advanced — 47 Core Words" },
+      ],
+    },
   });
 
   if (!deck47) {
     deck47 = await prisma.deck.create({
       data: {
-        title: "IELTS Reading Advanced — 47 Core Words",
+        title: "Advanced Reading Mastery — 47 Core Words",
         description:
-          "IELTS Reading C1/C2 darajasidagi eng muhim va kontekstual 47 ta akademik so'z va iboralar to'plami. Har bir so'z o'zbekcha tarjima, sinonimlar va kontekstual namunalar bilan boyitilgan.",
-        level: "C1",
+          "Ingliz tili chuqurlashtirilgan o'qish matnlaridan 47 ta eng muhim so'z va iboralar to'plami. Har bir so'z o'zbekcha tarjima, sinonimlar va namunalar bilan boyitilgan.",
+        level: "Advanced",
         isPublic: true,
       },
     });
@@ -75,18 +80,23 @@ async function main() {
     console.log("Deck 1 already exists.");
   }
 
-  // 2. Deck 2: IELTS & Academic Mastery — 55 Core Words (C1–C2)
+  // 2. Deck 2: Elite Academic Mastery — 55 Core Words
   let deck55 = await prisma.deck.findFirst({
-    where: { title: "IELTS & Academic Mastery — 55 Core Words (C1–C2)" },
+    where: {
+      OR: [
+        { title: "Elite Academic Mastery — 55 Core Words" },
+        { title: "IELTS & Academic Mastery — 55 Core Words (C1–C2)" },
+      ],
+    },
   });
 
   if (!deck55) {
     deck55 = await prisma.deck.create({
       data: {
-        title: "IELTS & Academic Mastery — 55 Core Words (C1–C2)",
+        title: "Elite Academic Mastery — 55 Core Words",
         description:
-          "IELTS va ilmiy-akademik matnlarda eng ko'p uchraydigan 55 ta muhim so'z va iboralar to'plami (B2, C1, C2). Har bir so'z aniq o'zbekcha ma'no, sinonimlar va boy kontekstual namunalar bilan jihozlangan.",
-        level: "C1-C2",
+          "Ilmiy va nufuzli matnlarda eng ko'p uchraydigan 55 ta sara so'z va iboralar to'plami. Har bir so'z aniq o'zbekcha ma'no, sinonimlar va boy namunalar bilan jihozlangan.",
+        level: "Mastery",
         isPublic: true,
       },
     });
@@ -208,11 +218,12 @@ async function main() {
     }
   }
 
-  // 4. Deck 4: IELTS Reading P1: The Baobabs of Madagascar — 37 Words
+  // 4. Deck 4: Deep Reading: The Baobabs of Madagascar — 37 Words
   if (baobabs37Words.length > 0) {
     let deckBaobabs = await prisma.deck.findFirst({
       where: {
         OR: [
+          { title: "Deep Reading: The Baobabs of Madagascar — 37 Words" },
           { title: "IELTS Reading P1: The Baobabs of Madagascar — 37 Words" },
           { title: "Reading Passage 1: The Baobabs of Madagascar" },
           { title: { contains: "Baobabs of Madagascar" } },
@@ -223,10 +234,10 @@ async function main() {
     if (!deckBaobabs) {
       deckBaobabs = await prisma.deck.create({
         data: {
-          title: "IELTS Reading P1: The Baobabs of Madagascar — 37 Words",
+          title: "Deep Reading: The Baobabs of Madagascar — 37 Words",
           description:
-            "IELTS Reading Passage 1 (The Baobabs of Madagascar) matnining 37 ta eng muhim akademik so'z va iboralar to'plami. Botanika, ekologiya va tabiatni muhofaza qilish leksikasi.",
-          level: "B2-C1",
+            "The Baobabs of Madagascar ilmiy matnining 37 ta eng muhim leksikasi. Botanika, ekologiya va tabiatni muhofaza qilish so'zlari.",
+          level: "Nature & Bio",
           isPublic: true,
         },
       });
@@ -259,11 +270,12 @@ async function main() {
     }
   }
 
-  // 5. Deck 5: IELTS Reading P2: Coins – The First Form of Money — 38 Words
+  // 5. Deck 5: Deep Reading: Coins – The First Form of Money — 38 Words
   if (coins38Words.length > 0) {
     let deckCoins = await prisma.deck.findFirst({
       where: {
         OR: [
+          { title: "Deep Reading: Coins – The First Form of Money — 38 Words" },
           { title: "IELTS Reading P2: Coins – The First Form of Money — 38 Words" },
           { title: "Reading Passage 2: Coins – the first form of money" },
           { title: { contains: "first form of money" } },
@@ -274,10 +286,10 @@ async function main() {
     if (!deckCoins) {
       deckCoins = await prisma.deck.create({
         data: {
-          title: "IELTS Reading P2: Coins – The First Form of Money — 38 Words",
+          title: "Deep Reading: Coins – The First Form of Money — 38 Words",
           description:
-            "IELTS Reading Passage 2 (Coins – The First Form of Money) matnining 38 ta eng muhim akademik so'z va iboralar to'plami. Tarix, numizmatika, iqtisodiyot va metallurgiya leksikasi.",
-          level: "C1",
+            "Coins – The First Form of Money matnining 38 ta eng muhim so'z va iboralar to'plami. Tarix, numizmatika, iqtisodiyot va savdo leksikasi.",
+          level: "History & Econ",
           isPublic: true,
         },
       });
@@ -310,11 +322,12 @@ async function main() {
     }
   }
 
-  // 6. Deck 6: IELTS Reading P3: Creating a Better Grapefruit — 31 Words
+  // 6. Deck 6: Deep Reading: Creating a Better Grapefruit — 31 Words
   if (grapefruit31Words.length > 0) {
     let deckGrapefruit = await prisma.deck.findFirst({
       where: {
         OR: [
+          { title: "Deep Reading: Creating a Better Grapefruit — 31 Words" },
           { title: "IELTS Reading P3: Creating a Better Grapefruit — 31 Words" },
           { title: "Reading Passage 3: Creating a Better Grapefruit" },
           { title: { contains: "Better Grapefruit" } },
@@ -325,10 +338,10 @@ async function main() {
     if (!deckGrapefruit) {
       deckGrapefruit = await prisma.deck.create({
         data: {
-          title: "IELTS Reading P3: Creating a Better Grapefruit — 31 Words",
+          title: "Deep Reading: Creating a Better Grapefruit — 31 Words",
           description:
-            "IELTS Reading Passage 3 (Creating a Better Grapefruit) matnining 31 ta eng muhim akademik so'z va iboralar to'plami. Qishloq xo'jaligi fanlari, kimyo, ta'm idroki va biotexnologiya leksikasi.",
-          level: "C1-C2",
+            "Creating a Better Grapefruit matnining 31 ta eng muhim so'z va iboralar to'plami. Qishloq xo'jaligi, kimyo va biotexnologiya leksikasi.",
+          level: "Science",
           isPublic: true,
         },
       });
@@ -361,11 +374,12 @@ async function main() {
     }
   }
 
-  // 7. Deck 7: Cambridge IELTS 10–14: Top 2000 Academic Vocabulary — 2000 Words
+  // 7. Deck 7: Cambridge Top 2000: Oltin Leksika — 2000 Words
   if (ieltsTop2000Words.length > 0) {
     let deck2000 = await prisma.deck.findFirst({
       where: {
         OR: [
+          { title: "Cambridge Top 2000: Oltin Leksika" },
           { title: "Cambridge IELTS 10–14: Top 2000 Academic Vocabulary" },
           { title: { contains: "Top 2000 Academic Vocabulary" } },
           { title: { contains: "Top 2000 Vocabulary" } },
@@ -376,10 +390,10 @@ async function main() {
     if (!deck2000) {
       deck2000 = await prisma.deck.create({
         data: {
-          title: "Cambridge IELTS 10–14: Top 2000 Academic Vocabulary",
+          title: "Cambridge Top 2000: Oltin Leksika",
           description:
-            "Cambridge IELTS 10–14 kitoblaridagi 60 ta Academic Reading matnidan haqiqiy chastota bo'yicha saralangan barcha 2000 ta akademik so'z va iboralar to'plami. Har bir so'z o'zbekcha tarjima, sinonimlar va kontekstual misollar bilan to'liq jihozlangan.",
-          level: "B2–C2",
+            "60 ta ilmiy va publitsistik matndan chastota bo'yicha saralangan barcha 2000 ta oltin so'z va iboralar to'plami. Har bir so'z o'zbekcha tarjima, sinonimlar va misollar bilan jihozlangan.",
+          level: "Super Vocab",
           isPublic: true,
         },
       });

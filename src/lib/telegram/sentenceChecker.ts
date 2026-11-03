@@ -16,16 +16,16 @@ export async function checkSentenceWithAi(
 
   if (apiKey && apiKey.trim() !== "" && !apiKey.includes("your-")) {
     try {
-      const prompt = `You are a certified IELTS Academic Writing examiner.
+      const prompt = `You are an expert English language and writing tutor.
 Evaluate this student's practice sentence:
 "${cleanSentence}"
 ${targetWord ? `Target vocabulary word: "${targetWord}"` : ""}
 
 Evaluate:
 1. Grammatical accuracy, vocabulary range, and academic tone.
-2. Score the sentence from 1.0 to 9.0 (IELTS Band scale).
+2. Score the sentence from 1.0 to 9.0 (Fluency & Precision scale).
 3. Provide constructive feedback in natural Uzbek language.
-4. Provide a refined, Band 8.5-9.0 C1/C2 academic version of their sentence.
+4. Provide a refined, eloquent and advanced version of their sentence.
 
 Return ONLY a valid JSON object:
 {
@@ -81,7 +81,7 @@ Return ONLY a valid JSON object:
   if (wordCount < 5) {
     score = 5.0;
     feedback =
-      "Gap juda qisqa. IELTS Academic Writing'da murakkabroq sintaksis va kamida 7-10 ta so'zdan iborat to'liq gap tuzish tavsiya etiladi.";
+      "Gap juda qisqa. Kamida 7-10 ta so'zdan iborat to'liq va mazmunli gap tuzish tavsiya etiladi.";
     improved = `Recent academic research demonstrates how modern institutions systematically address such challenges.`;
   } else if (!hasTarget && targetWord) {
     score = 5.5;
@@ -89,16 +89,16 @@ Return ONLY a valid JSON object:
   } else if (!startsWithCapital || !endsWithPunctuation) {
     score = 6.5;
     feedback =
-      "Gap mazmuni yaxshi, lekin tinish belgilari va bosh harfga e'tibor bering. Akademik ingliz tilida punktuatsiya mezon hisoblanadi.";
+      "Gap mazmuni yaxshi, lekin tinish belgilari va bosh harfga e'tibor bering. To'g'ri punktuatsiya muhim mezon hisoblanadi.";
   } else if (wordCount >= 10 && hasTarget) {
     score = 8.0;
     feedback =
-      "Juda yaxshi! So'z kontekstda to'g'ri va tabiiy qo'llanilgan. Grammatika va uslub IELTS Band 7.5-8.0 talablariga mos keladi.";
+      "Juda yaxshi! So'z kontekstda to'g'ri va tabiiy qo'llanilgan. Grammatika va uslub a'lo darajada.";
     improved = cleanSentence;
   } else {
     score = 7.0;
     feedback =
-      "Yaxshi tuzilgan gap. Lug'at boyligini yanada oshirish uchun akademik bog'lovchilar (furthermore, nevertheless, consequently) qo'shishingiz mumkin.";
+      "Yaxshi tuzilgan gap. Lug'at boyligini yanada oshirish uchun bog'lovchilar (furthermore, nevertheless, consequently) qo'shishingiz mumkin.";
   }
 
   return {
@@ -116,12 +116,12 @@ export function formatSentenceEvaluationHtml(
 ): string {
   const scoreBadge =
     result.score >= 8.0
-      ? `🟢 <b>Band Score: ${result.score.toFixed(1)} / 9.0</b> (C1/C2 Academic)`
+      ? `🟢 <b>Natija: ${result.score.toFixed(1)} / 9.0</b> (A'lo daraja)`
       : result.score >= 6.5
-      ? `🟡 <b>Band Score: ${result.score.toFixed(1)} / 9.0</b> (Competent)`
-      : `🟠 <b>Band Score: ${result.score.toFixed(1)} / 9.0</b> (Modest)`;
+      ? `🟡 <b>Natija: ${result.score.toFixed(1)} / 9.0</b> (Yaxshi daraja)`
+      : `🟠 <b>Natija: ${result.score.toFixed(1)} / 9.0</b> (O'rta daraja)`;
 
-  let text = `✍️ <b>IELTS Writing AI Tahlili</b>\n\n`;
+  let text = `✍️ <b>AI Writing Gap Tahlili</b>\n\n`;
   if (targetWord) {
     text += `🎯 Tekshirilgan so'z: <b>${escapeHtml(targetWord)}</b>\n`;
   }

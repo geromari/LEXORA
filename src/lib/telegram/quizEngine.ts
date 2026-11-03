@@ -166,23 +166,24 @@ export async function createQuizSession(
 
   // Standart yoki bo'sh bazada agar kartalar soni < 5 bo'lsa, seed_words dan to'ldirish
   if (candidateCards.length < 5 && (mode === "standard" || candidateCards.length === 0)) {
+    const seedObj = seedWordsData as any;
     const seedPool = [
-      ...(seedWordsData.core_47 || []),
-      ...(seedWordsData.academic_55 || []),
-      ...((seedWordsData as any).architecture_urban_60 || []),
-      ...((seedWordsData as any).ielts_reading_baobabs_37 || []),
-      ...((seedWordsData as any).ielts_reading_coins_38 || []),
-      ...((seedWordsData as any).ielts_reading_grapefruit_31 || []),
-      ...((seedWordsData as any).ielts_top_2000 || []),
-      ...((seedWordsData as any).luck_vs_grit_69 || []),
-      ...((seedWordsData as any).english_global_language_72 || []),
+      ...(seedObj.core_47 || []),
+      ...(seedObj.academic_55 || []),
+      ...(seedObj.architecture_urban_60 || []),
+      ...(seedObj.reading_baobabs_37 || seedObj.ielts_reading_baobabs_37 || []),
+      ...(seedObj.reading_coins_38 || seedObj.ielts_reading_coins_38 || []),
+      ...(seedObj.reading_grapefruit_31 || seedObj.ielts_reading_grapefruit_31 || []),
+      ...(seedObj.cambridge_top_2000 || seedObj.ielts_top_2000 || []),
+      ...(seedObj.luck_vs_grit_69 || []),
+      ...(seedObj.english_global_language_72 || []),
     ];
     let defaultDeck = await prisma.deck.findFirst({ where: { isPublic: true } });
     if (!defaultDeck) {
       defaultDeck = await prisma.deck.create({
         data: {
-          title: "IELTS Core Vocabulary",
-          level: "C1",
+          title: "Essential Core Vocabulary",
+          level: "Advanced",
           isPublic: true,
         },
       });
@@ -402,7 +403,7 @@ export async function processQuizAnswer(
     `🇬🇧 <b>${escapeHtml(question.termEn)}</b> — ${escapeHtml(question.meaningUz)}\n`;
 
   if (question.exampleEn) {
-    text += `📝 <b>IELTS Misol:</b> <i>"${escapeHtml(question.exampleEn)}"</i>\n`;
+    text += `📝 <b>Namunaviy misol:</b> <i>"${escapeHtml(question.exampleEn)}"</i>\n`;
   }
   if (question.synonyms) {
     text += `💡 <b>Sinonimlar:</b> <i>${escapeHtml(question.synonyms)}</i>\n`;

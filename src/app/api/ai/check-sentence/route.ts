@@ -16,15 +16,15 @@ export async function POST(req: NextRequest) {
 
     if (apiKey && apiKey.trim() !== "" && !apiKey.includes("your-")) {
       try {
-        const prompt = `You are a certified IELTS Writing examiner evaluating a student's practice sentence.
+        const prompt = `You are an expert English language evaluator and writing tutor evaluating a student's practice sentence.
 Target vocabulary word: "${term}"
 Student's sentence: "${sentence}"
 
 Analyze the sentence:
 1. Did the student use the target word "${term}" grammatically and naturally?
-2. Score the sentence from 1 to 10 (10 being perfect Band 9 academic English).
+2. Score the sentence from 1 to 10 (10 being perfect fluent English).
 3. Provide constructive feedback in natural Uzbek language (e.g. grammar correction, word choice).
-4. Provide an improved, high-level C1/C2 version of their sentence.
+4. Provide an improved, natural and eloquent version of their sentence.
 
 Return ONLY a valid JSON object with keys:
 {
@@ -76,7 +76,7 @@ Return ONLY a valid JSON object with keys:
       score: isGood ? 8.5 : 5.0,
       is_correct: isGood,
       feedback_uz: isGood
-        ? `"${term}" so'zi kontekstda to'g'ri qo'llanilgan. Grammatika va uslub IELTS talablariga javob beradi.`
+        ? `"${term}" so'zi kontekstda to'g'ri qo'llanilgan. Grammatika va uslub a'lo darajada javob beradi.`
         : `Gapda "${term}" so'zi aniq ifodalanmagan yoki gap juda qisqa. Kamida 5-6 ta so'zdan iborat to'liq gap tuzish tavsiya etiladi.`,
       improved_sentence: isGood
         ? sentence.trim()

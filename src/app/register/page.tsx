@@ -108,7 +108,7 @@ export default function RegisterPage() {
             Ro&apos;yxatdan O&apos;tish
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2 font-inter">
-            IELTS C1/C2 so&apos;zlarni 10x tezroq o&apos;rganishni bugun boshlang
+            Yangi so&apos;zlarni 10x tezroq va unutilmas qilib takrorlashni bugun boshlang
           </p>
         </div>
 
@@ -170,7 +170,7 @@ export default function RegisterPage() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="masalan: dilnoza_ielts"
+                placeholder="masalan: dilnoza_vocab"
                 className="w-full pl-11 pr-4 py-3 rounded-2xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 focus:border-emerald-500 dark:focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm outline-none transition-all font-inter"
               />
             </div>

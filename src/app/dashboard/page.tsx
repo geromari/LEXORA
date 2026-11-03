@@ -35,7 +35,7 @@ export default function DashboardPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isAIImportModalOpen, setIsAIImportModalOpen] = useState(false);
   const [importInitialText, setImportInitialText] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState<"all" | "ielts" | "c1" | "my">("all");
+  const [selectedFilter, setSelectedFilter] = useState<"all" | "mastery" | "advanced" | "my">("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const pageRef = useRef<HTMLDivElement>(null);
@@ -109,16 +109,27 @@ export default function DashboardPage() {
   const filteredDecks = decks.filter((deck) => {
     if (selectedFilter === "my") {
       if (!deck.is_owner) return false;
-    } else if (selectedFilter === "ielts") {
-      const isIelts =
-        (deck.level && deck.level.toUpperCase().includes("IELTS")) ||
-        deck.title.toUpperCase().includes("IELTS");
-      if (!isIelts) return false;
-    } else if (selectedFilter === "c1") {
-      const isC1 =
-        (deck.level && (deck.level.toUpperCase().includes("C1") || deck.level.toUpperCase().includes("C2"))) ||
-        deck.title.toUpperCase().includes("C1");
-      if (!isC1) return false;
+    } else if (selectedFilter === "mastery") {
+      const isMastery =
+        (deck.level &&
+          (deck.level.toUpperCase().includes("MASTERY") ||
+            deck.level.toUpperCase().includes("PRO") ||
+            deck.level.toUpperCase().includes("TOP") ||
+            deck.level.toUpperCase().includes("SUPER"))) ||
+        deck.title.toUpperCase().includes("MASTERY") ||
+        deck.title.toUpperCase().includes("TOP") ||
+        deck.title.toUpperCase().includes("CORE");
+      if (!isMastery) return false;
+    } else if (selectedFilter === "advanced") {
+      const isAdvanced =
+        (deck.level &&
+          (deck.level.toUpperCase().includes("ADVANCED") ||
+            deck.level.toUpperCase().includes("C1") ||
+            deck.level.toUpperCase().includes("C2") ||
+            deck.level.toUpperCase().includes("B2"))) ||
+        deck.title.toUpperCase().includes("ADVANCED") ||
+        deck.title.toUpperCase().includes("GLOBAL");
+      if (!isAdvanced) return false;
     }
 
     if (searchQuery.trim()) {
@@ -263,8 +274,8 @@ export default function DashboardPage() {
               <div className="flex items-center gap-1.5 p-1 rounded-full bg-zinc-100 dark:bg-[#23262F]/80 border border-zinc-200 dark:border-white/10 backdrop-blur-xl overflow-x-auto no-scrollbar">
                 {[
                   { id: "all", label: "Barchasi" },
-                  { id: "ielts", label: "IELTS" },
-                  { id: "c1", label: "C1 / C2 Akademik" },
+                  { id: "mastery", label: "Super Vocab" },
+                  { id: "advanced", label: "Yuqori Bosqich (Advanced)" },
                   { id: "my", label: "Mening To'plamlarim" },
                 ].map((tab) => (
                   <button
@@ -301,6 +312,7 @@ export default function DashboardPage() {
             decks={filteredDecks}
             isLoading={isLoading}
             onOpenCreateModal={() => setIsCreateModalOpen(true)}
+            onDeckDeleted={() => loadDashboardData()}
           />
         </section>
 

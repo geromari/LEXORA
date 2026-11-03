@@ -80,7 +80,7 @@ export function RetroHeroSection({ onAnalyzeText }: RetroHeroSectionProps) {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#B6FF2E]" />
           </span>
           <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200 tracking-wide font-manrope">
-            Vydex AI 2.0 • IELTS &amp; CEFR Glassmorphism Edition
+            Vydex AI 2.0 • Smart Vocabulary &amp; Memory Mastery
           </span>
           <ArrowRight className="w-3 h-3 text-emerald-600 dark:text-[#B6FF2E]" />
         </div>
@@ -107,7 +107,7 @@ export function RetroHeroSection({ onAnalyzeText }: RetroHeroSectionProps) {
           className="text-base sm:text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl mx-auto mb-10 leading-relaxed font-inter font-normal"
         >
           Google Gemini 3.5 sun&apos;iy intellekti va 5-bosqichli ilmiy Leitner Spaced Repetition (SRS)
-          algoritmi bilan IELTS C1/C2 so&apos;zlari xotirangizda umrbod muhrlanadi.
+          algoritmi bilan barcha yangi so&apos;zlar xotirangizda umrbod muhrlanadi.
         </p>
 
         {/* 4. Action Buttons */}

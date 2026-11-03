@@ -157,7 +157,7 @@ export default function LoginPage() {
                 required
                 value={usernameOrEmail}
                 onChange={(e) => setUsernameOrEmail(e.target.value)}
-                placeholder="masalan: alisher_ielts"
+                placeholder="masalan: alisher_vocab"
                 className="w-full pl-11 pr-4 py-3 rounded-2xl bg-zinc-100 dark:bg-[#15171C] border border-zinc-200 dark:border-white/10 focus:border-emerald-500 dark:focus:border-[#B6FF2E] focus:ring-2 focus:ring-[#B6FF2E]/20 text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 text-sm outline-none transition-all font-inter"
               />
             </div>

@@ -108,14 +108,14 @@ export function AISentenceChecker({
             AI Writing Sessiyasi Yakunlandi!
           </h2>
           <p className="text-sm font-inter text-zinc-400">
-            Jami {scoresHistory.length} ta murakkab ibora bilan IELTS akademik gaplari tuzildi.
+            Jami {scoresHistory.length} ta murakkab ibora bilan mukammal namunaviy gaplar tuzildi.
           </p>
         </div>
 
         <div className="p-4 rounded-xl bg-white/5 border border-white/10 max-w-xs mx-auto">
           <div className="text-3xl font-bold font-manrope text-[#B6FF2E]">{avgScore} / 10</div>
           <div className="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider">
-            O&apos;rtacha IELTS Band Bahosi
+            O&apos;rtacha So&apos;z Qo&apos;llash Bahosi
           </div>
         </div>
 
@@ -198,7 +198,7 @@ export function AISentenceChecker({
         {/* Instruction */}
         <p className="text-xs text-zinc-300 flex items-center justify-center gap-2 bg-white/5 p-2.5 rounded-xl border border-white/10 font-inter">
           <PenLine className="w-4 h-4 text-[#B6FF2E] shrink-0" />
-          <span>Ushbu so&apos;z yoki iborani qatnashtirib IELTS darajasidagi akademik gap tuzing:</span>
+          <span>Ushbu so&apos;z yoki iborani qatnashtirib tabiiy va mazmunli gap tuzing:</span>
         </p>
 
         {/* Input Textarea */}

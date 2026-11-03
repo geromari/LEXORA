@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useMemo, Suspense, use } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   ArrowLeft, 
   Search, 
@@ -13,7 +14,9 @@ import {
   Clock, 
   Check, 
   RotateCcw, 
-  BookOpen 
+  BookOpen,
+  Trash2,
+  Loader2
 } from "lucide-react";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GlassButton } from "@/components/ui/GlassButton";
@@ -23,9 +26,11 @@ import { playPronunciation } from "@/lib/speech";
 function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const deckId = Number(resolvedParams.id);
+  const router = useRouter();
 
   const [deck, setDeck] = useState<DeckDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBoxFilter, setSelectedBoxFilter] = useState<"all" | "box0" | "learning" | "mastered">("all");
@@ -33,6 +38,23 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
   const [preferredAccent, setPreferredAccent] = useState<"en-US" | "en-GB">("en-US");
   const [playingTerm, setPlayingTerm] = useState<string | null>(null);
   const [reviewingCardId, setReviewingCardId] = useState<number | null>(null);
+
+  const handleDeleteDeck = async () => {
+    if (!deck) return;
+    const confirmed = window.confirm(
+      `"${deck.title}" to'plamini o'chirishni tasdiqlaysizmi?\n\nUndagi barcha ${deck.card_count} ta so'z va o'rganish statistikasi o'chib ketadi.`
+    );
+    if (!confirmed) return;
+
+    try {
+      setIsDeleting(true);
+      await api.deleteDeck(deck.id);
+      router.push("/dashboard");
+    } catch (err: any) {
+      alert(err.message || "To'plamni o'chirishda xatolik yuz berdi.");
+      setIsDeleting(false);
+    }
+  };
 
   const fetchDeck = async () => {
     try {
@@ -178,30 +200,48 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
           <span>← Bosh sahifa / Lug&apos;atlar</span>
         </Link>
 
-        {/* Accent Selector (US vs UK) */}
-        <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/5 border border-white/10 text-xs">
-          <span className="text-zinc-400 px-2 font-mono text-[11px] uppercase">Talaffuz:</span>
+        <div className="flex items-center gap-2.5">
+          {/* Accent Selector (US vs UK) */}
+          <div className="flex items-center gap-1.5 p-1 rounded-full bg-white/5 border border-white/10 text-xs">
+            <span className="text-zinc-400 px-2 font-mono text-[11px] uppercase">Talaffuz:</span>
+            <button
+              onClick={() => setPreferredAccent("en-US")}
+              className={`px-3 py-1 rounded-full font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
+                preferredAccent === "en-US"
+                  ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_10px_rgba(182,255,46,0.5)]"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Volume2 className="w-3 h-3" />
+              <span>US</span>
+            </button>
+            <button
+              onClick={() => setPreferredAccent("en-GB")}
+              className={`px-3 py-1 rounded-full font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
+                preferredAccent === "en-GB"
+                  ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_10px_rgba(182,255,46,0.5)]"
+                  : "text-zinc-400 hover:text-white"
+              }`}
+            >
+              <Volume2 className="w-3 h-3" />
+              <span>UK</span>
+            </button>
+          </div>
+
+          {/* Delete Deck button */}
           <button
-            onClick={() => setPreferredAccent("en-US")}
-            className={`px-3 py-1 rounded-full font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
-              preferredAccent === "en-US"
-                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_10px_rgba(182,255,46,0.5)]"
-                : "text-zinc-400 hover:text-white"
-            }`}
+            type="button"
+            onClick={handleDeleteDeck}
+            disabled={isDeleting}
+            className="p-2 sm:px-3 sm:py-1.5 rounded-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 hover:text-rose-300 text-xs font-bold transition inline-flex items-center gap-1.5 cursor-pointer disabled:opacity-50 shrink-0"
+            title="To'plamni o'chirish"
           >
-            <Volume2 className="w-3 h-3" />
-            <span>US</span>
-          </button>
-          <button
-            onClick={() => setPreferredAccent("en-GB")}
-            className={`px-3 py-1 rounded-full font-bold transition-all inline-flex items-center gap-1.5 cursor-pointer ${
-              preferredAccent === "en-GB"
-                ? "bg-[#B6FF2E] text-[#15171C] font-extrabold shadow-[0_0_10px_rgba(182,255,46,0.5)]"
-                : "text-zinc-400 hover:text-white"
-            }`}
-          >
-            <Volume2 className="w-3 h-3" />
-            <span>UK</span>
+            {isDeleting ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Trash2 className="w-3.5 h-3.5" />
+            )}
+            <span className="hidden sm:inline">To&apos;plamni o&apos;chirish</span>
           </button>
         </div>
       </div>
@@ -212,7 +252,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-3">
               <span className="px-3 py-1 rounded-md bg-[#B6FF2E]/15 text-[#B6FF2E] border border-[#B6FF2E]/30 font-bold font-manrope text-xs uppercase shadow-[0_0_10px_rgba(182,255,46,0.2)]">
-                {deck.level || "C1 / IELTS"}
+                {deck.level || "Advanced Vocabulary"}
               </span>
               <span className="px-3 py-1 rounded-md bg-white/5 border border-white/10 text-zinc-300 font-mono text-xs">
                 {deck.card_count} ta so&apos;z
@@ -224,7 +264,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
             </h1>
 
             <p className="text-sm font-inter text-zinc-400 leading-relaxed">
-              {deck.description || "IELTS va CEFR akademik lug'at boyligini oshirish to'plami."}
+              {deck.description || "Lug'at boyligini oshirish va xotirani mustahkamlash to'plami."}
             </p>
           </div>
 
@@ -406,7 +446,7 @@ function DeckDictionaryContent({ params }: { params: Promise<{ id: string }> }) 
                       </div>
                     )}
 
-                    {/* Example Sentence in IELTS Context */}
+                    {/* Authentic Example Sentence */}
                     {card.example_en && (
                       <div className="pl-8 pt-1 text-xs text-zinc-400 italic leading-relaxed border-l-2 border-[#B6FF2E] bg-white/[0.02] p-2 rounded-r-lg ml-8 my-1 font-inter">
                         &ldquo;{card.example_en}&rdquo;

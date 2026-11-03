@@ -1,4 +1,4 @@
-# 🌌 VYDEX — AI-Powered IELTS & CEFR Vocabulary Platform
+# 🌌 VYDEX — AI-Powered Smart Vocabulary & Memory Platform
 
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-16.4-black?style=for-the-badge&logo=next.js" alt="Next.js" />
@@ -13,7 +13,7 @@
 
 ## 📖 Loyiha Haqida (About The Project)
 
-**Vydex** — O'zbekistonlik o'quvchi va abituriyentlar uchun maxsus ishlab chiqilgan, **sun'iy intellekt (Gemini AI)** hamda **interval takrorlash (Spaced Repetition System — Leitner Box 0–5)** tizimiga asoslangan ilg'or akademik lug'at platformasi.
+**Vydex** — **sun'iy intellekt (Gemini AI)** hamda **interval takrorlash (Spaced Repetition System — Leitner Box 0–5)** tizimiga asoslangan, lug'atni muntazam takrorlab turish va so'z boyligini mustahkamlash platformasi.
 
 Barcha frontend va backend API marshrutlari yagona **Next.js Fullstack (App Router)** arxitekturasida jamlangan bo'lib, **faqatgina Vercel'ning o'zida bir zumda (1-klikda)** deploy qilinishi uchun to'liq moslashtirilgan.
 
