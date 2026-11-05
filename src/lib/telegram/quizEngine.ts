@@ -177,6 +177,7 @@ export async function createQuizSession(
       ...(seedObj.cambridge_top_2000 || seedObj.ielts_top_2000 || []),
       ...(seedObj.luck_vs_grit_69 || []),
       ...(seedObj.english_global_language_72 || []),
+      ...(seedObj.invest_in_the_young_63 || []),
     ];
     let defaultDeck = await prisma.deck.findFirst({ where: { isPublic: true } });
     if (!defaultDeck) {

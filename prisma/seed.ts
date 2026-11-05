@@ -20,6 +20,7 @@ async function main() {
   const ieltsTop2000Words = data.ielts_top_2000 || [];
   const luckVsGrit69Words = data.luck_vs_grit_69 || [];
   const englishGlobalLanguage72Words = data.english_global_language_72 || [];
+  const investInTheYoung63Words = data.invest_in_the_young_63 || [];
 
   // 0. Delete "Common reading" if it exists
   await prisma.deck.deleteMany({
@@ -516,6 +517,57 @@ async function main() {
       console.log(`Seeded Deck 9 (English as a Global Language) with ${englishGlobalLanguage72Words.length} cards.`);
     } else {
       console.log("Deck 9 (English as a Global Language) already exists.");
+    }
+  }
+
+  // 10. Deck 10: Invest in the Young — 63 Words (B2–C2)
+  if (investInTheYoung63Words.length > 0) {
+    let deckInvestYoung = await prisma.deck.findFirst({
+      where: {
+        OR: [
+          { title: "Invest in the Young" },
+          { title: "Invest in the Young — 63 Words (B2–C2)" },
+          { title: { contains: "Invest in the Young", mode: "insensitive" } },
+        ],
+      },
+    });
+
+    if (!deckInvestYoung) {
+      deckInvestYoung = await prisma.deck.create({
+        data: {
+          title: "Invest in the Young — 63 Words (B2–C2)",
+          description:
+            "Yoshlarga investitsiya kiritish va maktab sport hamda san'at ta'limini moliyalashtirish mavzusidagi 63 ta muhim B2, C1 va C2 darajadagi leksika, iboralar va metaforalar to'plami. Har bir so'z o'zbekcha aniq ma'no, boy sinonimlar va kontekstual akademik namunalar bilan to'liq jihozlangan.",
+          level: "B2–C2",
+          isPublic: true,
+        },
+      });
+
+      for (const w of investInTheYoung63Words) {
+        const card = await prisma.card.create({
+          data: {
+            deckId: deckInvestYoung.id,
+            termEn: w.term_en,
+            meaningUz: w.meaning_uz,
+            synonyms: w.synonyms || null,
+            exampleEn: w.example_en || null,
+          },
+        });
+
+        await prisma.studyProgress.create({
+          data: {
+            cardId: card.id,
+            userId: null,
+            boxLevel: 0,
+            nextReviewAt: new Date(),
+            correctStreak: 0,
+            wrongCount: 0,
+          },
+        });
+      }
+      console.log(`Seeded Deck 10 (Invest in the Young) with ${investInTheYoung63Words.length} cards.`);
+    } else {
+      console.log("Deck 10 (Invest in the Young) already exists.");
     }
   }
 

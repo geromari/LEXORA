@@ -273,9 +273,9 @@ export default function LandingPage() {
               <div className="mb-4 inline-flex p-3 rounded-2xl bg-[#B6FF2E]/15 border border-[#B6FF2E]/40 text-emerald-800 dark:text-[#B6FF2E]">
                 <Layers className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-zinc-950 dark:text-white font-manrope mb-2">9 Ta Flagman Kurs</h3>
+              <h3 className="text-xl font-bold text-zinc-950 dark:text-white font-manrope mb-2">10 Ta Flagman Kurs</h3>
               <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 font-inter leading-relaxed">
-                Cambridge 2000, English Global, Luck vs Grit kabi 2,400+ ta akademik so&apos;z.
+                Cambridge 2000, Invest in the Young, English Global, Luck vs Grit kabi 2,500+ ta akademik so&apos;z.
               </p>
             </GlassCard>
           </div>
@@ -301,8 +301,8 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Deck 1: English as a Global Language */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Deck 1: Invest in the Young */}
             <GlassCard interactive className="p-7 rounded-[30px] bg-white/95 dark:bg-[#23262F]/85 border-zinc-200 dark:border-white/10 flex flex-col justify-between shadow-md dark:shadow-xl">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -310,6 +310,30 @@ export default function LandingPage() {
                     B2–C2
                   </span>
                   <span className="text-xs font-mono text-emerald-700 dark:text-[#B6FF2E] font-bold">YANGI</span>
+                </div>
+                <h3 className="text-xl font-bold font-manrope text-zinc-950 dark:text-white mb-2">
+                  Invest in the Young
+                </h3>
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 line-clamp-3 leading-relaxed mb-6 font-inter">
+                  Yoshlar salohiyati, maktab sport va san&apos;at ta&apos;limi mavzusidagi 63 ta muhim B2–C2 leksikasi.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-zinc-200 dark:border-white/10 flex items-center justify-between text-xs font-mono">
+                <span className="text-zinc-700 dark:text-zinc-300 font-bold">63 ta karta</span>
+                <Link href="/dashboard" className="text-emerald-700 dark:text-[#B6FF2E] hover:underline font-bold">
+                  O&apos;rganish &rarr;
+                </Link>
+              </div>
+            </GlassCard>
+
+            {/* Deck 2: English as a Global Language */}
+            <GlassCard interactive className="p-7 rounded-[30px] bg-white/95 dark:bg-[#23262F]/85 border-zinc-200 dark:border-white/10 flex flex-col justify-between shadow-md dark:shadow-xl">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="px-3 py-1 rounded-full bg-[#B6FF2E]/15 text-emerald-800 dark:text-[#B6FF2E] border border-emerald-500/30 dark:border-[#B6FF2E]/40 text-xs font-mono font-extrabold">
+                    B2–C2
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500">72 ta karta</span>
                 </div>
                 <h3 className="text-xl font-bold font-manrope text-zinc-950 dark:text-white mb-2">
                   English as a Global Language
@@ -326,7 +350,7 @@ export default function LandingPage() {
               </div>
             </GlassCard>
 
-            {/* Deck 2: Luck vs Grit */}
+            {/* Deck 3: Luck vs Grit */}
             <GlassCard interactive className="p-7 rounded-[30px] bg-white/95 dark:bg-[#23262F]/85 border-zinc-200 dark:border-white/10 flex flex-col justify-between shadow-md dark:shadow-xl">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -350,7 +374,7 @@ export default function LandingPage() {
               </div>
             </GlassCard>
 
-            {/* Deck 3: Cambridge Essential Top 2000 */}
+            {/* Deck 4: Cambridge Essential Top 2000 */}
             <GlassCard interactive className="p-7 rounded-[30px] bg-white/95 dark:bg-[#23262F]/85 border-zinc-200 dark:border-white/10 flex flex-col justify-between shadow-md dark:shadow-xl">
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -391,7 +415,7 @@ export default function LandingPage() {
             {[
               {
                 q: "Vydex platformasidan foydalanish bepulmi?",
-                a: "Ha! Barcha 9 ta flagman to'plam, 2400+ ta akademik so'z, 4 ta o'rganish rejimi va Telegram bot integratsiyasi 100% bepul.",
+                a: "Ha! Barcha 10 ta flagman to'plam, 2500+ ta akademik so'z, 4 ta o'rganish rejimi va Telegram bot integratsiyasi 100% bepul.",
               },
               {
                 q: "Spaced Repetition (SRS) qanday qilib yodlashni tezlashtiradi?",

@@ -202,6 +202,7 @@ async function autoSeedDecks() {
     const cambridge_top_2000 = seedDataAny.cambridge_top_2000 || seedDataAny.ielts_top_2000 || [];
     const luck_vs_grit_69 = seedDataAny.luck_vs_grit_69 || [];
     const english_global_language_72 = seedDataAny.english_global_language_72 || [];
+    const invest_in_the_young_63 = seedDataAny.invest_in_the_young_63 || [];
 
     // Deck 1
     let deck47 = await prisma.deck.findFirst({
@@ -614,6 +615,55 @@ async function autoSeedDecks() {
           });
         }
         console.log(`Auto-seeded Deck 9 (English as a Global Language) with ${english_global_language_72.length} cards.`);
+      }
+    }
+
+    // Deck 10: Invest in the Young — 63 Words (B2–C2)
+    if (invest_in_the_young_63 && invest_in_the_young_63.length > 0) {
+      let deckInvestYoung = await prisma.deck.findFirst({
+        where: {
+          OR: [
+            { title: "Invest in the Young" },
+            { title: "Invest in the Young — 63 Words (B2–C2)" },
+            { title: { contains: "Invest in the Young", mode: "insensitive" } },
+          ],
+        },
+      });
+
+      if (!deckInvestYoung) {
+        deckInvestYoung = await prisma.deck.create({
+          data: {
+            title: "Invest in the Young — 63 Words (B2–C2)",
+            description:
+              "Yoshlarga investitsiya kiritish va maktab sport hamda san'at ta'limini moliyalashtirish mavzusidagi 63 ta muhim B2, C1 va C2 darajadagi leksika, iboralar va metaforalar to'plami. Har bir so'z o'zbekcha aniq ma'no, boy sinonimlar va kontekstual akademik namunalar bilan to'liq jihozlangan.",
+            level: "B2–C2",
+            isPublic: true,
+          },
+        });
+
+        for (const w of invest_in_the_young_63) {
+          const card = await prisma.card.create({
+            data: {
+              deckId: deckInvestYoung.id,
+              termEn: w.term_en,
+              meaningUz: w.meaning_uz,
+              synonyms: w.synonyms || null,
+              exampleEn: w.example_en || null,
+            },
+          });
+
+          await prisma.studyProgress.create({
+            data: {
+              cardId: card.id,
+              userId: null,
+              boxLevel: 0,
+              nextReviewAt: new Date(),
+              correctStreak: 0,
+              wrongCount: 0,
+            },
+          });
+        }
+        console.log(`Auto-seeded Deck 10 (Invest in the Young) with ${invest_in_the_young_63.length} cards.`);
       }
     }
 

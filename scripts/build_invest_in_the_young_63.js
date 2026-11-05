@@ -1,0 +1,532 @@
+const fs = require('fs');
+const path = require('path');
+
+const words = [
+  // ==========================================
+  // B2 Vocabulary (1-30)
+  // ==========================================
+  {
+    number: 1,
+    level: "B2",
+    term_en: "Spectacle",
+    meaning_uz: "tomosha, ko‘rgazmali hodisa",
+    synonyms: "extravaganza, display, pageant, show",
+    example_en: "Grand stadiums and international tournaments are an impressive spectacle, but they rarely solve grassroots problems."
+  },
+  {
+    number: 2,
+    level: "B2",
+    term_en: "Inspire",
+    meaning_uz: "ilhomlantirmoq",
+    synonyms: "motivate, encourage, stimulate, invigorate",
+    example_en: "World-class art exhibitions inspire young minds to explore their own creative potential."
+  },
+  {
+    number: 3,
+    level: "B2",
+    term_en: "Stimulate",
+    meaning_uz: "rag‘batlantirmoq",
+    synonyms: "boost, prompt, catalyze, foster",
+    example_en: "International sporting events can stimulate tourism and generate temporary economic activity."
+  },
+  {
+    number: 4,
+    level: "B2",
+    term_en: "Fleeting",
+    meaning_uz: "qisqa muddatli",
+    synonyms: "transient, momentary, ephemeral, brief",
+    example_en: "The glory of hosting a championship is often fleeting, fading shortly after the tournament ends."
+  },
+  {
+    number: 5,
+    level: "B2",
+    term_en: "Inclusive",
+    meaning_uz: "qamrab oluvchi",
+    synonyms: "comprehensive, all-embracing, accessible, non-exclusionary",
+    example_en: "School-based programs offer a far more inclusive return on public investment than elite private clubs."
+  },
+  {
+    number: 6,
+    level: "B2",
+    term_en: "Facilities",
+    meaning_uz: "inshootlar, imkoniyatlar",
+    synonyms: "amenities, infrastructure, equipment, resources",
+    example_en: "Every child should have access to well-maintained sports facilities and creative art studios."
+  },
+  {
+    number: 7,
+    level: "B2",
+    term_en: "Foster",
+    meaning_uz: "rivojlantirmoq, qo‘llab-quvvatlamoq",
+    synonyms: "nurture, cultivate, promote, encourage",
+    example_en: "Creative outlets foster critical thinking and emotional resilience in developing students."
+  },
+  {
+    number: 8,
+    level: "B2",
+    term_en: "Resilience",
+    meaning_uz: "bardoshlilik",
+    synonyms: "tenacity, endurance, perseverance, grit",
+    example_en: "Participating in team sports teaches children resilience in the face of unexpected setbacks."
+  },
+  {
+    number: 9,
+    level: "B2",
+    term_en: "Leadership",
+    meaning_uz: "yetakchilik",
+    synonyms: "guidance, direction, stewardship, authority",
+    example_en: "Extracurricular arts and athletic programs help students cultivate indispensable leadership qualities."
+  },
+  {
+    number: 10,
+    level: "B2",
+    term_en: "Mental health",
+    meaning_uz: "ruhiy salomatlik",
+    synonyms: "psychological well-being, emotional balance, cognitive wellness",
+    example_en: "Regular physical activity and artistic expression significantly improve the mental health of teenagers."
+  },
+  {
+    number: 11,
+    level: "B2",
+    term_en: "Grassroots",
+    meaning_uz: "oddiy xalq darajasidagi, asosiy",
+    synonyms: "community-level, local, foundational, popular",
+    example_en: "Athletic excellence thrives best when nurtured organically from the grassroots rather than imported from elite leagues."
+  },
+  {
+    number: 12,
+    level: "B2",
+    term_en: "Struggle",
+    meaning_uz: "kurashmoq, qiyinchilik ko‘rmoq",
+    synonyms: "labor, strive, contend, battle",
+    example_en: "Many local schools struggle with outdated equipment while state funds are directed toward lavish arenas."
+  },
+  {
+    number: 13,
+    level: "B2",
+    term_en: "Lavishly",
+    meaning_uz: "isrofgarchilik bilan",
+    synonyms: "extravagantly, prodigally, profusely, generously",
+    example_en: "Governments should avoid spending lavishly on hosting one-off international matches at the cost of education."
+  },
+  {
+    number: 14,
+    level: "B2",
+    term_en: "Broken",
+    meaning_uz: "siniq, buzilgan",
+    synonyms: "damaged, fractured, defective, impaired",
+    example_en: "Aspiring young musicians should not have to share a single broken violin among classmates."
+  },
+  {
+    number: 15,
+    level: "B2",
+    term_en: "Foundation",
+    meaning_uz: "poydevor, asos",
+    synonyms: "basis, cornerstone, groundwork, bedrock",
+    example_en: "A comprehensive public education system provides the solid foundation upon which society prospers."
+  },
+  {
+    number: 16,
+    level: "B2",
+    term_en: "Inaccessible",
+    meaning_uz: "yetib bo‘lmaydigan",
+    synonyms: "unattainable, unreachable, out of reach, exclusive",
+    example_en: "High admission prices make professional theater performances completely inaccessible to working-class youth."
+  },
+  {
+    number: 17,
+    level: "B2",
+    term_en: "Talents",
+    meaning_uz: "iste’dodlar",
+    synonyms: "gifts, aptitudes, abilities, skills",
+    example_en: "School-level creative activities allow every child to discover and refine their natural talents."
+  },
+  {
+    number: 18,
+    level: "B2",
+    term_en: "Opportunity",
+    meaning_uz: "imkoniyat",
+    synonyms: "chance, prospect, opening, avenue",
+    example_en: "Education must provide equal opportunity for every student regardless of their socioeconomic origin."
+  },
+  {
+    number: 19,
+    level: "B2",
+    term_en: "Morally",
+    meaning_uz: "axloqan",
+    synonyms: "ethically, conscientiously, righteously, justly",
+    example_en: "Investing tax revenue into school programs for underprivileged youth is both morally sound and economically prudent."
+  },
+  {
+    number: 20,
+    level: "B2",
+    term_en: "Critics",
+    meaning_uz: "tanqidchilar",
+    synonyms: "opponents, detractors, skeptics, reviewers",
+    example_en: "Critics argue that professional sporting exhibitions generate national pride and substantial commercial revenue."
+  },
+  {
+    number: 21,
+    level: "B2",
+    term_en: "Revenue",
+    meaning_uz: "daromad",
+    synonyms: "income, earnings, proceeds, returns",
+    example_en: "The revenue generated by mega-events is rarely enough to offset the public expenditure required to host them."
+  },
+  {
+    number: 22,
+    level: "B2",
+    term_en: "Temporary",
+    meaning_uz: "vaqtinchalik",
+    synonyms: "short-term, transitory, provisional, impermanent",
+    example_en: "Hosting an international tournament creates only temporary jobs that evaporate once the spectacle ends."
+  },
+  {
+    number: 23,
+    level: "B2",
+    term_en: "Sustainable",
+    meaning_uz: "barqaror",
+    synonyms: "viable, enduring, persistent, maintainable",
+    example_en: "Investing in youth arts and athletics builds a sustainable framework for lifelong community well-being."
+  },
+  {
+    number: 24,
+    level: "B2",
+    term_en: "Resilient citizens",
+    meaning_uz: "bardoshli fuqarolar",
+    synonyms: "robust public, hardy populace, persevering individuals",
+    example_en: "A robust school sports curriculum helps shape disciplined and resilient citizens capable of overcoming adversity."
+  },
+  {
+    number: 25,
+    level: "B2",
+    term_en: "Potential",
+    meaning_uz: "salohiyat",
+    synonyms: "capacity, promise, capability, prospective ability",
+    example_en: "Public institutions bear an undeniable responsibility to foster the untapped potential of young minds."
+  },
+  {
+    number: 26,
+    level: "B2",
+    term_en: "Human capital",
+    meaning_uz: "inson kapitali",
+    synonyms: "intellectual wealth, labor potential, workforce skills, human talent",
+    example_en: "Funding elementary music and physical education represents a high-yield investment in national human capital."
+  },
+  {
+    number: 27,
+    level: "B2",
+    term_en: "Traditions",
+    meaning_uz: "an’analar",
+    synonyms: "customs, heritage, conventions, practices",
+    example_en: "School clubs guarantee that artistic and cultural traditions evolve dynamically rather than gathering dust."
+  },
+  {
+    number: 28,
+    level: "B2",
+    term_en: "Balance",
+    meaning_uz: "muvozanat",
+    synonyms: "equilibrium, proportion, symmetry, stability",
+    example_en: "A pragmatic government must strike a healthy balance between public spectacles and youth education."
+  },
+  {
+    number: 29,
+    level: "B2",
+    term_en: "Survival",
+    meaning_uz: "omon qolish",
+    synonyms: "continuity, endurance, persistence, viability",
+    example_en: "Nourishing the root systems of education ensures the cultural survival of an entire society."
+  },
+  {
+    number: 30,
+    level: "B2",
+    term_en: "Legacy",
+    meaning_uz: "meros, iz qoldirish",
+    synonyms: "heritage, bequest, testament, enduring impact",
+    example_en: "A generation of confident, educated, and healthy youth is the most enduring legacy any administration can leave."
+  },
+
+  // ==========================================
+  // C1 Vocabulary (31-50)
+  // ==========================================
+  {
+    number: 31,
+    level: "C1",
+    term_en: "Finite resource",
+    meaning_uz: "cheklangan resurs",
+    synonyms: "limited reserve, bounded supply, exhaustible asset",
+    example_en: "Since state funding is a finite resource, allocating billions to fleeting sports festivals demands rigorous scrutiny."
+  },
+  {
+    number: 32,
+    level: "C1",
+    term_en: "Lion’s share",
+    meaning_uz: "katta ulush",
+    synonyms: "bulk, preponderance, greater part, majority",
+    example_en: "The lion’s share of the national sports budget should be designated for primary schools rather than commercial arenas."
+  },
+  {
+    number: 33,
+    level: "C1",
+    term_en: "Unevenly distributed",
+    meaning_uz: "tengsiz taqsimlangan",
+    synonyms: "disproportionately allocated, skewed, inequitable, disparate",
+    example_en: "The economic windfall from international tourism remains unevenly distributed among the general population."
+  },
+  {
+    number: 34,
+    level: "C1",
+    term_en: "Critical thinking",
+    meaning_uz: "tanqidiy fikrlash",
+    synonyms: "analytical reasoning, objective analysis, discerning judgment",
+    example_en: "Engaging in visual arts and literature empowers adolescents to cultivate nuanced critical thinking."
+  },
+  {
+    number: 35,
+    level: "C1",
+    term_en: "Academic performance",
+    meaning_uz: "o‘quv yutuqlari",
+    synonyms: "scholastic achievement, educational attainment, academic excellence",
+    example_en: "Students who participate actively in structured athletics consistently achieve higher academic performance."
+  },
+  {
+    number: 36,
+    level: "C1",
+    term_en: "Progressive education system",
+    meaning_uz: "ilg‘or ta’lim tizimi",
+    synonyms: "forward-looking pedagogy, modern curriculum, innovative schooling",
+    example_en: "Finland is globally renowned for its progressive education system, which prioritizes equitable well-being over elite testing."
+  },
+  {
+    number: 37,
+    level: "C1",
+    term_en: "Engaged youth",
+    meaning_uz: "faol yoshlar",
+    synonyms: "active young citizens, involved adolescents, dynamic generation",
+    example_en: "Universal access to extracurricular sports cultivates a healthier, more engaged youth across urban and rural sectors."
+  },
+  {
+    number: 38,
+    level: "C1",
+    term_en: "Compelling example",
+    meaning_uz: "ta’sirli misol",
+    synonyms: "persuasive illustration, striking instance, convincing precedent",
+    example_en: "Japan offers a compelling example of balancing institutional sports subsidies with community-level clubs."
+  },
+  {
+    number: 39,
+    level: "C1",
+    term_en: "Inaccessible to low-income families",
+    meaning_uz: "kam daromadli oilalar uchun yopiq",
+    synonyms: "unaffordable for the underprivileged, economically prohibitive, out of reach for poorer households",
+    example_en: "Commercialized ballet academies and premier leagues remain inaccessible to low-income families without public grants."
+  },
+  {
+    number: 40,
+    level: "C1",
+    term_en: "Democratization of opportunity",
+    meaning_uz: "imkoniyatlarning tenglashtirilishi",
+    synonyms: "equalization of access, universal equity, leveling the playing field",
+    example_en: "Publicly funded art studios in public schools foster the democratization of opportunity for young creators."
+  },
+  {
+    number: 41,
+    level: "C1",
+    term_en: "Role models",
+    meaning_uz: "ibrat bo‘luvchilar",
+    synonyms: "exemplars, inspirations, archetypes, paragons",
+    example_en: "While celebrated athletes serve as role models, inspiration alone cannot replace accessible training equipment."
+  },
+  {
+    number: 42,
+    level: "C1",
+    term_en: "Sustainable foundation",
+    meaning_uz: "barqaror poydevor",
+    synonyms: "durable groundwork, lasting cornerstone, resilient underpinning",
+    example_en: "Early immersion in physical education and instrumental music establishes a sustainable foundation for lifelong development."
+  },
+  {
+    number: 43,
+    level: "C1",
+    term_en: "Discipline",
+    meaning_uz: "intizom, soha",
+    synonyms: "rigor, self-control, field of study, doctrine",
+    example_en: "Mastering calligraphy demands relentless mental discipline and keen attention to microscopic aesthetic details."
+  },
+  {
+    number: 44,
+    level: "C1",
+    term_en: "Collaborative",
+    meaning_uz: "hamkorlik qiluvchi",
+    synonyms: "cooperative, collective, concerted, synergistic",
+    example_en: "Orchestra rehearsals immerse young musicians in deeply collaborative environments where listening is paramount."
+  },
+  {
+    number: 45,
+    level: "C1",
+    term_en: "Philosophical",
+    meaning_uz: "falsafiy",
+    synonyms: "theoretical, conceptual, ethical, contemplative",
+    example_en: "Beyond fiscal computations, the state faces a profound philosophical imperative to nurture human potential."
+  },
+  {
+    number: 46,
+    level: "C1",
+    term_en: "Cultural continuity",
+    meaning_uz: "madaniy uzluksizlik",
+    synonyms: "heritage preservation, ancestral persistence, cultural transmission",
+    example_en: "Supporting traditional theater in secondary curricula ensures cultural continuity across forthcoming generations."
+  },
+  {
+    number: 47,
+    level: "C1",
+    term_en: "Big-ticket events",
+    meaning_uz: "qimmat tadbirlar",
+    synonyms: "high-cost spectacles, mega-events, costly galas, lavish exhibitions",
+    example_en: "Subsidizing big-ticket events drains civic reserves that could otherwise modernize dilapidated community centers."
+  },
+  {
+    number: 48,
+    level: "C1",
+    term_en: "Hollow culture",
+    meaning_uz: "mazmunsiz madaniyat",
+    synonyms: "superficial society, vacuous lifestyle, consumerist artifice",
+    example_en: "Spectator-driven entertainment produces a hollow culture that prioritizes passive consumption over authentic creation."
+  },
+  {
+    number: 49,
+    level: "C1",
+    term_en: "Nostalgia",
+    meaning_uz: "sog‘inch, o‘tganlarni eslash",
+    synonyms: "wistfulness, reminiscence, sentimental longing, yearning",
+    example_en: "Traditional music must be revitalized in youth classrooms rather than being relegated to museum nostalgia."
+  },
+  {
+    number: 50,
+    level: "C1",
+    term_en: "Pendulum has swung",
+    meaning_uz: "vaziyat o‘zgardi (metafora)",
+    synonyms: "the balance has shifted, priorities have reversed, the tide has turned",
+    example_en: "The policy pendulum has swung too far toward commercial spectacle at the severe expense of fundamental substance."
+  },
+
+  // ==========================================
+  // C2 Vocabulary (51-63)
+  // ==========================================
+  {
+    number: 51,
+    level: "C2",
+    term_en: "Basks in glory",
+    meaning_uz: "shon-shuhratda maza qilmoq",
+    synonyms: "revels in acclaim, savors triumphant recognition, luxuriates in fame",
+    example_en: "The nation basks in glory during the medal ceremony, yet ordinary schools continue to lack basic sports equipment."
+  },
+  {
+    number: 52,
+    level: "C2",
+    term_en: "Seeds in fertile soil",
+    meaning_uz: "unumdor yerga urug‘ sepmoq (metafora)",
+    synonyms: "planting productive catalysts, sowing fertile potential, establishing rich foundations",
+    example_en: "Financing grassroots school libraries is like planting seeds in fertile soil that yield generational wisdom."
+  },
+  {
+    number: 53,
+    level: "C2",
+    term_en: "Imported from the professional sphere",
+    meaning_uz: "professional sohalardan keltirilgan",
+    synonyms: "borrowed from commercial arenas, externally acquired, top-down imposed",
+    example_en: "Genuine athletic passion blossoms organically from school playgrounds rather than being imported from the professional sphere."
+  },
+  {
+    number: 54,
+    level: "C2",
+    term_en: "Lavishly spent",
+    meaning_uz: "haddan tashqari sarflangan",
+    synonyms: "squandered, extravagantly expended, profusely disbursed",
+    example_en: "Billions lavishly spent on state-of-the-art velodromes often stand desolate once the international cameras pack away."
+  },
+  {
+    number: 55,
+    level: "C2",
+    term_en: "Opera performance for dignitaries",
+    meaning_uz: "amaldorlar uchun opera ko‘rsatuvi",
+    synonyms: "exclusive aristocratic gala, ceremonial elite showcase, VIP cultural display",
+    example_en: "Financing an opera performance for dignitaries while inner-city schools lack paint brushes betrays distorted priorities."
+  },
+  {
+    number: 56,
+    level: "C2",
+    term_en: "Inspiration without access is like giving someone a map without transport",
+    meaning_uz: "imkoniyatsiz ilhom (metafora)",
+    synonyms: "vision devoid of means, futile motivation without resources, aspiration barred by circumstance",
+    example_en: "Televising elite sports without funding public tracks proves that inspiration without access is like giving someone a map without transport."
+  },
+  {
+    number: 57,
+    level: "C2",
+    term_en: "Bukatsu culture",
+    meaning_uz: "Yaponiya maktab klublari madaniyati",
+    synonyms: "Japanese extracurricular club system, holistic school-club tradition, after-school civic discipline",
+    example_en: "The renowned bukatsu culture in Japanese schools fosters unwavering team discipline and collective responsibility."
+  },
+  {
+    number: 58,
+    level: "C2",
+    term_en: "Long-term investment in human capital",
+    meaning_uz: "inson kapitaliga uzoq muddatli sarmoya",
+    synonyms: "sustained commitment to intellectual wealth, strategic human resource development, generational capacity building",
+    example_en: "Subsidizing music, athletic, and science laboratories represents the finest long-term investment in human capital."
+  },
+  {
+    number: 59,
+    level: "C2",
+    term_en: "Quiet triumphs",
+    meaning_uz: "sokin g‘alabalar",
+    synonyms: "unheralded breakthroughs, humble milestones, uncelebrated victories",
+    example_en: "The quiet triumphs achieved in modest school workshops leave a far deeper imprint on a child's character than any stadium trophy."
+  },
+  {
+    number: 60,
+    level: "C2",
+    term_en: "Watering leaves vs nourishing roots",
+    meaning_uz: "yuzaki yordam va asosiy yordam farqi (metafora)",
+    synonyms: "cosmetic fixes versus fundamental cultivation, superficial patronage versus deep development",
+    example_en: "Subsidizing televised galas instead of primary schools is the difference between watering leaves and nourishing roots."
+  },
+  {
+    number: 61,
+    level: "C2",
+    term_en: "Short bursts of global attention",
+    meaning_uz: "qisqa muddatli global e’tibor",
+    synonyms: "fleeting international spotlight, transient worldwide exposure, ephemeral global buzz",
+    example_en: "Hosting an international exposition brings short bursts of global attention, but rarely builds lasting infrastructure."
+  },
+  {
+    number: 62,
+    level: "C2",
+    term_en: "Legacy that endures",
+    meaning_uz: "davom etadigan meros",
+    synonyms: "perennial heritage, timeless testament, everlasting footprint",
+    example_en: "A literate, healthy, and empathetic generation of school graduates constitutes a national legacy that endures."
+  },
+  {
+    number: 63,
+    level: "C2",
+    term_en: "Lifeblood of a nation’s spirit",
+    meaning_uz: "milliy ruhning tirik manbai",
+    synonyms: "animating core of civic identity, vital essence of cultural consciousness, heartbeat of a people",
+    example_en: "Youth arts and civic sports serve as the vital lifeblood of a nation's spirit, fostering harmony and shared pride."
+  }
+];
+
+// Write to prisma/invest_in_the_young_63.json
+const jsonPath = path.join(__dirname, '../prisma/invest_in_the_young_63.json');
+fs.writeFileSync(jsonPath, JSON.stringify(words, null, 2), 'utf-8');
+console.log(`Saved ${words.length} words to ${jsonPath}`);
+
+// Also update prisma/seed_words.json
+const seedWordsPath = path.join(__dirname, '../prisma/seed_words.json');
+const seedWords = JSON.parse(fs.readFileSync(seedWordsPath, 'utf-8'));
+seedWords['invest_in_the_young_63'] = words;
+fs.writeFileSync(seedWordsPath, JSON.stringify(seedWords, null, 2), 'utf-8');
+console.log(`Updated prisma/seed_words.json with key 'invest_in_the_young_63' (${words.length} items)`);
